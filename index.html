@@ -217,7 +217,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-10-26 16:14:08 / 修改时间：16:18:50" itemprop="dateCreated datePublished" datetime="2020-10-26T16:14:08+08:00">2020-10-26</time>
+              <time title="创建时间：2020-10-26 16:14:08 / 修改时间：16:21:07" itemprop="dateCreated datePublished" datetime="2020-10-26T16:14:08+08:00">2020-10-26</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -245,11 +245,14 @@
 
       
           <h2 id="TCP-chat-room"><a href="#TCP-chat-room" class="headerlink" title="TCP_chat_room"></a>TCP_chat_room</h2><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>利用socket编程和多线程的思想，在客户端使用两个线程，一个用于接收信息，一个用于发送信息，在服务器端通过保存客户端连接的套接字，在接受到客户端发来的信息后，向其他的客户端转发消息</p>
-<h3 id="服务器端代码"><a href="#服务器端代码" class="headerlink" title="服务器端代码"></a>服务器端代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python </span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> threading <span class="keyword">import</span> Thread</span><br><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> os,sys</span><br><span class="line"><span class="comment">#conn_stat = &#123;&#125;  ###  conn:&#x27;true&#x27;  存储套接字的状态　true为运行　　false 为结束线程</span></span><br><span class="line">Host = <span class="string">&#x27;0.0.0.0&#x27;</span></span><br><span class="line">Post = <span class="number">9696</span></span><br><span class="line">address = (Host,Post)</span><br><span class="line">chat_name=&#123;&#125;</span><br><span class="line">jobs=&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">do_login</span>(<span class="params">conn,name</span>):</span></span><br><span class="line">	<span class="keyword">if</span> name <span class="keyword">not</span> <span class="keyword">in</span> chat_name:</span><br><span class="line">		conn.send(<span class="string">b&#x27;OK&#x27;</span>)</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		conn.send(<span class="string">&quot;昵称已经存在&quot;</span>.encode())</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	msg = <span class="string">&quot;%s 进入9696聊天室&quot;</span> %name</span><br><span class="line">	<span class="keyword">for</span> c <span class="keyword">in</span> chat_name:</span><br><span class="line">		chat_name[c].send(msg.encode())</span><br><span class="line">	chat_name[name] = conn</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">do_chat</span>(<span class="params">conn,msg,name</span>):</span></span><br><span class="line">	text = <span class="string">&quot;%s :%s&quot;</span>%(name,msg)</span><br><span class="line">	<span class="keyword">for</span> n <span class="keyword">in</span> chat_name:</span><br><span class="line">		<span class="keyword">if</span> n != name:</span><br><span class="line">			chat_name[n].send(text.encode())</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">do_quit</span>(<span class="params">conn,name</span>):</span></span><br><span class="line">	msg = <span class="string">&quot;%s 退出9696聊天室了&quot;</span>%name</span><br><span class="line">	<span class="keyword">for</span> c <span class="keyword">in</span> chat_name:</span><br><span class="line">		<span class="keyword">if</span> c == name:</span><br><span class="line">			conn.send(<span class="string">b&#x27;q&#x27;</span>)</span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			chat_name[c].send(msg.encode())</span><br><span class="line">	<span class="keyword">del</span> chat_name[name]</span><br><span class="line">	<span class="comment">#conn_stat[conn] = &#x27;false&#x27;</span></span><br><span class="line">	conn.close()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">do_request</span>(<span class="params">conn</span>):</span></span><br><span class="line">	<span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">		data = conn.recv(<span class="number">1024</span>).decode().strip().split(<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">		<span class="keyword">if</span> data[<span class="number">0</span>] == <span class="string">&#x27;L&#x27;</span>:</span><br><span class="line">			name = data[<span class="number">-1</span>]</span><br><span class="line">			do_login(conn,name)</span><br><span class="line">		<span class="keyword">elif</span> data[<span class="number">0</span>] == <span class="string">&#x27;C&#x27;</span>:</span><br><span class="line">			name = data[<span class="number">-1</span>]</span><br><span class="line">			msg = <span class="string">&#x27;&#x27;</span>.join(data[<span class="number">1</span>:<span class="number">-1</span>])</span><br><span class="line">			do_chat(conn,msg,name)</span><br><span class="line">		<span class="keyword">elif</span> data[<span class="number">0</span>] == <span class="string">&#x27;Q&#x27;</span>:</span><br><span class="line">			name = data[<span class="number">-1</span>]</span><br><span class="line">			do_quit(conn,name)</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">	sockfd = socket()</span><br><span class="line">	sockfd.setsockopt(SOL_SOCKET,SO_REUSEADDR,<span class="number">1</span>)</span><br><span class="line">	sockfd.bind(address)</span><br><span class="line">	sockfd.listen(<span class="number">5</span>)</span><br><span class="line">	<span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">		<span class="keyword">try</span>:</span><br><span class="line">			conn,addr = sockfd.accept()</span><br><span class="line">		<span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">			sockfd.close()</span><br><span class="line">			sys.exit(<span class="string">&quot;退出&quot;</span>)</span><br><span class="line">		<span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">			print(e)</span><br><span class="line">			<span class="keyword">continue</span></span><br><span class="line">		print(<span class="string">&quot;Connect from:&quot;</span>,addr)</span><br><span class="line">		t = Thread(target=do_request,args=(conn,))</span><br><span class="line">		t.start()</span><br><span class="line">		jobs[conn] = t</span><br><span class="line">	<span class="comment">#conn_stat[conn] = &#x27;true&#x27;</span></span><br><span class="line">	<span class="comment">###回收线程　　当有线程结束，只有当新的客户端连接进来才会回收结束的线程</span></span><br><span class="line">	<span class="keyword">for</span> c <span class="keyword">in</span> jobs:</span><br><span class="line">		<span class="keyword">if</span> c._closed <span class="keyword">is</span> <span class="literal">True</span>:</span><br><span class="line">			jobs[c].join()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">	main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os,sys,signal</span><br><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line">server_addr = ((<span class="string">&#x27;127.0.0.1&#x27;</span>,<span class="number">9696</span>))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">msg_recv</span>(<span class="params">sockfd</span>):</span>     <span class="comment">##接收消息</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        data = sockfd.recv(<span class="number">1024</span>)</span><br><span class="line">        <span class="keyword">if</span> data.decode() == <span class="string">&#x27;q&#x27;</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        print(data.decode())</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">msg_send</span>(<span class="params">sockfd,name</span>):</span>      <span class="comment">##发送消息</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            data = <span class="built_in">input</span>(<span class="string">&quot;发言&gt;&gt;&quot;</span>)</span><br><span class="line">        <span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">            data = <span class="string">&#x27;quit&#x27;</span></span><br><span class="line">        <span class="keyword">if</span> data == <span class="string">&#x27;quit&#x27;</span>:  <span class="comment">##退出</span></span><br><span class="line">            msg = <span class="string">&#x27;Q %s&#x27;</span>%name</span><br><span class="line">            sockfd.send(msg.encode())</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            msg = <span class="string">&#x27;C %s %s&#x27;</span>%(data,name)</span><br><span class="line">            sockfd.send(msg.encode())</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    sockfd = socket()<span class="comment">##创建套接字</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        sockfd.connect(server_addr)</span><br><span class="line">    <span class="keyword">except</span> Exception:</span><br><span class="line">        print(<span class="string">&quot;连接失败&quot;</span>)</span><br><span class="line">        sockfd.close()</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        name = <span class="built_in">input</span>(<span class="string">&quot;请输入昵称:&quot;</span>)</span><br><span class="line">        sockfd.send((<span class="string">&#x27;L &#x27;</span>+name).encode())</span><br><span class="line">        data = sockfd.recv(<span class="number">128</span>)</span><br><span class="line">        <span class="keyword">if</span> data.decode() == <span class="string">&#x27;OK&#x27;</span>:</span><br><span class="line">            print(<span class="string">&quot;你已经进入9696聊天室&quot;</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(data.decode())</span><br><span class="line"></span><br><span class="line">    t = threading.Thread(target=msg_recv, args=(sockfd, ))</span><br><span class="line">    t1 = threading.Thread(target=msg_send, args=(sockfd,name))</span><br><span class="line">    t.start()</span><br><span class="line">    t1.start()</span><br><span class="line">	<span class="comment"># t=threading.Thread(target=msg_recv, args=(sockfd,) )</span></span><br><span class="line">	<span class="comment"># t.start()</span></span><br><span class="line">	<span class="comment"># t1=threading.Thread(target=msg_send, args=(sockfd,name) )</span></span><br><span class="line">	<span class="comment"># t1.start()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2020/10/26/TCP-chat-room/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -299,7 +302,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-26 16:11:28" itemprop="dateModified" datetime="2020-10-26T16:11:28+08:00">2020-10-26</time>
+                <time title="修改时间：2020-10-26 16:21:13" itemprop="dateModified" datetime="2020-10-26T16:21:13+08:00">2020-10-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -323,293 +326,14 @@
 
       
           <h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/001.PNG" alt="思维导图" style="zoom: 50%;" />
-
-<h3 id="TCP流量控制"><a href="#TCP流量控制" class="headerlink" title="TCP流量控制"></a>TCP流量控制</h3><p>一般来说，我们总是希望数据传输快一些</p>
-<blockquote>
-<p>但是如果发送方吧数据发送得过快，接收方就可能来不及接收，这就会造成数据的丢失</p>
-</blockquote>
-<p>所谓流量控制（flow control）就是<code>让发送方的发送速率不要太快，要让接收方来得及接收</code></p>
-<p>利用滑动窗口机制可以很方便地在TCP连接上实现对发送方的流量控制。</p>
-<ul>
-<li>TCP接收方利用自己的<code>接收窗口</code>的大小来限制发送方<code>发送窗口</code>的大小</li>
-<li>TCP发送方收到接收方的<code>零窗口通知</code>后，应启动持续计时器，持续计时器超时后，向接收方发送<code>零窗口探测报文</code></li>
-</ul>
-<h5 id="示例分析"><a href="#示例分析" class="headerlink" title="示例分析"></a>示例分析</h5><ul>
-<li>第一步：初始主机B的接送窗口设置为400， 并告诉A，主机A就把发送窗口的值设为400</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DATA 表示这是一个TCP数据报文段</span><br><span class="line">seq 是TCP报文首部中的序号字段</span><br></pre></td></tr></table></figure>
-
-
-
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/002.PNG" alt="002" style="zoom:50%;" />
-
-
-
-<ul>
-<li>第二步：因为未达到窗口的大小，接着发送数据</li>
-</ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/003.PNG" alt="003" style="zoom:50%;" />
-
-<ul>
-<li>假设在发送201-300数据段的过程中，数据丢失了，主机A窗口还有100字节数据可以发送</li>
-</ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/004.PNG" alt="004" style="zoom:50%;" />
-
-<ul>
-<li>主机B对201号以前的数据进行累计确认，并将接收窗口调整为300</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ACK: 是TCP报文段首部中的标志位， 为1：表示这是一个TCP确认报文段</span><br><span class="line">ack: 是TCP报文首部字段中的确认报文段，表示201之前的数据已经接收到了</span><br><span class="line">rwnd: TCP 报文中的窗口字段</span><br></pre></td></tr></table></figure>
-
-
-
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/005.PNG" alt="005" style="zoom:50%;" />
-
-<ul>
-<li>主机A在接收到确认报文段之后，将已经接收到的字段移出窗口，并且窗口前移，将窗口的大小设置为300，并开始发送301-400数据</li>
-</ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/006.PNG" alt="006" style="zoom:50%;" />
-
-
-
-<ul>
-<li>接着发送401-500的数据， 发送后，已经到达窗口大小，不能再发送新数据了</li>
-</ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/007.PNG" alt="007" style="zoom:50%;" />
-
-<ul>
-<li>201-300数据段的重传计时器超时了，开始重传</li>
-</ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/008.PNG" alt="008" style="zoom:50%;" />
-
-<ul>
-<li>主机B接收到201-300的数据后，对收到501后之前的数据进行累计确认，并将接收窗口调整为100，对主机进行流量控制</li>
-</ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/009.PNG" alt="009" style="zoom:50%;" />
-
-
-
-<ul>
-<li>主机A接收到主机B发送来的确认报文段之后，在接下来中，移动窗口，并将窗口大小改为100</li>
-</ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/010.PNG" alt="010" style="zoom:50%;" />
-
-<ul>
-<li>清除已经发成发送的数据段，并开始发送501-600号数据</li>
-</ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/011.PNG" alt="011" style="zoom:50%;" />
-
-<ul>
-<li>主机B接收到501-600号数据，并向A发送确认报文段，并且将接收窗口调整为了0</li>
-</ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/012.PNG" alt="012" style="zoom:50%;" />
-
-
-
-<ul>
-<li>主机A接收到确认报文段之后，将发送窗口的值改为0</li>
-</ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/013.PNG" alt="013" style="zoom:50%;" />
-
-<ul>
-<li>如果非0窗口的通知一直未到达，将一直阻塞下去</li>
-</ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/014.PNG" alt="014" style="zoom:50%;" />
-
-
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">解决方法： 为0窗口报文段设置了持续计时器，如果持续计时器超时，主机A就发送0窗口探测报文，如果主机B返回的窗口值依然为0，则重新启动持续计时器</span><br></pre></td></tr></table></figure>
-
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/015.PNG" alt="015" style="zoom:50%;" />
-
-
-
-<h3 id="TCP的拥塞控制"><a href="#TCP的拥塞控制" class="headerlink" title="TCP的拥塞控制"></a>TCP的拥塞控制</h3><ul>
-<li>在某段时间，若<code>对网络中某一资源的需求超过了该资源所能提供的可用部分，网路性能就要被破坏</code>，这种情况叫做<code>拥塞（congestion）</code></li>
-</ul>
-<blockquote>
-<p>在计算机网络中的链路容量（即带宽），交换结点中 的缓存和处理机等，都是网络的资源</p>
-</blockquote>
-<ul>
-<li>若出现拥塞而不进行控制，整个网络的吞吐量将随负荷的增大而下降</li>
-</ul>
-<p>下图是吞吐量和输入负载的曲线</p>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/016.PNG" alt="016" style="zoom:50%;" />
-
-<h5 id="拥塞控制的四种算法"><a href="#拥塞控制的四种算法" class="headerlink" title="拥塞控制的四种算法"></a>拥塞控制的四种算法</h5><ul>
-<li>慢开始（slow-start）</li>
-<li>拥塞控制（congestion avoidance）</li>
-<li>快重传（fast retransmit）</li>
-<li>快恢复（fast recovery）</li>
-</ul>
-<p><strong>慢开始和拥塞控制的使用</strong></p>
-<p>实现算法所必须要的东西</p>
-<ul>
-<li>发送方维护一个叫做<code>拥塞窗口cwnd</code>的状态变量，其值<code>取决于网络的拥塞控制</code>，并且<code>动态变化</code><ul>
-<li>拥塞窗口<code>cwnd的维护原则</code>：只要网络没有出现拥塞，拥塞窗口就在增大一些，但是只要网络出现拥塞，拥塞窗口就减少一些</li>
-<li>判断出现网络拥塞的依据：就是没有按时收到应当到达的确认报文（即发生<code>超时重传</code>）</li>
-</ul>
-</li>
-<li>发送方将拥塞窗口作为发送窗口(swnd)，即swnd = cwnd</li>
-<li>维护一个慢开始门限ssthresh状态变量：<ul>
-<li>cwnd &lt; ssthresh, 使用慢开始算法</li>
-<li>cwnd &gt; ssthresh, 停止使用慢开始算法而改用拥塞避免算法</li>
-<li>cwnd = ssthresh， 两者都可以使用</li>
-</ul>
-</li>
-</ul>
-<p>例子</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">刚开始执行慢开始算法，达到初始的ssthresh后改用拥塞避免算法，在24号点假设出现了拥塞，更新cwnd的值和ssthresh的值并重新执行算法</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/017.PNG" alt="017"></p>
-<ul>
-<li>慢开始是指一开始向网络注入的报文段少，并不是指拥塞串口cwnd增长速度慢</li>
-<li>拥塞控制并非指完全能够避免拥塞，而是指在拥塞避免阶段将拥塞窗口控制为按线性规律增长，使网络比较不容易出现拥塞</li>
-</ul>
-<p><strong>快重传和快恢复</strong></p>
-<p>慢开始和拥塞控制算法是1988年提出的TCP拥塞控制算法（TCP Tahoe版本）</p>
-<p>1990年又增加了两个新的拥塞控制算法（<code>改进TCP性能</code>）,就是快重传和快恢复（TCP RENO版本）</p>
-<blockquote>
-<p>产生原因： 有时，个别报文段会在网络中丢失，但是实际上网络并未发送拥塞，这将导致发送方超时重传，并误以为网络发生了拥塞，发送方将拥塞窗口cwnd又设置为最小值1，并错误的启动慢开始算法，因为降低了传输效率</p>
-</blockquote>
-<p>使用快重传算法可以<code>让发送方尽早知道发生了个别报文段的丢失</code></p>
-<p>所谓快重传，就是使发送方尽快进行重传，而不是等超时重传计时器超时再重传</p>
-<ul>
-<li>要求接受方不要等待自己发送数据时才进行捎带确认，而是要立刻发送 确认</li>
-<li>即时收到了失序的报文段也要立刻发出对已收到报文段的重复确认</li>
-<li>发送放一旦收到3个连续的重复确认，就将相应的报文段立刻重传，而不是等待该报文的超时重传计时器超时在重传</li>
-</ul>
-<p>如下图所示</p>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/018.PNG" alt="018" style="zoom:50%;" />
-
-<ul>
-<li>发送方一旦收到3个重复确认，就知道现在只是丢失了可别的报文段，于是不启动慢开始算法，而执行<code>快恢复算法</code><ul>
-<li>发送方将慢开始门限ssthresh值和拥塞串口cwnd值调整为当前窗口的一半，开始执行拥塞避免算法，也有的可以增大一点在加3</li>
-</ul>
-</li>
-</ul>
-<p>下面图的后半部分就是快重传和快恢复算法</p>
-<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/019.PNG" alt="019"></p>
-<h3 id="TCP的超时重传时间的选择"><a href="#TCP的超时重传时间的选择" class="headerlink" title="TCP的超时重传时间的选择"></a>TCP的超时重传时间的选择</h3><ul>
-<li>超时重传时间的选择是TCP最复杂的问题之一</li>
-</ul>
-<blockquote>
-<p>RTT: 往返时间</p>
-<p>RTO：超时重传时间</p>
-</blockquote>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/020.PNG" alt="020" style="zoom:50%;" />
-
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/021.PNG" alt="021" style="zoom:50%;" />
-
-<p>以上情况是RTO过小和过大的情况，正确情况如下</p>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/022.PNG" alt="022" style="zoom:50%;" />
-
-<p>但是在现实的网络环境中，每次的时间都不是确定的，于是不能直接使用某次测量得到的RTT样本来计算超时重传时间RTO，可以利用每次测量得到的RTT样本，计算加权平均往返时间RTTs</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">第一次：</span><br><span class="line">	RTTs1 &#x3D; RTT1</span><br><span class="line">新的RTTs &#x3D; (1 - a) * 旧的RTTs + a * 新的RTT样本</span><br><span class="line">a的值推荐为1&#x2F;8</span><br><span class="line"></span><br><span class="line">RTO &#x3D; RTTs + 4 * RTTd</span><br></pre></td></tr></table></figure>
-
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/023.PNG" alt="023" style="zoom:50%;" />
-
-<p>这是新的标准</p>
-<h5 id="往返时间RTT的测量比较复杂"><a href="#往返时间RTT的测量比较复杂" class="headerlink" title="往返时间RTT的测量比较复杂"></a>往返时间RTT的测量比较复杂</h5><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/024.PNG" alt="024"></p>
-<ul>
-<li>针对出现超时重传时无法侧准往返时间RTT的问题，<code>Karn</code>提出了一个算法：<code>在计算加权平均往返时间RTTs时，只要报文段重传了，就不采用其往返时间RTT样本</code>。也就是出现重传时，不重新计算RTTs，进而超时重传时间RTO也不会重新计算</li>
-<li>再优化: 报文段每重传一次，就把超时重传时间RTO增加一些</li>
-</ul>
-<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/025.PNG" alt="025"></p>
-<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/026.PNG" alt="026"></p>
-<h3 id="TCP的可靠传输的实现"><a href="#TCP的可靠传输的实现" class="headerlink" title="TCP的可靠传输的实现"></a>TCP的可靠传输的实现</h3><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/027.PNG" alt="027" style="zoom:50%;" />
-
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/028.PNG" alt="028" style="zoom:50%;" />
-
-<h3 id="TCP三次握手"><a href="#TCP三次握手" class="headerlink" title="TCP三次握手"></a>TCP三次握手</h3><ul>
-<li>TCP是面向连接的协议，它基于运输连接来传送TCP报文段</li>
-<li>TCP运输连接的建立和释放是每一次面向连接的通行中必不可少的过程</li>
-<li>TCP运输连接有以下三个阶段<ul>
-<li>建立TCP连接</li>
-<li>数据传送</li>
-<li>释放TCP连接</li>
-</ul>
-</li>
-<li>TCP的运输连接管理就是使运输连接的建立和释放都能正常的进行</li>
-<li>TCP连接的建立要解决以下三个问题<ul>
-<li>使TCP双方能够知道对方的存在</li>
-<li>使TCP双方能够协商一些参数（如最大窗口值，是否使用窗口扩大选项和时间戳选项以及服务质量等）</li>
-<li>使TCP双方能够运输实体资源（如缓存大小，连接表中的项目等）进行分配</li>
-</ul>
-</li>
-<li>三次握手建立过程</li>
-</ul>
-<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/029.PNG" alt="029"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SYN: 同部位，如果有SYN，该数据报不发送数据，但是要一个序号</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>为什么二次握手不可以</li>
-</ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/030.PNG" alt="030" style="zoom:50%;" />
-
-<h3 id="TCP四次挥手"><a href="#TCP四次挥手" class="headerlink" title="TCP四次挥手"></a>TCP四次挥手</h3><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/032.PNG" alt="032" style="zoom:50%;" />
-
-<p>为什么还需要时间等待</p>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/033.PNG" alt="033" style="zoom:50%;" />
-
-<h3 id="TCP首部格式"><a href="#TCP首部格式" class="headerlink" title="TCP首部格式"></a>TCP首部格式</h3><ul>
-<li>为了实现可靠传输，TCP采用了<code>面向字节流</code>的方式</li>
-<li>但TCP在发送数据时，是从发送缓存中取出一部分后全部字节并给其添加一个首部使之成为TCP报文段后进行发送<ul>
-<li>一个TCP报文段由<code>首部</code>和<code>数据载荷</code>两部分构成</li>
-<li>TCP的全部功能都提现在他首部中各字段的作用</li>
-</ul>
-</li>
-</ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/031.png" alt="031" style="zoom:50%;" />
-
-<ul>
-<li><p><strong>源端口和目的端口</strong> 各占2个字节，分别写入源端口和目的端口</p>
-</li>
-<li><p>序号： 占32比特，取值范围[0, 2^32 - 1]， 序号增加到最后一个后，下一个序号就又回到0</p>
-</li>
-<li><p>确认号： 占32比特，取值范围[0, 2^32 - 1]， 确认号增加到最后一个后，下一个确认号就又回到0，<code>指出期望收到对方下一个TCP报文段的数据载荷的第一个字节的序号</code></p>
-</li>
-<li><p>确认标志位ACK： 取值为1时确认号字段才有效；取值为0时确认号字段无效，<code>TCP规定，在建立连接后所有传送的TCP报文段都需要把ACK置1</code></p>
-</li>
-<li><p>数据便宜：占4比特，并以4字节为单位，<code>用来指出TCP报文段的数据载荷的起始处距离TCP报文段的起始处有多远，这个字段实际上是指出TCP报文段的首部长度</code></p>
-</li>
-</ul>
-<p>首部固定长度为20字节，因此数据偏移字段的最小值为（0101）</p>
-<p>首部最大长度为60字节，因此数据偏移字段的最大值为（1111）</p>
-<ul>
-<li>保留：占6比特，保留位今后使用，但目前应置为0</li>
-<li>窗口： 占16比特，以字节为单位。<code>指出发送本报文段的一方的接收窗口</code></li>
-</ul>
-<p>窗口值作为接收方让发送方设置器发送窗口的依据，这里以接收能力来控制发送方的发送能力，称为流量控制</p>
-<ul>
-<li>校验和： 占16比特，检查范围包括TCP报文段的首部和数据载荷两部分。在计算校验和时，要在TCP报文段的前面加上12字节的伪首部</li>
-<li>同步标志位SYN： 在TCP链接建立时用来同步序号</li>
-<li>终止标志位FIN：用来释放TCP连接</li>
-<li>复位标志位RST：用来复位TCP链接</li>
-</ul>
-<p>当RST = 1时，表示TCP连接出现了异常，必须释放连接，然后在重新建立连接。RST置1还用来拒绝一个非法的报文段或拒绝打开一个TCP连接</p>
-<ul>
-<li>推送标志位PSH： 接收方的TCP收到该标志位为1的报文段会<code>尽快上交应用进程</code>，而不必等到接收缓存都填满后再向上交互</li>
-<li>紧急标志位URG：取值为1时紧急指针字段有效；取值为0时紧急指针无效</li>
-<li>紧急指针：占16比特，以字节为单位，用来指明紧急数据的长度</li>
-</ul>
-<p>当发送方有紧急数据时，可将紧急数据插队到发送缓存的最前面，并立刻封装一个TCP报文段中进行发送。紧急指针会指出本报文段数据载荷部分包含了多长的紧急数据，紧急数据之后是普通数据</p>
-<ul>
-<li>选项<ul>
-<li>最大报文段长度MSS选项：TCP报文段数据载荷部分的最大长度</li>
-<li>窗口扩大选项：为了扩大窗口（提高吞吐率）</li>
-<li>时间戳选项：<ul>
-<li>用来计算往返时间RTT</li>
-<li>用来处理序号超范围的情况，又称为防止序号绕回PAWS</li>
-</ul>
-</li>
-<li>选择确认选项</li>
-</ul>
-</li>
-<li>填充：由于选项的长度可变，因此使用填充来确保报文段首部能被4整除</li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2020/10/23/TCP/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
