@@ -376,65 +376,365 @@
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line">ip_port = (<span class="string">&#x27;127.0.0.1&#x27;</span>, <span class="number">9999</span>)</span><br><span class="line"></span><br><span class="line">s = socket.socket()     <span class="comment"># 创建套接字</span></span><br><span class="line"></span><br><span class="line">s.connect(ip_port)      <span class="comment"># 连接服务器</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:     <span class="comment"># 通过一个死循环不断接收用户输入，并发送给服务器</span></span><br><span class="line">    inp = <span class="built_in">input</span>(<span class="string">&quot;请输入要发送的信息： &quot;</span>).strip()</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> inp:     <span class="comment"># 防止输入空信息，导致异常退出</span></span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    s.sendall(inp.encode())</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> inp == <span class="string">&quot;exit&quot;</span>:   <span class="comment"># 如果输入的是‘exit’，表示断开连接</span></span><br><span class="line">        print(<span class="string">&quot;结束通信！&quot;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    server_reply = s.recv(<span class="number">1024</span>).decode()</span><br><span class="line">    print(server_reply)</span><br><span class="line"></span><br><span class="line">s.close()       <span class="comment"># 关闭连接</span></span><br></pre></td></tr></table></figure>
 
 <p>上面这个例子，基本能够展示出socket通信的机制。套接字的创建和关闭，服务器的绑定和监听，客户端的连接，这些都是固定套路，没什么难点。关键之处在于循环内部的收发逻辑，这里才是重点，需要根据你自己的业务需求，正确编写。这个过程中，一定要注意，收发是一一对应的，有发就要有收，并且recv()方法默认是阻塞的。</p>
-<p>大家可以在自己的环境中测试上面的例子，并加入更多的内容，不断地进行尝试。然而试过之后，你们会发现，虽然服务器和客户端在一对一的情况下，工作良好，但是，如果有多个客户端同时连接同一个服务器呢？结果可能不太令人满意，因为服务器无法同时对多个客户端提供服务。为什么会这样呢？因为Python的socket模块，默认情况下创建的是单进程单线程，同时只能处理一个连接请求，如果要实现多用户服务，那么需要使用多珯以很明显地看到，服务器能够同时与多个客户端通信，基本达到我们的目的。</p><h3 id="UDP编程"><a href="#UDP编程" class="headerlink" title="UDP编程"></a>UDP编程</h3><p>相对TCP编程，UDP编程就简单多了，当然可靠性和安全性也差很多。由于UDP没有握手和挥手的过程，因此accept()和connect()方法都不需要。下面是一个简单的例子：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 服务端</span></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line">ip_port = (<span class="string">&#x27;127.0.0.1&#x27;</span>, <span class="number">9999</span>)</span><br><span class="line">sk = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, <span class="number">0</span>)</span><br><span class="line">sk.bind(ip_port)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    data = sk.recv(<span class="number">1024</span>).strip().decode()</span><br><span class="line">    print(data)</span><br><span class="line">    <span class="keyword">if</span> data == <span class="string">&quot;exit&quot;</span>:</span><br><span class="line">        print(<span class="string">&quot;客户端主动断开连接！&quot;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">sk.close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 客户端</span></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line">ip_port = (<span class="string">&#x27;127.0.0.1&#x27;</span>, <span class="number">9999</span>)</span><br><span class="line"></span><br><span class="line">sk = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, <span class="number">0</span>)</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    inp = <span class="built_in">input</span>(<span class="string">&#x27;发送的消息：&#x27;</span>).strip()</span><br><span class="line">    sk.sendto(inp.encode(), ip_port)</span><br><span class="line">    <span class="keyword">if</span> inp == <span class="string">&#x27;exit&#x27;</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">sk.close()</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
+<p>大家可以在自己的环境中测试上面的例子，并加入更多的内容，不断地进行尝试。然而试过之后，你们会发现，虽然服务器和客户端在一对一的情况下，工作良好，但是，如果有多个客户端同时连接同一个服务器呢？结果可能不太令人满意，因为服务器无法同时对多个客户端提供服务。为什么会这样呢？因为Python的socket模块，默认情况下创建的是单进程单线程，同时只能处理一个连接请求，如果要实现多用户服务，那么需要使用多线程机制。</p>
+<p>下面我们使用Python内置的threading模块，配合socket模块创建多线程服务器。客户端的代码不需要修改，可以继续使用。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> threading        <span class="comment"># 导入线程模块</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">link_handler</span>(<span class="params">link, client</span>):</span>     </span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    该函数为线程需要执行的函数，负责具体的服务器和客户端之间的通信工作</span></span><br><span class="line"><span class="string">    :param link: 当前线程处理的连接</span></span><br><span class="line"><span class="string">    :param client: 客户端ip和端口信息，一个二元元组</span></span><br><span class="line"><span class="string">    :return: None</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    print(<span class="string">&quot;服务器开始接收来自[%s:%s]的请求....&quot;</span> % (client[<span class="number">0</span>], client[<span class="number">1</span>]))</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:     <span class="comment"># 利用一个死循环，保持和客户端的通信状态</span></span><br><span class="line">        client_data = link.recv(<span class="number">1024</span>).decode()</span><br><span class="line">        <span class="keyword">if</span> client_data == <span class="string">&quot;exit&quot;</span>:</span><br><span class="line">            print(<span class="string">&quot;结束与[%s:%s]的通信...&quot;</span> % (client[<span class="number">0</span>], client[<span class="number">1</span>]))</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        print(<span class="string">&quot;来自[%s:%s]的客户端向你发来信息：%s&quot;</span> % (client[<span class="number">0</span>], client[<span class="number">1</span>], client_data))</span><br><span class="line">        link.sendall(<span class="string">&#x27;服务器已经收到你的信息&#x27;</span>.encode())</span><br><span class="line">    link.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ip_port = (<span class="string">&#x27;127.0.0.1&#x27;</span>, <span class="number">9999</span>)</span><br><span class="line">sk = socket.socket()            <span class="comment"># 创建套接字</span></span><br><span class="line">sk.bind(ip_port)                <span class="comment"># 绑定服务地址</span></span><br><span class="line">sk.listen(<span class="number">5</span>)                    <span class="comment"># 监听连接请求</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">&#x27;启动socket服务，等待客户端连接...&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:     <span class="comment"># 一个死循环，不断的接受客户端发来的连接请求</span></span><br><span class="line">    conn, address = sk.accept()  <span class="comment"># 等待连接，此处自动阻塞</span></span><br><span class="line">    <span class="comment"># 每当有新的连接过来，自动创建一个新的线程，</span></span><br><span class="line">    <span class="comment"># 并将连接对象和访问者的ip信息作为参数传递给线程的执行函数</span></span><br><span class="line">    t = threading.Thread(target=link_handler, args=(conn, address))</span><br><span class="line">    t.start()</span><br></pre></td></tr></table></figure>
+
+<p>启动这个多线程服务器，然后多运行几个客户端，可以很明显地看到，服务器能够同时与多个客户端通信，基本达到我们的目的。</p>
+<h3 id="UDP编程"><a href="#UDP编程" class="headerlink" title="UDP编程"></a>UDP编程</h3><p>相对TCP编程，UDP编程就简单多了，当然可靠性和安全性也差很多。由于UDP没有握手和挥手的过程，因此accept()和connect()方法都不需要。下面是一个简单的例子：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 服务端</span></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line">ip_port = (<span class="string">&#x27;127.0.0.1&#x27;</span>, <span class="number">9999</span>)</span><br><span class="line">sk = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, <span class="number">0</span>)</span><br><span class="line">sk.bind(ip_port)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    data = sk.recv(<span class="number">1024</span>).strip().decode()</span><br><span class="line">    print(data)</span><br><span class="line">    <span class="keyword">if</span> data == <span class="string">&quot;exit&quot;</span>:</span><br><span class="line">        print(<span class="string">&quot;客户端主动断开连接！&quot;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">sk.close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 客户端</span></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line">ip_port = (<span class="string">&#x27;127.0.0.1&#x27;</span>, <span class="number">9999</span>)</span><br><span class="line"></span><br><span class="line">sk = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, <span class="number">0</span>)</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    inp = <span class="built_in">input</span>(<span class="string">&#x27;发送的消息：&#x27;</span>).strip()</span><br><span class="line">    sk.sendto(inp.encode(), ip_port)</span><br><span class="line">    <span class="keyword">if</span> inp == <span class="string">&#x27;exit&#x27;</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">sk.close()</span><br></pre></td></tr></table></figure>
+
+]]></content>
       <categories>
-          
-          <category> python </category>
-          
-          <category> socket </category>
-          
+        <category>python</category>
+        <category>socket</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> python </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Introduction to Statistical learning and Supervised Learning</title>
-      <link href="/blog/2020/10/19/Introduction-to-Statistical-learning-and-Supervised-Learning/"/>
-      <url>/blog/2020/10/19/Introduction-to-Statistical-learning-and-Supervised-Learning/</url>
-      
-        <content type="html"><![CDATA[<h2 id="Introduction-to-Statistical-learning-and-Supervised-Learning"><a href="#Introduction-to-Statistical-learning-and-Supervised-Learning" class="headerlink" title="Introduction to Statistical learning and Supervised Learning"></a>Introduction to Statistical learning and Supervised Learning</h2><h3 id="本节概述"><a href="#本节概述" class="headerlink" title="本节概述"></a>本节概述</h3><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-19-Introduction-to-Statistical-learning-and-Supervised-Learning/001.PNG" alt="001"></p><a id="more"></a><h3 id="统计学习"><a href="#统计学习" class="headerlink" title="统计学习"></a>统计学习</h3><h5 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h5><p>统计学习是关于计算机基于数据构建概率模型并运用模型对数据进行预测和分析的一门学科，在如今的机器学习中，大多数算法也是根据数据来预测，所以也可以叫做机器学习方法</p><h5 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h5><p>统计学习研究的对象是数据</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">特征抽取</span><br><span class="line">data-------&gt;模型</span><br></pre></td></tr></table></figure><h5 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h5><p>对数据进行预测和分析，使得计算机更加的智能化</p><h5 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h5><p>统计学习的方法是基于<code>数据</code>构建<code>概率统计模型</code>从而对数据进行预测和分析</p><p>实现统计学习方法的步骤如下：</p><ul><li>得到一个有限的训练数据集合</li><li>确定包含所有可能的模型的假设空间，即学习模型的集合</li><li>确定模型选择的准则，即学习的策略</li><li>实现求解最优模型的算法，即学习的算法</li><li>通过学习方法选择最优模型</li><li>利用学习的最优模型对新数据进行预测和分析</li></ul><h5 id="研究"><a href="#研究" class="headerlink" title="研究"></a>研究</h5><p>包括三方面</p><ul><li>统计学习方法</li><li>统计学习理论</li><li>停机学习应用</li></ul><h5 id="重要性"><a href="#重要性" class="headerlink" title="重要性"></a>重要性</h5><ul><li>处理海量数据</li><li>计算机智能化</li></ul><h3 id="统计学习分类"><a href="#统计学习分类" class="headerlink" title="统计学习分类"></a>统计学习分类</h3><h5 id="基本分类"><a href="#基本分类" class="headerlink" title="基本分类"></a>基本分类</h5><h6 id="监督学习"><a href="#监督学习" class="headerlink" title="监督学习"></a>监督学习</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">监督学习（supervised learning）是指从标注数据中学习预测模型的机器学习问题</span><br><span class="line">已知输入和输出，训练模型， 得到最优模型，根据训练得到的模型预测其他数据</span><br></pre></td></tr></table></figure><ul><li>输入空间，特征空间，输出空间</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">将输入与输出所有可能取值的结合叫做输入空间和输出空间，可以是有限元素的集合，也可以是整个欧式空间</span><br><span class="line">每个具体的输入是一个实例，由特征向量表示。所有特征向量存在的空间称为特征空间</span><br></pre></td></tr></table></figure><p><code>输入变量</code>与<code>输出变量</code>可以是<code>连续</code>的也可以是<code>离散</code>的</p><ul><li>联合概率分布</li></ul><p>监督学习假设<code>输入变量X</code>与<code>输入变量Y</code>符合联合概率分布<code>P(X, Y)</code></p><ul><li>假设空间</li></ul><blockquote><p>监督学习的目的在于学习一个由输入到输出的映射，这一映射有模型来表示</p></blockquote><p>假设空间就是这些模型的集合</p><ul><li>图形表示</li></ul><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-19-Introduction-to-Statistical-learning-and-Supervised-Learning/002.PNG" alt="002"></p><h6 id="无监督学习"><a href="#无监督学习" class="headerlink" title="无监督学习"></a>无监督学习</h6><p>无监督学习是指从<code>无标注数据</code>中学习预测模型的机器学习问题</p><blockquote><p>无监督学习的本质是学习数据中的统计规律或潜在结构</p></blockquote><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-19-Introduction-to-Statistical-learning-and-Supervised-Learning/003.PNG" alt="003"></p><h6 id="强化学习"><a href="#强化学习" class="headerlink" title="强化学习"></a>强化学习</h6><p>强化学习（reinforcement learning） 是指智能系统在于环境的连续互动中学习最优行为策略的机器学习问题</p><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-19-Introduction-to-Statistical-learning-and-Supervised-Learning/004.PNG" alt="004"></p><h6 id="半监督学习与主动学习"><a href="#半监督学习与主动学习" class="headerlink" title="半监督学习与主动学习"></a>半监督学习与主动学习</h6><p><code>半监督学习 Csemi-supervised earning)</code> 是指利用 标注数据和未标注数据学习预</p><p>测模型的机器学习问题。通常有少量标注数据、大量未标注数据，因为标注数据的构</p><p>建往往需要人工，成本较高，未标注数据的收集不需太多成本。半监督学习旨在利用</p><p>未标注数据中的信息，辅助标注数据，进行监督学习，以较低的成本达到较好的学习</p><p>效果。</p><p><code>主动学习 Cactiv earning) </code>是指机器不断主动给出实例让教师进行标注，然后利</p><p>用标注数据学习预测模型的机器学习问题。通常的监督学习使用给定的标注数据，往</p><p>往是随机得到的 ，可以看作是”被动学习” 主动学习的目标是找出对学习最有帮助的</p><p>实例让教师标注，以较小的标注代价，达到较好的学习效果</p><p>半监督学习和主动学习更接近监督学习。</p><h5 id="按模型分类"><a href="#按模型分类" class="headerlink" title="按模型分类"></a>按模型分类</h5><h6 id="概率模型和非概率模型"><a href="#概率模型和非概率模型" class="headerlink" title="概率模型和非概率模型"></a>概率模型和非概率模型</h6><p>在监督学习中，概率模型是生成模型，非概率模型是判别模型</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">概率模型举例： 决策树，朴素贝叶斯，隐马尔可夫模型，条件随机场，概率潜在语义分析，潜在狄利克雷分配，高斯混合</span><br><span class="line">非概率模型： 感知机，支持向量机，k近邻，潜在语义分析，神经网络</span><br></pre></td></tr></table></figure><h6 id="线性模型和非线性模型"><a href="#线性模型和非线性模型" class="headerlink" title="线性模型和非线性模型"></a>线性模型和非线性模型</h6><p>看模型函数是否是线性的</p><h6 id="参数化模型与非参数化模型"><a href="#参数化模型与非参数化模型" class="headerlink" title="参数化模型与非参数化模型"></a>参数化模型与非参数化模型</h6><p><code>统计学习模型</code>又可以分为<code>参数化模型 (parametric model)</code>和`非参数化模型 (non</p><p>parametric model) <code>。参数化模型假设模型参数的</code>维度`固定，模型可以由有限维参数完</p><p>全刻画:非参数化模型假设模型参数的<code>维度不固定</code>或者说无穷大，随着训练数据量的</p><p>增加而不断增大。</p><h5 id="按算法分类"><a href="#按算法分类" class="headerlink" title="按算法分类"></a>按算法分类</h5><ul><li>在线学习</li></ul><p>在线学习是指每次接受 个样本，进行预测，之后学习模型，并不断重复该操作的机器学习。</p><ul><li>批量学习</li></ul><p>批量学习 次接受所有数据，学习模型，之后进行预测。有些实际应用的场景要求学习必须是在线的</p><h5 id="按技巧分类"><a href="#按技巧分类" class="headerlink" title="按技巧分类"></a>按技巧分类</h5><ul><li>贝叶斯学习</li></ul><p>在概率模型的学习和推理中，利用<code>贝叶斯定理</code>，计算在给定数据条件下模型的条件概率，即<code>后验概率</code>，并应用这个原理进行模型的估计，以及对数据的预测。将模型、未观测要素及其参数用变量表示，使用模型的<code>先验分布</code>是贝叶斯学习的特点。</p><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-19-Introduction-to-Statistical-learning-and-Supervised-Learning/005.PNG" alt="005"></p><ul><li>核方法</li></ul><h3 id="统计学习方法三要素"><a href="#统计学习方法三要素" class="headerlink" title="统计学习方法三要素"></a>统计学习方法三要素</h3><h5 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h5><p>模型就是所要学习的条件概率分布或决策函数</p><h5 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h5><h6 id="损失函数和风险函数"><a href="#损失函数和风险函数" class="headerlink" title="损失函数和风险函数"></a>损失函数和风险函数</h6><ul><li>0-1损失函数</li></ul><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-19-Introduction-to-Statistical-learning-and-Supervised-Learning/006.PNG" alt="005"></p><ul><li>平方损失函数</li></ul><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-19-Introduction-to-Statistical-learning-and-Supervised-Learning/007.PNG" alt="007"></p><ul><li>绝对损失函数</li></ul><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-19-Introduction-to-Statistical-learning-and-Supervised-Learning/008.PNG" alt="008"></p><ul><li>对数损失函数</li></ul><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-19-Introduction-to-Statistical-learning-and-Supervised-Learning/009.PNG" alt="009"></p><p>损失函数值越小，模型就越好。由于模型的输入，输出（X，Y）是随机变量，遵循联合分布P(X, Y)，所以损失函数的期望是</p><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-19-Introduction-to-Statistical-learning-and-Supervised-Learning/010.PNG" alt="010"></p><p>这是理论上模型f(X)关于联合分布P(X, Y)的平均意义下的损失，称为<code>风险函数</code>或<code>期望损失</code></p><blockquote><p>由于联合分布位置，所以不能直接计算</p></blockquote><p>模型f(X)关于训练数据集的平均损失称为<code>经验风险</code>或<code>经验损失</code></p><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-19-Introduction-to-Statistical-learning-and-Supervised-Learning/011.PNG" alt="011"></p><p><code>注意</code>：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">根据大数定律 当样本容量 趋于无穷时，经验风险趋于期望风险。所以一个很自然的想法是用经验风险估计期望风险。</span><br><span class="line">但是，由于现实中训练样本数目有限，甚至很小，所以用经验风险估计期望风险常常井不理想，要对经验风险进行 定的矫正。这就关系到监督学习的两个基本策略验风险最小化和结构风险最小化。</span><br></pre></td></tr></table></figure><h6 id="经验风险最小化与结构风险最小化"><a href="#经验风险最小化与结构风险最小化" class="headerlink" title="经验风险最小化与结构风险最小化"></a>经验风险最小化与结构风险最小化</h6><p>在假设空间，损失函数以及训练数据集确定的情况下，经验风险函数就可以确定。</p><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-19-Introduction-to-Statistical-learning-and-Supervised-Learning/012.PNG" alt="012"></p><p>从经验风险最小化来看，经验风险最小的模型是最优的模型。–&gt; 风险最小化求最优模型就是求解最优化问题</p><blockquote><p>当样本容量很小时，经验风险最小化学习的效果未必很好，会产生<code>过拟合</code>问题，为了防止过拟合，提出了结构风险最小化</p></blockquote><p>结构风险在经验风险上加上<code>模型复杂度的正则化项或罚项</code></p><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-19-Introduction-to-Statistical-learning-and-Supervised-Learning/013.PNG" alt="013    "></p><blockquote><p>为什么经验风险容易过拟合？ 为什么结构风险可以解决过拟合？</p></blockquote><h5 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h5><p>算法是指学习模型的具体计算方法</p><h3 id="模型评估与模型选择"><a href="#模型评估与模型选择" class="headerlink" title="模型评估与模型选择"></a>模型评估与模型选择</h3><p>当假设空间含有不同复杂度(例如，不同的参数个数)的模型时，就要面临模型选（model selection) 的问题。我们希望选择或学习 个合适的模型。如果在假设空间中存在”真”模型，那么所选择的模型应该逼近真模型。具体地所选择的模型要与真模型的参数个数相同，所选择的模型的参数向量与真模型的参数向量相近。如果一味追求提高对训练数据的预测能力，所选模型的复杂度则往往会比真模型更高</p><blockquote><p>过拟合是指学习时选择的模型所包含的参数过多，以至出现这模型对己知数据预测得很好，但对未知数据预测得很差的现象。</p></blockquote><p>正则化和交叉验证就是为了解决过拟合</p><h3 id="正则化与交叉验证"><a href="#正则化与交叉验证" class="headerlink" title="正则化与交叉验证"></a>正则化与交叉验证</h3><h5 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h5><p>模型选择的典型方法是<code>正则化 regularization) </code>。正则化是结构风险最小化策略的实现，是在经验风险上加 个<code>正则化项 (regularizer )</code>或<code>罚项(Cpena ty term)</code> 。正则化项一般是模型复杂度的单调递增函数，模型越复杂，正则化值就越大。比如 正则化项可以是<code>模型参数向量的范数</code>。</p><ul><li>L1范式</li></ul><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-19-Introduction-to-Statistical-learning-and-Supervised-Learning/014.PNG" alt="014"></p><ul><li>L2范式</li></ul><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-19-Introduction-to-Statistical-learning-and-Supervised-Learning/015.PNG" alt="015"></p><p>从<code>贝叶斯估计</code>的角度来看，正则化项对应于模型的<code>先验概率</code>。可以假设复杂的模型有较小的先验概率，简单的模型有较大的先验概率</p><h5 id="交叉验证"><a href="#交叉验证" class="headerlink" title="交叉验证"></a>交叉验证</h5><p>如果给定的样本数据充足，进行模型选择的 种简单方法是随机地将数据集切分成 部分，分别为训练集 (training set) 、验证集( validation set) 和测试集 (testset) 。训练集用来训练模型，验证集用于模型的选择，而测试集用于最终对学习方法的评估。在学习到的不同复杂度的模型中，选择对验证集有最小预测误差的模型。由于验证集有足够多的数据，用它对模型进行选择也是有效的。</p><ul><li>简单交叉验证</li></ul><p>简单交叉验证方法是:首先随机地将己给数据分为两部分， 部分作为训练集，另一部分作为测试集(例如， 70% 的数据为训练集， 30% 的数据为测试集) ;然后用训练集在各种条件下(例如，不同的参数个数)训练模型，从而得到不同的模型:在测试集上评价各个模型的测试误差，选出测试误差最小的模型。</p><ul><li>S折交叉验证</li></ul><p>应用最多的是 折交叉验证 （S-fold cross validation) ，方法如下:首先随机地将已给数据切分为 互不相交、大小相同的子集 ;然后利用 S-l 个子集的数据训练模型，利用 余下的子集测试模型 :将这 过程对可能的 种选择重复进行;最后选出S次评测中平均测试误差最小的模型。</p><ul><li>留一交叉验证</li></ul><p>S折交叉验证的特殊情形是 = 称为留一交叉验证( Oeave-one-out cross validation) ，往往在数据缺乏的情况下使用。这里 是给定数据集的容量。</p><h3 id="泛化能力"><a href="#泛化能力" class="headerlink" title="泛化能力"></a>泛化能力</h3><p>学习方法的泛化能力是指由该方法学习到的模型对未知数据的预测能力，泛化误差就是模型的期望风险</p><h3 id="生成模型与判别模型"><a href="#生成模型与判别模型" class="headerlink" title="生成模型与判别模型"></a>生成模型与判别模型</h3><h3 id="监督学习应用"><a href="#监督学习应用" class="headerlink" title="监督学习应用"></a>监督学习应用</h3><ul><li>分类问题</li><li>标注问题</li><li>回归问题</li></ul>]]></content>
-      
-      
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>UDP_chat_room</title>
+    <url>/blog/2020/10/20/UDP-chat-room/</url>
+    <content><![CDATA[<h2 id="UDP-chat-room"><a href="#UDP-chat-room" class="headerlink" title="UDP_chat_room"></a>UDP_chat_room</h2><blockquote>
+<p>转载 链接：<a href="https://www.jianshu.com/p/b3ce5264dda4">https://www.jianshu.com/p/b3ce5264dda4</a></p>
+</blockquote>
+<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-20-UDP-chat-room/001.png" alt="001" style="zoom:50%;" />
+
+<a id="more"></a>
+
+<p>使用Python socket编程实现简单的聊天室功能。</p>
+<p>服务器和客户端使用UDP编程，客户端两个线程一个负责接收，一个负责发送。</p>
+<p>服务器：接收消息并保存地址，如果触发‘EXIT’关键字则从地址表中移除该地址</p>
+<p>服务端</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -*- encoding = utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">	<span class="comment"># 1. 创建socket对象</span></span><br><span class="line">	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)</span><br><span class="line"></span><br><span class="line">	<span class="comment"># 2. 绑定端口</span></span><br><span class="line">	addr = (<span class="string">&#x27;127.0.0.1&#x27;</span>, <span class="number">9999</span>)</span><br><span class="line">	s.bind(addr)</span><br><span class="line"></span><br><span class="line">	print(<span class="string">&quot;upd server is running on %s:%s...&quot;</span> % (addr[<span class="number">0</span>], addr[<span class="number">1</span>]))</span><br><span class="line"></span><br><span class="line">	<span class="comment"># 保存所有连接</span></span><br><span class="line">	user = &#123;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment"># 3. 因为是UDP，所以不需要accept，进入循环处理链接</span></span><br><span class="line">	<span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">		<span class="keyword">try</span>:</span><br><span class="line">			data, addr = s.recvfrom(<span class="number">1024</span>)</span><br><span class="line">			<span class="keyword">if</span> <span class="keyword">not</span> addr <span class="keyword">in</span> user:</span><br><span class="line">				<span class="keyword">for</span> address <span class="keyword">in</span> user:</span><br><span class="line">					s.sendto(data + <span class="string">&#x27; 进入聊天室...&#x27;</span>.encode(), address)</span><br><span class="line">				user[addr] = data.decode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">				<span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">			<span class="keyword">if</span> <span class="string">&#x27;EXIT&#x27;</span> <span class="keyword">in</span> data.decode(<span class="string">&#x27;utf-8&#x27;</span>):</span><br><span class="line">				name = user[addr]</span><br><span class="line">				user.pop(addr)</span><br><span class="line">				<span class="keyword">for</span> address <span class="keyword">in</span> user:</span><br><span class="line">					s.sendto((name + <span class="string">&#x27;离开了聊天室...&#x27;</span>).encode(), address)</span><br><span class="line">			<span class="keyword">else</span>:</span><br><span class="line">				print(<span class="string">&#x27;&quot;%s&quot; from %s:%s&#x27;</span> % (data.decode(<span class="string">&#x27;utf-8&#x27;</span>), addr[<span class="number">0</span>], addr[<span class="number">1</span>]))</span><br><span class="line">				<span class="keyword">for</span> address <span class="keyword">in</span> user:</span><br><span class="line">					<span class="keyword">if</span> address != addr:</span><br><span class="line">						s.sendto(data, address)</span><br><span class="line">		<span class="keyword">except</span> ConnectionResetError:</span><br><span class="line">			logging.warning(<span class="string">&#x27;someone left unexcept&#x27;</span>)</span><br><span class="line"></span><br><span class="line">	s.close()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">	main()</span><br></pre></td></tr></table></figure>
+
+<p>客户端：两个线程，并设置接收线程为守护线程</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">recv</span>(<span class="params">sock, addr</span>):</span></span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    一个UDP连接在接收消息前必须要让系统知道所占端口</span></span><br><span class="line"><span class="string">    也就是需要send一次，否则win下会报错</span></span><br><span class="line"><span class="string">    “   data=sock.recv(1024)</span></span><br><span class="line"><span class="string">        OSError: [WinError 10022] 提供了一个无效的参数。   ”</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line">    sock.sendto(name.encode(<span class="string">&#x27;utf-8&#x27;</span>), addr)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        data = sock.recv(<span class="number">1024</span>)</span><br><span class="line">        print(data.decode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send</span>(<span class="params">sock, addr</span>):</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        string = <span class="built_in">input</span>()</span><br><span class="line">        message = name + <span class="string">&#x27; : &#x27;</span> + string</span><br><span class="line">        data = message.encode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">        sock.sendto(data, addr)</span><br><span class="line">        <span class="keyword">if</span> string == <span class="string">&#x27;EXIT&#x27;</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)</span><br><span class="line">    server = (<span class="string">&#x27;127.0.0.1&#x27;</span>, <span class="number">9999</span>)</span><br><span class="line"></span><br><span class="line">    tr = threading.Thread(target=recv, args=(s, server), daemon=<span class="literal">True</span>)</span><br><span class="line">    ts = threading.Thread(target=send, args=(s, server))</span><br><span class="line">    tr.start()</span><br><span class="line">    ts.start()</span><br><span class="line">    ts.join()</span><br><span class="line">    s.close()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    print(<span class="string">&quot;-----欢迎来到聊天室,退出聊天室请输入&#x27;EXIT&#x27;-----&quot;</span>)</span><br><span class="line">    name = <span class="built_in">input</span>(<span class="string">&#x27;请输入你的名称:&#x27;</span>)</span><br><span class="line">    print(<span class="string">&#x27;-----------------%s------------------&#x27;</span> % name)</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-          
-          <category> 机器学习 </category>
-          
+        <category>python</category>
+        <category>socket</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 机器学习 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Hello World</title>
-      <link href="/blog/2020/10/18/hello-world/"/>
-      <url>/blog/2020/10/18/hello-world/</url>
-      
-        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-  
-  
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/blog/2020/10/18/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>TCP</title>
+    <url>/blog/2020/10/23/TCP/</url>
+    <content><![CDATA[<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/001.PNG" alt="思维导图" style="zoom: 50%;" />
+
+<h3 id="TCP流量控制"><a href="#TCP流量控制" class="headerlink" title="TCP流量控制"></a>TCP流量控制</h3><p>一般来说，我们总是希望数据传输快一些</p>
+<blockquote>
+<p>但是如果发送方吧数据发送得过快，接收方就可能来不及接收，这就会造成数据的丢失</p>
+</blockquote>
+<p>所谓流量控制（flow control）就是<code>让发送方的发送速率不要太快，要让接收方来得及接收</code></p>
+<p>利用滑动窗口机制可以很方便地在TCP连接上实现对发送方的流量控制。</p>
+<ul>
+<li>TCP接收方利用自己的<code>接收窗口</code>的大小来限制发送方<code>发送窗口</code>的大小</li>
+<li>TCP发送方收到接收方的<code>零窗口通知</code>后，应启动持续计时器，持续计时器超时后，向接收方发送<code>零窗口探测报文</code></li>
+</ul>
+<h5 id="示例分析"><a href="#示例分析" class="headerlink" title="示例分析"></a>示例分析</h5><ul>
+<li>第一步：初始主机B的接送窗口设置为400， 并告诉A，主机A就把发送窗口的值设为400</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DATA 表示这是一个TCP数据报文段</span><br><span class="line">seq 是TCP报文首部中的序号字段</span><br></pre></td></tr></table></figure>
+
+
+
+<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/002.PNG" alt="002" style="zoom:50%;" />
+
+
+
+<ul>
+<li>第二步：因为未达到窗口的大小，接着发送数据</li>
+</ul>
+<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/003.PNG" alt="003" style="zoom:50%;" />
+
+<ul>
+<li>假设在发送201-300数据段的过程中，数据丢失了，主机A窗口还有100字节数据可以发送</li>
+</ul>
+<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/004.PNG" alt="004" style="zoom:50%;" />
+
+<ul>
+<li>主机B对201号以前的数据进行累计确认，并将接收窗口调整为300</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ACK: 是TCP报文段首部中的标志位， 为1：表示这是一个TCP确认报文段</span><br><span class="line">ack: 是TCP报文首部字段中的确认报文段，表示201之前的数据已经接收到了</span><br><span class="line">rwnd: TCP 报文中的窗口字段</span><br></pre></td></tr></table></figure>
+
+
+
+<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/005.PNG" alt="005" style="zoom:50%;" />
+
+<ul>
+<li>主机A在接收到确认报文段之后，将已经接收到的字段移出窗口，并且窗口前移，将窗口的大小设置为300，并开始发送301-400数据</li>
+</ul>
+<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/006.PNG" alt="006" style="zoom:50%;" />
+
+
+
+<ul>
+<li>接着发送401-500的数据， 发送后，已经到达窗口大小，不能再发送新数据了</li>
+</ul>
+<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/007.PNG" alt="007" style="zoom:50%;" />
+
+<ul>
+<li>201-300数据段的重传计时器超时了，开始重传</li>
+</ul>
+<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/008.PNG" alt="008" style="zoom:50%;" />
+
+<ul>
+<li>主机B接收到201-300的数据后，对收到501后之前的数据进行累计确认，并将接收窗口调整为100，对主机进行流量控制</li>
+</ul>
+<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/009.PNG" alt="009" style="zoom:50%;" />
+
+
+
+<ul>
+<li>主机A接收到主机B发送来的确认报文段之后，在接下来中，移动窗口，并将窗口大小改为100</li>
+</ul>
+<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/010.PNG" alt="010" style="zoom:50%;" />
+
+<ul>
+<li>清除已经发成发送的数据段，并开始发送501-600号数据</li>
+</ul>
+<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/011.PNG" alt="011" style="zoom:50%;" />
+
+<ul>
+<li>主机B接收到501-600号数据，并向A发送确认报文段，并且将接收窗口调整为了0</li>
+</ul>
+<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/012.PNG" alt="012" style="zoom:50%;" />
+
+
+
+<ul>
+<li>主机A接收到确认报文段之后，将发送窗口的值改为0</li>
+</ul>
+<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/013.PNG" alt="013" style="zoom:50%;" />
+
+<ul>
+<li>如果非0窗口的通知一直未到达，将一直阻塞下去</li>
+</ul>
+<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/014.PNG" alt="014" style="zoom:50%;" />
+
+
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">解决方法： 为0窗口报文段设置了持续计时器，如果持续计时器超时，主机A就发送0窗口探测报文，如果主机B返回的窗口值依然为0，则重新启动持续计时器</span><br></pre></td></tr></table></figure>
+
+<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/015.PNG" alt="015" style="zoom:50%;" />
+
+
+
+<h3 id="TCP的拥塞控制"><a href="#TCP的拥塞控制" class="headerlink" title="TCP的拥塞控制"></a>TCP的拥塞控制</h3><ul>
+<li>在某段时间，若<code>对网络中某一资源的需求超过了该资源所能提供的可用部分，网路性能就要被破坏</code>，这种情况叫做<code>拥塞（congestion）</code></li>
+</ul>
+<blockquote>
+<p>在计算机网络中的链路容量（即带宽），交换结点中 的缓存和处理机等，都是网络的资源</p>
+</blockquote>
+<ul>
+<li>若出现拥塞而不进行控制，整个网络的吞吐量将随负荷的增大而下降</li>
+</ul>
+<p>下图是吞吐量和输入负载的曲线</p>
+<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/016.PNG" alt="016" style="zoom:50%;" />
+
+<h5 id="拥塞控制的四种算法"><a href="#拥塞控制的四种算法" class="headerlink" title="拥塞控制的四种算法"></a>拥塞控制的四种算法</h5><ul>
+<li>慢开始（slow-start）</li>
+<li>拥塞控制（congestion avoidance）</li>
+<li>快重传（fast retransmit）</li>
+<li>快恢复（fast recovery）</li>
+</ul>
+<p><strong>慢开始和拥塞控制的使用</strong></p>
+<p>实现算法所必须要的东西</p>
+<ul>
+<li>发送方维护一个叫做<code>拥塞窗口cwnd</code>的状态变量，其值<code>取决于网络的拥塞控制</code>，并且<code>动态变化</code><ul>
+<li>拥塞窗口<code>cwnd的维护原则</code>：只要网络没有出现拥塞，拥塞窗口就在增大一些，但是只要网络出现拥塞，拥塞窗口就减少一些</li>
+<li>判断出现网络拥塞的依据：就是没有按时收到应当到达的确认报文（即发生<code>超时重传</code>）</li>
+</ul>
+</li>
+<li>发送方将拥塞窗口作为发送窗口(swnd)，即swnd = cwnd</li>
+<li>维护一个慢开始门限ssthresh状态变量：<ul>
+<li>cwnd &lt; ssthresh, 使用慢开始算法</li>
+<li>cwnd &gt; ssthresh, 停止使用慢开始算法而改用拥塞避免算法</li>
+<li>cwnd = ssthresh， 两者都可以使用</li>
+</ul>
+</li>
+</ul>
+<p>例子</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">刚开始执行慢开始算法，达到初始的ssthresh后改用拥塞避免算法，在24号点假设出现了拥塞，更新cwnd的值和ssthresh的值并重新执行算法</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/017.PNG" alt="017"></p>
+<ul>
+<li>慢开始是指一开始向网络注入的报文段少，并不是指拥塞串口cwnd增长速度慢</li>
+<li>拥塞控制并非指完全能够避免拥塞，而是指在拥塞避免阶段将拥塞窗口控制为按线性规律增长，使网络比较不容易出现拥塞</li>
+</ul>
+<p><strong>快重传和快恢复</strong></p>
+<p>慢开始和拥塞控制算法是1988年提出的TCP拥塞控制算法（TCP Tahoe版本）</p>
+<p>1990年又增加了两个新的拥塞控制算法（<code>改进TCP性能</code>）,就是快重传和快恢复（TCP RENO版本）</p>
+<blockquote>
+<p>产生原因： 有时，个别报文段会在网络中丢失，但是实际上网络并未发送拥塞，这将导致发送方超时重传，并误以为网络发生了拥塞，发送方将拥塞窗口cwnd又设置为最小值1，并错误的启动慢开始算法，因为降低了传输效率</p>
+</blockquote>
+<p>使用快重传算法可以<code>让发送方尽早知道发生了个别报文段的丢失</code></p>
+<p>所谓快重传，就是使发送方尽快进行重传，而不是等超时重传计时器超时再重传</p>
+<ul>
+<li>要求接受方不要等待自己发送数据时才进行捎带确认，而是要立刻发送 确认</li>
+<li>即时收到了失序的报文段也要立刻发出对已收到报文段的重复确认</li>
+<li>发送放一旦收到3个连续的重复确认，就将相应的报文段立刻重传，而不是等待该报文的超时重传计时器超时在重传</li>
+</ul>
+<p>如下图所示</p>
+<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/018.PNG" alt="018" style="zoom:50%;" />
+
+<ul>
+<li>发送方一旦收到3个重复确认，就知道现在只是丢失了可别的报文段，于是不启动慢开始算法，而执行<code>快恢复算法</code><ul>
+<li>发送方将慢开始门限ssthresh值和拥塞串口cwnd值调整为当前窗口的一半，开始执行拥塞避免算法，也有的可以增大一点在加3</li>
+</ul>
+</li>
+</ul>
+<p>下面图的后半部分就是快重传和快恢复算法</p>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/019.PNG" alt="019"></p>
+<h3 id="TCP的超时重传时间的选择"><a href="#TCP的超时重传时间的选择" class="headerlink" title="TCP的超时重传时间的选择"></a>TCP的超时重传时间的选择</h3><ul>
+<li>超时重传时间的选择是TCP最复杂的问题之一</li>
+</ul>
+<blockquote>
+<p>RTT: 往返时间</p>
+<p>RTO：超时重传时间</p>
+</blockquote>
+<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/020.PNG" alt="020" style="zoom:50%;" />
+
+<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/021.PNG" alt="021" style="zoom:50%;" />
+
+<p>以上情况是RTO过小和过大的情况，正确情况如下</p>
+<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/022.PNG" alt="022" style="zoom:50%;" />
+
+<p>但是在现实的网络环境中，每次的时间都不是确定的，于是不能直接使用某次测量得到的RTT样本来计算超时重传时间RTO，可以利用每次测量得到的RTT样本，计算加权平均往返时间RTTs</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">第一次：</span><br><span class="line">	RTTs1 &#x3D; RTT1</span><br><span class="line">新的RTTs &#x3D; (1 - a) * 旧的RTTs + a * 新的RTT样本</span><br><span class="line">a的值推荐为1&#x2F;8</span><br><span class="line"></span><br><span class="line">RTO &#x3D; RTTs + 4 * RTTd</span><br></pre></td></tr></table></figure>
+
+<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/023.PNG" alt="023" style="zoom:50%;" />
+
+<p>这是新的标准</p>
+<h5 id="往返时间RTT的测量比较复杂"><a href="#往返时间RTT的测量比较复杂" class="headerlink" title="往返时间RTT的测量比较复杂"></a>往返时间RTT的测量比较复杂</h5><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/024.PNG" alt="024"></p>
+<ul>
+<li>针对出现超时重传时无法侧准往返时间RTT的问题，<code>Karn</code>提出了一个算法：<code>在计算加权平均往返时间RTTs时，只要报文段重传了，就不采用其往返时间RTT样本</code>。也就是出现重传时，不重新计算RTTs，进而超时重传时间RTO也不会重新计算</li>
+<li>再优化: 报文段每重传一次，就把超时重传时间RTO增加一些</li>
+</ul>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/025.PNG" alt="025"></p>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/026.PNG" alt="026"></p>
+<h3 id="TCP的可靠传输的实现"><a href="#TCP的可靠传输的实现" class="headerlink" title="TCP的可靠传输的实现"></a>TCP的可靠传输的实现</h3><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/027.PNG" alt="027" style="zoom:50%;" />
+
+<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/028.PNG" alt="028" style="zoom:50%;" />
+
+<h3 id="TCP三次握手"><a href="#TCP三次握手" class="headerlink" title="TCP三次握手"></a>TCP三次握手</h3><ul>
+<li>TCP是面向连接的协议，它基于运输连接来传送TCP报文段</li>
+<li>TCP运输连接的建立和释放是每一次面向连接的通行中必不可少的过程</li>
+<li>TCP运输连接有以下三个阶段<ul>
+<li>建立TCP连接</li>
+<li>数据传送</li>
+<li>释放TCP连接</li>
+</ul>
+</li>
+<li>TCP的运输连接管理就是使运输连接的建立和释放都能正常的进行</li>
+<li>TCP连接的建立要解决以下三个问题<ul>
+<li>使TCP双方能够知道对方的存在</li>
+<li>使TCP双方能够协商一些参数（如最大窗口值，是否使用窗口扩大选项和时间戳选项以及服务质量等）</li>
+<li>使TCP双方能够运输实体资源（如缓存大小，连接表中的项目等）进行分配</li>
+</ul>
+</li>
+<li>三次握手建立过程</li>
+</ul>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/029.PNG" alt="029"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SYN: 同部位，如果有SYN，该数据报不发送数据，但是要一个序号</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>为什么二次握手不可以</li>
+</ul>
+<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/030.PNG" alt="030" style="zoom:50%;" />
+
+<h3 id="TCP四次挥手"><a href="#TCP四次挥手" class="headerlink" title="TCP四次挥手"></a>TCP四次挥手</h3><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/032.PNG" alt="032" style="zoom:50%;" />
+
+<p>为什么还需要时间等待</p>
+<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/033.PNG" alt="033" style="zoom:50%;" />
+
+<h3 id="TCP首部格式"><a href="#TCP首部格式" class="headerlink" title="TCP首部格式"></a>TCP首部格式</h3><ul>
+<li>为了实现可靠传输，TCP采用了<code>面向字节流</code>的方式</li>
+<li>但TCP在发送数据时，是从发送缓存中取出一部分后全部字节并给其添加一个首部使之成为TCP报文段后进行发送<ul>
+<li>一个TCP报文段由<code>首部</code>和<code>数据载荷</code>两部分构成</li>
+<li>TCP的全部功能都提现在他首部中各字段的作用</li>
+</ul>
+</li>
+</ul>
+<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/031.png" alt="031" style="zoom:50%;" />
+
+<ul>
+<li><p><strong>源端口和目的端口</strong> 各占2个字节，分别写入源端口和目的端口</p>
+</li>
+<li><p>序号： 占32比特，取值范围[0, 2^32 - 1]， 序号增加到最后一个后，下一个序号就又回到0</p>
+</li>
+<li><p>确认号： 占32比特，取值范围[0, 2^32 - 1]， 确认号增加到最后一个后，下一个确认号就又回到0，<code>指出期望收到对方下一个TCP报文段的数据载荷的第一个字节的序号</code></p>
+</li>
+<li><p>确认标志位ACK： 取值为1时确认号字段才有效；取值为0时确认号字段无效，<code>TCP规定，在建立连接后所有传送的TCP报文段都需要把ACK置1</code></p>
+</li>
+<li><p>数据便宜：占4比特，并以4字节为单位，<code>用来指出TCP报文段的数据载荷的起始处距离TCP报文段的起始处有多远，这个字段实际上是指出TCP报文段的首部长度</code></p>
+</li>
+</ul>
+<p>首部固定长度为20字节，因此数据偏移字段的最小值为（0101）</p>
+<p>首部最大长度为60字节，因此数据偏移字段的最大值为（1111）</p>
+<ul>
+<li>保留：占6比特，保留位今后使用，但目前应置为0</li>
+<li>窗口： 占16比特，以字节为单位。<code>指出发送本报文段的一方的接收窗口</code></li>
+</ul>
+<p>窗口值作为接收方让发送方设置器发送窗口的依据，这里以接收能力来控制发送方的发送能力，称为流量控制</p>
+<ul>
+<li>校验和： 占16比特，检查范围包括TCP报文段的首部和数据载荷两部分。在计算校验和时，要在TCP报文段的前面加上12字节的伪首部</li>
+<li>同步标志位SYN： 在TCP链接建立时用来同步序号</li>
+<li>终止标志位FIN：用来释放TCP连接</li>
+<li>复位标志位RST：用来复位TCP链接</li>
+</ul>
+<p>当RST = 1时，表示TCP连接出现了异常，必须释放连接，然后在重新建立连接。RST置1还用来拒绝一个非法的报文段或拒绝打开一个TCP连接</p>
+<ul>
+<li>推送标志位PSH： 接收方的TCP收到该标志位为1的报文段会<code>尽快上交应用进程</code>，而不必等到接收缓存都填满后再向上交互</li>
+<li>紧急标志位URG：取值为1时紧急指针字段有效；取值为0时紧急指针无效</li>
+<li>紧急指针：占16比特，以字节为单位，用来指明紧急数据的长度</li>
+</ul>
+<p>当发送方有紧急数据时，可将紧急数据插队到发送缓存的最前面，并立刻封装一个TCP报文段中进行发送。紧急指针会指出本报文段数据载荷部分包含了多长的紧急数据，紧急数据之后是普通数据</p>
+<ul>
+<li>选项<ul>
+<li>最大报文段长度MSS选项：TCP报文段数据载荷部分的最大长度</li>
+<li>窗口扩大选项：为了扩大窗口（提高吞吐率）</li>
+<li>时间戳选项：<ul>
+<li>用来计算往返时间RTT</li>
+<li>用来处理序号超范围的情况，又称为防止序号绕回PAWS</li>
+</ul>
+</li>
+<li>选择确认选项</li>
+</ul>
+</li>
+<li>填充：由于选项的长度可变，因此使用填充来确保报文段首部能被4整除</li>
+</ul>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络 TCP</tag>
+      </tags>
+  </entry>
 </search>
