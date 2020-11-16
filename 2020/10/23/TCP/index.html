@@ -283,10 +283,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/001.PNG" alt="思维导图" style="zoom: 50%;" />
-
+        <h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/001.PNG" alt="思维导图" style="zoom: 50%;" /></p>
 <a id="more"></a>
-
 <h3 id="TCP流量控制"><a href="#TCP流量控制" class="headerlink" title="TCP流量控制"></a>TCP流量控制</h3><p>一般来说，我们总是希望数据传输快一些</p>
 <blockquote>
 <p>但是如果发送方吧数据发送得过快，接收方就可能来不及接收，这就会造成数据的丢失</p>
@@ -301,91 +299,58 @@
 <li>第一步：初始主机B的接送窗口设置为400， 并告诉A，主机A就把发送窗口的值设为400</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DATA 表示这是一个TCP数据报文段</span><br><span class="line">seq 是TCP报文首部中的序号字段</span><br></pre></td></tr></table></figure>
-
-
-
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/002.PNG" alt="002" style="zoom:50%;" />
-
-
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/002.PNG" alt="002" style="zoom:50%;" /></p>
 <ul>
 <li>第二步：因为未达到窗口的大小，接着发送数据</li>
 </ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/003.PNG" alt="003" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/003.PNG" alt="003" style="zoom:50%;" /></p>
 <ul>
 <li>假设在发送201-300数据段的过程中，数据丢失了，主机A窗口还有100字节数据可以发送</li>
 </ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/004.PNG" alt="004" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/004.PNG" alt="004" style="zoom:50%;" /></p>
 <ul>
 <li>主机B对201号以前的数据进行累计确认，并将接收窗口调整为300</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ACK: 是TCP报文段首部中的标志位， 为1：表示这是一个TCP确认报文段</span><br><span class="line">ack: 是TCP报文首部字段中的确认报文段，表示201之前的数据已经接收到了</span><br><span class="line">rwnd: TCP 报文中的窗口字段</span><br></pre></td></tr></table></figure>
-
-
-
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/005.PNG" alt="005" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/005.PNG" alt="005" style="zoom:50%;" /></p>
 <ul>
 <li>主机A在接收到确认报文段之后，将已经接收到的字段移出窗口，并且窗口前移，将窗口的大小设置为300，并开始发送301-400数据</li>
 </ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/006.PNG" alt="006" style="zoom:50%;" />
-
-
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/006.PNG" alt="006" style="zoom:50%;" /></p>
 <ul>
 <li>接着发送401-500的数据， 发送后，已经到达窗口大小，不能再发送新数据了</li>
 </ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/007.PNG" alt="007" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/007.PNG" alt="007" style="zoom:50%;" /></p>
 <ul>
 <li>201-300数据段的重传计时器超时了，开始重传</li>
 </ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/008.PNG" alt="008" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/008.PNG" alt="008" style="zoom:50%;" /></p>
 <ul>
 <li>主机B接收到201-300的数据后，对收到501后之前的数据进行累计确认，并将接收窗口调整为100，对主机进行流量控制</li>
 </ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/009.PNG" alt="009" style="zoom:50%;" />
-
-
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/009.PNG" alt="009" style="zoom:50%;" /></p>
 <ul>
 <li>主机A接收到主机B发送来的确认报文段之后，在接下来中，移动窗口，并将窗口大小改为100</li>
 </ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/010.PNG" alt="010" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/010.PNG" alt="010" style="zoom:50%;" /></p>
 <ul>
 <li>清除已经发成发送的数据段，并开始发送501-600号数据</li>
 </ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/011.PNG" alt="011" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/011.PNG" alt="011" style="zoom:50%;" /></p>
 <ul>
 <li>主机B接收到501-600号数据，并向A发送确认报文段，并且将接收窗口调整为了0</li>
 </ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/012.PNG" alt="012" style="zoom:50%;" />
-
-
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/012.PNG" alt="012" style="zoom:50%;" /></p>
 <ul>
 <li>主机A接收到确认报文段之后，将发送窗口的值改为0</li>
 </ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/013.PNG" alt="013" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/013.PNG" alt="013" style="zoom:50%;" /></p>
 <ul>
 <li>如果非0窗口的通知一直未到达，将一直阻塞下去</li>
 </ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/014.PNG" alt="014" style="zoom:50%;" />
-
-
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/014.PNG" alt="014" style="zoom:50%;" /></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">解决方法： 为0窗口报文段设置了持续计时器，如果持续计时器超时，主机A就发送0窗口探测报文，如果主机B返回的窗口值依然为0，则重新启动持续计时器</span><br></pre></td></tr></table></figure>
-
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/015.PNG" alt="015" style="zoom:50%;" />
-
-
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/015.PNG" alt="015" style="zoom:50%;" /></p>
 <h3 id="TCP的拥塞控制"><a href="#TCP的拥塞控制" class="headerlink" title="TCP的拥塞控制"></a>TCP的拥塞控制</h3><ul>
 <li>在某段时间，若<code>对网络中某一资源的需求超过了该资源所能提供的可用部分，网路性能就要被破坏</code>，这种情况叫做<code>拥塞（congestion）</code></li>
 </ul>
@@ -396,8 +361,7 @@
 <li>若出现拥塞而不进行控制，整个网络的吞吐量将随负荷的增大而下降</li>
 </ul>
 <p>下图是吞吐量和输入负载的曲线</p>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/016.PNG" alt="016" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/016.PNG" alt="016" style="zoom:50%;" /></p>
 <h5 id="拥塞控制的四种算法"><a href="#拥塞控制的四种算法" class="headerlink" title="拥塞控制的四种算法"></a>拥塞控制的四种算法</h5><ul>
 <li>慢开始（slow-start）</li>
 <li>拥塞控制（congestion avoidance）</li>
@@ -422,9 +386,6 @@
 </ul>
 <p>例子</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">刚开始执行慢开始算法，达到初始的ssthresh后改用拥塞避免算法，在24号点假设出现了拥塞，更新cwnd的值和ssthresh的值并重新执行算法</span><br></pre></td></tr></table></figure>
-
-
-
 <p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/017.PNG" alt="017"></p>
 <ul>
 <li>慢开始是指一开始向网络注入的报文段少，并不是指拥塞串口cwnd增长速度慢</li>
@@ -444,8 +405,7 @@
 <li>发送放一旦收到3个连续的重复确认，就将相应的报文段立刻重传，而不是等待该报文的超时重传计时器超时在重传</li>
 </ul>
 <p>如下图所示</p>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/018.PNG" alt="018" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/018.PNG" alt="018" style="zoom:50%;" /></p>
 <ul>
 <li>发送方一旦收到3个重复确认，就知道现在只是丢失了可别的报文段，于是不启动慢开始算法，而执行<code>快恢复算法</code><ul>
 <li>发送方将慢开始门限ssthresh值和拥塞串口cwnd值调整为当前窗口的一半，开始执行拥塞避免算法，也有的可以增大一点在加3</li>
@@ -461,18 +421,13 @@
 <p>RTT: 往返时间</p>
 <p>RTO：超时重传时间</p>
 </blockquote>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/020.PNG" alt="020" style="zoom:50%;" />
-
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/021.PNG" alt="021" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/020.PNG" alt="020" style="zoom:50%;" /></p>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/021.PNG" alt="021" style="zoom:50%;" /></p>
 <p>以上情况是RTO过小和过大的情况，正确情况如下</p>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/022.PNG" alt="022" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/022.PNG" alt="022" style="zoom:50%;" /></p>
 <p>但是在现实的网络环境中，每次的时间都不是确定的，于是不能直接使用某次测量得到的RTT样本来计算超时重传时间RTO，可以利用每次测量得到的RTT样本，计算加权平均往返时间RTTs</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">第一次：</span><br><span class="line">	RTTs1 &#x3D; RTT1</span><br><span class="line">新的RTTs &#x3D; (1 - a) * 旧的RTTs + a * 新的RTT样本</span><br><span class="line">a的值推荐为1&#x2F;8</span><br><span class="line"></span><br><span class="line">RTO &#x3D; RTTs + 4 * RTTd</span><br></pre></td></tr></table></figure>
-
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/023.PNG" alt="023" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/023.PNG" alt="023" style="zoom:50%;" /></p>
 <p>这是新的标准</p>
 <h5 id="往返时间RTT的测量比较复杂"><a href="#往返时间RTT的测量比较复杂" class="headerlink" title="往返时间RTT的测量比较复杂"></a>往返时间RTT的测量比较复杂</h5><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/024.PNG" alt="024"></p>
 <ul>
@@ -481,10 +436,8 @@
 </ul>
 <p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/025.PNG" alt="025"></p>
 <h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/026.PNG" alt="026"></p>
-<h3 id="TCP的可靠传输的实现"><a href="#TCP的可靠传输的实现" class="headerlink" title="TCP的可靠传输的实现"></a>TCP的可靠传输的实现</h3><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/027.PNG" alt="027" style="zoom:50%;" />
-
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/028.PNG" alt="028" style="zoom:50%;" />
-
+<h3 id="TCP的可靠传输的实现"><a href="#TCP的可靠传输的实现" class="headerlink" title="TCP的可靠传输的实现"></a>TCP的可靠传输的实现</h3><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/027.PNG" alt="027" style="zoom:50%;" /></p>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/028.PNG" alt="028" style="zoom:50%;" /></p>
 <h3 id="TCP三次握手"><a href="#TCP三次握手" class="headerlink" title="TCP三次握手"></a>TCP三次握手</h3><ul>
 <li>TCP是面向连接的协议，它基于运输连接来传送TCP报文段</li>
 <li>TCP运输连接的建立和释放是每一次面向连接的通行中必不可少的过程</li>
@@ -505,17 +458,13 @@
 </ul>
 <p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/029.PNG" alt="029"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SYN: 同部位，如果有SYN，该数据报不发送数据，但是要一个序号</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>为什么二次握手不可以</li>
 </ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/030.PNG" alt="030" style="zoom:50%;" />
-
-<h3 id="TCP四次挥手"><a href="#TCP四次挥手" class="headerlink" title="TCP四次挥手"></a>TCP四次挥手</h3><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/032.PNG" alt="032" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/030.PNG" alt="030" style="zoom:50%;" /></p>
+<h3 id="TCP四次挥手"><a href="#TCP四次挥手" class="headerlink" title="TCP四次挥手"></a>TCP四次挥手</h3><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/032.PNG" alt="032" style="zoom:50%;" /></p>
 <p>为什么还需要时间等待</p>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/033.PNG" alt="033" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/033.PNG" alt="033" style="zoom:50%;" /></p>
 <h3 id="TCP首部格式"><a href="#TCP首部格式" class="headerlink" title="TCP首部格式"></a>TCP首部格式</h3><ul>
 <li>为了实现可靠传输，TCP采用了<code>面向字节流</code>的方式</li>
 <li>但TCP在发送数据时，是从发送缓存中取出一部分后全部字节并给其添加一个首部使之成为TCP报文段后进行发送<ul>
@@ -524,8 +473,7 @@
 </ul>
 </li>
 </ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/031.png" alt="031" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/031.png" alt="031" style="zoom:50%;" /></p>
 <ul>
 <li><p><strong>源端口和目的端口</strong> 各占2个字节，分别写入源端口和目的端口</p>
 </li>
@@ -669,7 +617,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -682,7 +630,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

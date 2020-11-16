@@ -5,11 +5,9 @@
     <url>/blog/2020/10/19/Introduction-to-Statistical-learning-and-Supervised-Learning/</url>
     <content><![CDATA[<h2 id="Introduction-to-Statistical-learning-and-Supervised-Learning"><a href="#Introduction-to-Statistical-learning-and-Supervised-Learning" class="headerlink" title="Introduction to Statistical learning and Supervised Learning"></a>Introduction to Statistical learning and Supervised Learning</h2><h3 id="本节概述"><a href="#本节概述" class="headerlink" title="本节概述"></a>本节概述</h3><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-19-Introduction-to-Statistical-learning-and-Supervised-Learning/001.PNG" alt="001"></p>
 <a id="more"></a>
-
 <h3 id="统计学习"><a href="#统计学习" class="headerlink" title="统计学习"></a>统计学习</h3><h5 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h5><p>统计学习是关于计算机基于数据构建概率模型并运用模型对数据进行预测和分析的一门学科，在如今的机器学习中，大多数算法也是根据数据来预测，所以也可以叫做机器学习方法</p>
 <h5 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h5><p>统计学习研究的对象是数据</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">	特征抽取</span><br><span class="line">data-------&gt;模型</span><br></pre></td></tr></table></figure>
-
 <h5 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h5><p>对数据进行预测和分析，使得计算机更加的智能化</p>
 <h5 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h5><p>统计学习的方法是基于<code>数据</code>构建<code>概率统计模型</code>从而对数据进行预测和分析</p>
 <p>实现统计学习方法的步骤如下：</p>
@@ -32,12 +30,10 @@
 <li>计算机智能化</li>
 </ul>
 <h3 id="统计学习分类"><a href="#统计学习分类" class="headerlink" title="统计学习分类"></a>统计学习分类</h3><h5 id="基本分类"><a href="#基本分类" class="headerlink" title="基本分类"></a>基本分类</h5><h6 id="监督学习"><a href="#监督学习" class="headerlink" title="监督学习"></a>监督学习</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">监督学习（supervised learning）是指从标注数据中学习预测模型的机器学习问题</span><br><span class="line">	已知输入和输出，训练模型， 得到最优模型，根据训练得到的模型预测其他数据</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>输入空间，特征空间，输出空间</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">将输入与输出所有可能取值的结合叫做输入空间和输出空间，可以是有限元素的集合，也可以是整个欧式空间</span><br><span class="line">每个具体的输入是一个实例，由特征向量表示。所有特征向量存在的空间称为特征空间</span><br></pre></td></tr></table></figure>
-
 <p><code>输入变量</code>与<code>输出变量</code>可以是<code>连续</code>的也可以是<code>离散</code>的</p>
 <ul>
 <li>联合概率分布</li>
@@ -66,14 +62,13 @@
 <p>建往往需要人工，成本较高，未标注数据的收集不需太多成本。半监督学习旨在利用</p>
 <p>未标注数据中的信息，辅助标注数据，进行监督学习，以较低的成本达到较好的学习</p>
 <p>效果。</p>
-<p><code>主动学习 Cactiv earning) </code>是指机器不断主动给出实例让教师进行标注，然后利</p>
+<p><code>主动学习 Cactiv earning)</code>是指机器不断主动给出实例让教师进行标注，然后利</p>
 <p>用标注数据学习预测模型的机器学习问题。通常的监督学习使用给定的标注数据，往</p>
 <p>往是随机得到的 ，可以看作是”被动学习” 主动学习的目标是找出对学习最有帮助的</p>
 <p>实例让教师标注，以较小的标注代价，达到较好的学习效果</p>
 <p>半监督学习和主动学习更接近监督学习。</p>
 <h5 id="按模型分类"><a href="#按模型分类" class="headerlink" title="按模型分类"></a>按模型分类</h5><h6 id="概率模型和非概率模型"><a href="#概率模型和非概率模型" class="headerlink" title="概率模型和非概率模型"></a>概率模型和非概率模型</h6><p>在监督学习中，概率模型是生成模型，非概率模型是判别模型</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">概率模型举例： 决策树，朴素贝叶斯，隐马尔可夫模型，条件随机场，概率潜在语义分析，潜在狄利克雷分配，高斯混合</span><br><span class="line">非概率模型： 感知机，支持向量机，k近邻，潜在语义分析，神经网络</span><br></pre></td></tr></table></figure>
-
 <h6 id="线性模型和非线性模型"><a href="#线性模型和非线性模型" class="headerlink" title="线性模型和非线性模型"></a>线性模型和非线性模型</h6><p>看模型函数是否是线性的</p>
 <h6 id="参数化模型与非参数化模型"><a href="#参数化模型与非参数化模型" class="headerlink" title="参数化模型与非参数化模型"></a>参数化模型与非参数化模型</h6><p><code>统计学习模型</code>又可以分为<code>参数化模型 (parametric model)</code>和`非参数化模型 (non</p>
 <p>parametric model) <code>。参数化模型假设模型参数的</code>维度`固定，模型可以由有限维参数完</p>
@@ -122,10 +117,9 @@
 <p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-19-Introduction-to-Statistical-learning-and-Supervised-Learning/011.PNG" alt="011"></p>
 <p><code>注意</code>：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">根据大数定律 当样本容量 趋于无穷时，经验风险趋于期望风险。所以一个很自然的想法是用经验风险估计期望风险。</span><br><span class="line">但是，由于现实中训练样本数目有限，甚至很小，所以用经验风险估计期望风险常常井不理想，要对经验风险进行 定的矫正。这就关系到监督学习的两个基本策略验风险最小化和结构风险最小化。</span><br></pre></td></tr></table></figure>
-
 <h6 id="经验风险最小化与结构风险最小化"><a href="#经验风险最小化与结构风险最小化" class="headerlink" title="经验风险最小化与结构风险最小化"></a>经验风险最小化与结构风险最小化</h6><p>在假设空间，损失函数以及训练数据集确定的情况下，经验风险函数就可以确定。</p>
 <p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-19-Introduction-to-Statistical-learning-and-Supervised-Learning/012.PNG" alt="012"></p>
-<p>从经验风险最小化来看，经验风险最小的模型是最优的模型。–&gt; 风险最小化求最优模型就是求解最优化问题</p>
+<p>从经验风险最小化来看，经验风险最小的模型是最优的模型。—&gt; 风险最小化求最优模型就是求解最优化问题</p>
 <blockquote>
 <p>当样本容量很小时，经验风险最小化学习的效果未必很好，会产生<code>过拟合</code>问题，为了防止过拟合，提出了结构风险最小化</p>
 </blockquote>
@@ -140,7 +134,7 @@
 <p>过拟合是指学习时选择的模型所包含的参数过多，以至出现这模型对己知数据预测得很好，但对未知数据预测得很差的现象。</p>
 </blockquote>
 <p>正则化和交叉验证就是为了解决过拟合</p>
-<h3 id="正则化与交叉验证"><a href="#正则化与交叉验证" class="headerlink" title="正则化与交叉验证"></a>正则化与交叉验证</h3><h5 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h5><p>模型选择的典型方法是<code>正则化 regularization) </code>。正则化是结构风险最小化策略的实现，是在经验风险上加 个<code>正则化项 (regularizer )</code>或<code>罚项(Cpena ty term)</code> 。正则化项一般是模型复杂度的单调递增函数，模型越复杂，正则化值就越大。比如 正则化项可以是<code>模型参数向量的范数</code>。</p>
+<h3 id="正则化与交叉验证"><a href="#正则化与交叉验证" class="headerlink" title="正则化与交叉验证"></a>正则化与交叉验证</h3><h5 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h5><p>模型选择的典型方法是<code>正则化 regularization)</code>。正则化是结构风险最小化策略的实现，是在经验风险上加 个<code>正则化项 (regularizer )</code>或<code>罚项(Cpena ty term)</code> 。正则化项一般是模型复杂度的单调递增函数，模型越复杂，正则化值就越大。比如 正则化项可以是<code>模型参数向量的范数</code>。</p>
 <ul>
 <li>L1范式</li>
 </ul>
@@ -183,17 +177,15 @@
     <content><![CDATA[<h2 id="socket编程"><a href="#socket编程" class="headerlink" title="socket编程"></a>socket编程</h2><blockquote>
 <p>转载 <a href="https://www.liujiangblog.com/course/python/76">https://www.liujiangblog.com/course/python/76</a></p>
 </blockquote>
-<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-19-python-socket%E7%BC%96%E7%A8%8B/002.PNG" alt="002"></p>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-19-python-socket编程/002.PNG" alt="002"></p>
 <a id="more"></a>
-
-<h3 id="流程图–重点"><a href="#流程图–重点" class="headerlink" title="流程图–重点"></a>流程图–重点</h3><p>socket是基于C/S架构的，也就是说进行socket网络编程，通常需要编写两个py文件，一个服务端，一个客户端。</p>
+<h3 id="流程图—重点"><a href="#流程图—重点" class="headerlink" title="流程图—重点"></a>流程图—重点</h3><p>socket是基于C/S架构的，也就是说进行socket网络编程，通常需要编写两个py文件，一个服务端，一个客户端。</p>
 <p>首先，导入Python中的socket模块： import socket</p>
 <p>Python中的socket通信逻辑如下图所示（图片来自网络）：</p>
-<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-19-python-socket%E7%BC%96%E7%A8%8B/001.png" alt="001"></p>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-19-python-socket编程/001.png" alt="001"></p>
 <p>这张逻辑图，是整个socket编程中的重点的重点，你必须将它理解、吃透，然后刻在脑海里，真正成为自己记忆的一部分！很多人说怎么都学不会socket编程，归根到底的原因就是没有“死记硬背”知识点。</p>
 <p>在Python中，<code>import socket</code>后，用<code>socket.socket()</code>方法来创建套接字，语法格式如下：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sk = socket.socket([family[, <span class="built_in">type</span>[, proto]]])</span><br></pre></td></tr></table></figure>
-
 <p>参数说明：</p>
 <ul>
 <li>family: 套接字家族，可以使<code>AF_UNIX</code>或者<code>AF_INET</code>。</li>
@@ -204,6 +196,7 @@
 <p>直接socket.socket(), 则全部使用默认值</p>
 </blockquote>
 <p>具体参数定义：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -211,7 +204,8 @@
 <th><strong>描述</strong></th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>socket.AF_UNIX</td>
 <td>只能够用于单一的Unix系统进程间通信</td>
 </tr>
@@ -247,8 +241,11 @@
 <td>创建UDP Socket：</td>
 <td>s=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>通过<code>s = socket.socket()</code>方法，我们可以获得一个socket对象s，也就是通常说的获取了一个“套接字”，该对象具有一下方法：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -256,7 +253,8 @@
 <th><strong>描述</strong></th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><strong>服务器端方法</strong></td>
 <td></td>
 </tr>
@@ -348,7 +346,9 @@
 <td>s.makefile()</td>
 <td>创建一个与该套接字相关连的文件</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p><strong>注意事项：</strong></p>
 <ol>
 <li>Python3以后，socket传递的都是<strong>bytes类型</strong>的数据，字符串需要先转换一下，<code>string.encode()</code>即可；另一端接收到的bytes数据想转换成字符串，只要<code>bytes.decode()</code>一下就可以。</li>
@@ -371,38 +371,15 @@
 <p>Python的socket编程，通常可分为TCP和UDP编程两种，前者是带连接的可靠传输服务，每次通信都要握手，结束传输也要挥手，数据会被检验，是使用最广的通用模式；后者是不带连接的传输服务，简单粗暴，不加控制和检查的一股脑将数据发送出去的方式，但是传输速度快，通常用于安全和可靠等级不高的业务场景，比如文件下载。</p>
 <h3 id="TCP编程"><a href="#TCP编程" class="headerlink" title="TCP编程"></a>TCP编程</h3><p><strong>服务器端：</strong></p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line">ip_port = (<span class="string">&#x27;127.0.0.1&#x27;</span>, <span class="number">9999</span>)</span><br><span class="line"></span><br><span class="line">sk = socket.socket()            <span class="comment"># 创建套接字</span></span><br><span class="line">sk.bind(ip_port)                <span class="comment"># 绑定服务地址</span></span><br><span class="line">sk.listen(<span class="number">5</span>)                    <span class="comment"># 监听连接请求</span></span><br><span class="line">print(<span class="string">&#x27;启动socket服务，等待客户端连接...&#x27;</span>)</span><br><span class="line">conn, address = sk.accept()     <span class="comment"># 等待连接，此处自动阻塞</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:     <span class="comment"># 一个死循环，直到客户端发送‘exit’的信号，才关闭连接</span></span><br><span class="line">    client_data = conn.recv(<span class="number">1024</span>).decode()      <span class="comment"># 接收信息</span></span><br><span class="line">    <span class="keyword">if</span> client_data == <span class="string">&quot;exit&quot;</span>:       <span class="comment"># 判断是否退出连接</span></span><br><span class="line">        exit(<span class="string">&quot;通信结束&quot;</span>)</span><br><span class="line">    print(<span class="string">&quot;来自%s的客户端向你发来信息：%s&quot;</span> % (address, client_data))</span><br><span class="line">    conn.sendall(<span class="string">&#x27;服务器已经收到你的信息&#x27;</span>.encode())    <span class="comment"># 回馈信息给客户端</span></span><br><span class="line">conn.close()    <span class="comment"># 关闭连接</span></span><br></pre></td></tr></table></figure>
-
 <p><strong>客户端：</strong></p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line">ip_port = (<span class="string">&#x27;127.0.0.1&#x27;</span>, <span class="number">9999</span>)</span><br><span class="line"></span><br><span class="line">s = socket.socket()     <span class="comment"># 创建套接字</span></span><br><span class="line"></span><br><span class="line">s.connect(ip_port)      <span class="comment"># 连接服务器</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:     <span class="comment"># 通过一个死循环不断接收用户输入，并发送给服务器</span></span><br><span class="line">    inp = <span class="built_in">input</span>(<span class="string">&quot;请输入要发送的信息： &quot;</span>).strip()</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> inp:     <span class="comment"># 防止输入空信息，导致异常退出</span></span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    s.sendall(inp.encode())</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> inp == <span class="string">&quot;exit&quot;</span>:   <span class="comment"># 如果输入的是‘exit’，表示断开连接</span></span><br><span class="line">        print(<span class="string">&quot;结束通信！&quot;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    server_reply = s.recv(<span class="number">1024</span>).decode()</span><br><span class="line">    print(server_reply)</span><br><span class="line"></span><br><span class="line">s.close()       <span class="comment"># 关闭连接</span></span><br></pre></td></tr></table></figure>
-
 <p>上面这个例子，基本能够展示出socket通信的机制。套接字的创建和关闭，服务器的绑定和监听，客户端的连接，这些都是固定套路，没什么难点。关键之处在于循环内部的收发逻辑，这里才是重点，需要根据你自己的业务需求，正确编写。这个过程中，一定要注意，收发是一一对应的，有发就要有收，并且recv()方法默认是阻塞的。</p>
 <p>大家可以在自己的环境中测试上面的例子，并加入更多的内容，不断地进行尝试。然而试过之后，你们会发现，虽然服务器和客户端在一对一的情况下，工作良好，但是，如果有多个客户端同时连接同一个服务器呢？结果可能不太令人满意，因为服务器无法同时对多个客户端提供服务。为什么会这样呢？因为Python的socket模块，默认情况下创建的是单进程单线程，同时只能处理一个连接请求，如果要实现多用户服务，那么需要使用多线程机制。</p>
 <p>下面我们使用Python内置的threading模块，配合socket模块创建多线程服务器。客户端的代码不需要修改，可以继续使用。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> threading        <span class="comment"># 导入线程模块</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">link_handler</span>(<span class="params">link, client</span>):</span>     </span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    该函数为线程需要执行的函数，负责具体的服务器和客户端之间的通信工作</span></span><br><span class="line"><span class="string">    :param link: 当前线程处理的连接</span></span><br><span class="line"><span class="string">    :param client: 客户端ip和端口信息，一个二元元组</span></span><br><span class="line"><span class="string">    :return: None</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    print(<span class="string">&quot;服务器开始接收来自[%s:%s]的请求....&quot;</span> % (client[<span class="number">0</span>], client[<span class="number">1</span>]))</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:     <span class="comment"># 利用一个死循环，保持和客户端的通信状态</span></span><br><span class="line">        client_data = link.recv(<span class="number">1024</span>).decode()</span><br><span class="line">        <span class="keyword">if</span> client_data == <span class="string">&quot;exit&quot;</span>:</span><br><span class="line">            print(<span class="string">&quot;结束与[%s:%s]的通信...&quot;</span> % (client[<span class="number">0</span>], client[<span class="number">1</span>]))</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        print(<span class="string">&quot;来自[%s:%s]的客户端向你发来信息：%s&quot;</span> % (client[<span class="number">0</span>], client[<span class="number">1</span>], client_data))</span><br><span class="line">        link.sendall(<span class="string">&#x27;服务器已经收到你的信息&#x27;</span>.encode())</span><br><span class="line">    link.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ip_port = (<span class="string">&#x27;127.0.0.1&#x27;</span>, <span class="number">9999</span>)</span><br><span class="line">sk = socket.socket()            <span class="comment"># 创建套接字</span></span><br><span class="line">sk.bind(ip_port)                <span class="comment"># 绑定服务地址</span></span><br><span class="line">sk.listen(<span class="number">5</span>)                    <span class="comment"># 监听连接请求</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">&#x27;启动socket服务，等待客户端连接...&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:     <span class="comment"># 一个死循环，不断的接受客户端发来的连接请求</span></span><br><span class="line">    conn, address = sk.accept()  <span class="comment"># 等待连接，此处自动阻塞</span></span><br><span class="line">    <span class="comment"># 每当有新的连接过来，自动创建一个新的线程，</span></span><br><span class="line">    <span class="comment"># 并将连接对象和访问者的ip信息作为参数传递给线程的执行函数</span></span><br><span class="line">    t = threading.Thread(target=link_handler, args=(conn, address))</span><br><span class="line">    t.start()</span><br></pre></td></tr></table></figure>
-
 <p>启动这个多线程服务器，然后多运行几个客户端，可以很明显地看到，服务器能够同时与多个客户端通信，基本达到我们的目的。</p>
 <h3 id="UDP编程"><a href="#UDP编程" class="headerlink" title="UDP编程"></a>UDP编程</h3><p>相对TCP编程，UDP编程就简单多了，当然可靠性和安全性也差很多。由于UDP没有握手和挥手的过程，因此accept()和connect()方法都不需要。下面是一个简单的例子：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 服务端</span></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line">ip_port = (<span class="string">&#x27;127.0.0.1&#x27;</span>, <span class="number">9999</span>)</span><br><span class="line">sk = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, <span class="number">0</span>)</span><br><span class="line">sk.bind(ip_port)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    data = sk.recv(<span class="number">1024</span>).strip().decode()</span><br><span class="line">    print(data)</span><br><span class="line">    <span class="keyword">if</span> data == <span class="string">&quot;exit&quot;</span>:</span><br><span class="line">        print(<span class="string">&quot;客户端主动断开连接！&quot;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">sk.close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 客户端</span></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line">ip_port = (<span class="string">&#x27;127.0.0.1&#x27;</span>, <span class="number">9999</span>)</span><br><span class="line"></span><br><span class="line">sk = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, <span class="number">0</span>)</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    inp = <span class="built_in">input</span>(<span class="string">&#x27;发送的消息：&#x27;</span>).strip()</span><br><span class="line">    sk.sendto(inp.encode(), ip_port)</span><br><span class="line">    <span class="keyword">if</span> inp == <span class="string">&#x27;exit&#x27;</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">sk.close()</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>python</category>
-        <category>socket</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>TCP_chat_room</title>
-    <url>/blog/2020/10/26/TCP-chat-room/</url>
-    <content><![CDATA[<h2 id="TCP-chat-room"><a href="#TCP-chat-room" class="headerlink" title="TCP_chat_room"></a>TCP_chat_room</h2><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>利用socket编程和多线程的思想，在客户端使用两个线程，一个用于接收信息，一个用于发送信息，在服务器端通过保存客户端连接的套接字，在接受到客户端发来的信息后，向其他的客户端转发消息</p>
-<a id="more"></a>
-
-<h3 id="服务器端代码"><a href="#服务器端代码" class="headerlink" title="服务器端代码"></a>服务器端代码</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python </span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> threading <span class="keyword">import</span> Thread</span><br><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> os,sys</span><br><span class="line"><span class="comment">#conn_stat = &#123;&#125;  ###  conn:&#x27;true&#x27;  存储套接字的状态　true为运行　　false 为结束线程</span></span><br><span class="line">Host = <span class="string">&#x27;0.0.0.0&#x27;</span></span><br><span class="line">Post = <span class="number">9696</span></span><br><span class="line">address = (Host,Post)</span><br><span class="line">chat_name=&#123;&#125;</span><br><span class="line">jobs=&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">do_login</span>(<span class="params">conn,name</span>):</span></span><br><span class="line">	<span class="keyword">if</span> name <span class="keyword">not</span> <span class="keyword">in</span> chat_name:</span><br><span class="line">		conn.send(<span class="string">b&#x27;OK&#x27;</span>)</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		conn.send(<span class="string">&quot;昵称已经存在&quot;</span>.encode())</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	msg = <span class="string">&quot;%s 进入9696聊天室&quot;</span> %name</span><br><span class="line">	<span class="keyword">for</span> c <span class="keyword">in</span> chat_name:</span><br><span class="line">		chat_name[c].send(msg.encode())</span><br><span class="line">	chat_name[name] = conn</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">do_chat</span>(<span class="params">conn,msg,name</span>):</span></span><br><span class="line">	text = <span class="string">&quot;%s :%s&quot;</span>%(name,msg)</span><br><span class="line">	<span class="keyword">for</span> n <span class="keyword">in</span> chat_name:</span><br><span class="line">		<span class="keyword">if</span> n != name:</span><br><span class="line">			chat_name[n].send(text.encode())</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">do_quit</span>(<span class="params">conn,name</span>):</span></span><br><span class="line">	msg = <span class="string">&quot;%s 退出9696聊天室了&quot;</span>%name</span><br><span class="line">	<span class="keyword">for</span> c <span class="keyword">in</span> chat_name:</span><br><span class="line">		<span class="keyword">if</span> c == name:</span><br><span class="line">			conn.send(<span class="string">b&#x27;q&#x27;</span>)</span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			chat_name[c].send(msg.encode())</span><br><span class="line">	<span class="keyword">del</span> chat_name[name]</span><br><span class="line">	<span class="comment">#conn_stat[conn] = &#x27;false&#x27;</span></span><br><span class="line">	conn.close()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">do_request</span>(<span class="params">conn</span>):</span></span><br><span class="line">	<span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">		data = conn.recv(<span class="number">1024</span>).decode().strip().split(<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">		<span class="keyword">if</span> data[<span class="number">0</span>] == <span class="string">&#x27;L&#x27;</span>:</span><br><span class="line">			name = data[<span class="number">-1</span>]</span><br><span class="line">			do_login(conn,name)</span><br><span class="line">		<span class="keyword">elif</span> data[<span class="number">0</span>] == <span class="string">&#x27;C&#x27;</span>:</span><br><span class="line">			name = data[<span class="number">-1</span>]</span><br><span class="line">			msg = <span class="string">&#x27;&#x27;</span>.join(data[<span class="number">1</span>:<span class="number">-1</span>])</span><br><span class="line">			do_chat(conn,msg,name)</span><br><span class="line">		<span class="keyword">elif</span> data[<span class="number">0</span>] == <span class="string">&#x27;Q&#x27;</span>:</span><br><span class="line">			name = data[<span class="number">-1</span>]</span><br><span class="line">			do_quit(conn,name)</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">	sockfd = socket()</span><br><span class="line">	sockfd.setsockopt(SOL_SOCKET,SO_REUSEADDR,<span class="number">1</span>)</span><br><span class="line">	sockfd.bind(address)</span><br><span class="line">	sockfd.listen(<span class="number">5</span>)</span><br><span class="line">	<span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">		<span class="keyword">try</span>:</span><br><span class="line">			conn,addr = sockfd.accept()</span><br><span class="line">		<span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">			sockfd.close()</span><br><span class="line">			sys.exit(<span class="string">&quot;退出&quot;</span>)</span><br><span class="line">		<span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">			print(e)</span><br><span class="line">			<span class="keyword">continue</span></span><br><span class="line">		print(<span class="string">&quot;Connect from:&quot;</span>,addr)</span><br><span class="line">		t = Thread(target=do_request,args=(conn,))</span><br><span class="line">		t.start()</span><br><span class="line">		jobs[conn] = t</span><br><span class="line">	<span class="comment">#conn_stat[conn] = &#x27;true&#x27;</span></span><br><span class="line">	<span class="comment">###回收线程　　当有线程结束，只有当新的客户端连接进来才会回收结束的线程</span></span><br><span class="line">	<span class="keyword">for</span> c <span class="keyword">in</span> jobs:</span><br><span class="line">		<span class="keyword">if</span> c._closed <span class="keyword">is</span> <span class="literal">True</span>:</span><br><span class="line">			jobs[c].join()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">	main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os,sys,signal</span><br><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line">server_addr = ((<span class="string">&#x27;127.0.0.1&#x27;</span>,<span class="number">9696</span>))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">msg_recv</span>(<span class="params">sockfd</span>):</span>     <span class="comment">##接收消息</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        data = sockfd.recv(<span class="number">1024</span>)</span><br><span class="line">        <span class="keyword">if</span> data.decode() == <span class="string">&#x27;q&#x27;</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        print(data.decode())</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">msg_send</span>(<span class="params">sockfd,name</span>):</span>      <span class="comment">##发送消息</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            data = <span class="built_in">input</span>(<span class="string">&quot;发言&gt;&gt;&quot;</span>)</span><br><span class="line">        <span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">            data = <span class="string">&#x27;quit&#x27;</span></span><br><span class="line">        <span class="keyword">if</span> data == <span class="string">&#x27;quit&#x27;</span>:  <span class="comment">##退出</span></span><br><span class="line">            msg = <span class="string">&#x27;Q %s&#x27;</span>%name</span><br><span class="line">            sockfd.send(msg.encode())</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            msg = <span class="string">&#x27;C %s %s&#x27;</span>%(data,name)</span><br><span class="line">            sockfd.send(msg.encode())</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    sockfd = socket()<span class="comment">##创建套接字</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        sockfd.connect(server_addr)</span><br><span class="line">    <span class="keyword">except</span> Exception:</span><br><span class="line">        print(<span class="string">&quot;连接失败&quot;</span>)</span><br><span class="line">        sockfd.close()</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        name = <span class="built_in">input</span>(<span class="string">&quot;请输入昵称:&quot;</span>)</span><br><span class="line">        sockfd.send((<span class="string">&#x27;L &#x27;</span>+name).encode())</span><br><span class="line">        data = sockfd.recv(<span class="number">128</span>)</span><br><span class="line">        <span class="keyword">if</span> data.decode() == <span class="string">&#x27;OK&#x27;</span>:</span><br><span class="line">            print(<span class="string">&quot;你已经进入9696聊天室&quot;</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(data.decode())</span><br><span class="line"></span><br><span class="line">    t = threading.Thread(target=msg_recv, args=(sockfd, ))</span><br><span class="line">    t1 = threading.Thread(target=msg_send, args=(sockfd,name))</span><br><span class="line">    t.start()</span><br><span class="line">    t1.start()</span><br><span class="line">	<span class="comment"># t=threading.Thread(target=msg_recv, args=(sockfd,) )</span></span><br><span class="line">	<span class="comment"># t.start()</span></span><br><span class="line">	<span class="comment"># t1=threading.Thread(target=msg_send, args=(sockfd,name) )</span></span><br><span class="line">	<span class="comment"># t1.start()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
 ]]></content>
       <categories>
         <category>python</category>
@@ -418,19 +395,15 @@
     <content><![CDATA[<h2 id="UDP-chat-room"><a href="#UDP-chat-room" class="headerlink" title="UDP_chat_room"></a>UDP_chat_room</h2><blockquote>
 <p>转载 链接：<a href="https://www.jianshu.com/p/b3ce5264dda4">https://www.jianshu.com/p/b3ce5264dda4</a></p>
 </blockquote>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-20-UDP-chat-room/001.png" alt="001" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-20-UDP-chat-room/001.png" alt="001" style="zoom:50%;" /></p>
 <a id="more"></a>
-
 <p>使用Python socket编程实现简单的聊天室功能。</p>
 <p>服务器和客户端使用UDP编程，客户端两个线程一个负责接收，一个负责发送。</p>
 <p>服务器：接收消息并保存地址，如果触发‘EXIT’关键字则从地址表中移除该地址</p>
 <p>服务端</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -*- encoding = utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">	<span class="comment"># 1. 创建socket对象</span></span><br><span class="line">	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)</span><br><span class="line"></span><br><span class="line">	<span class="comment"># 2. 绑定端口</span></span><br><span class="line">	addr = (<span class="string">&#x27;127.0.0.1&#x27;</span>, <span class="number">9999</span>)</span><br><span class="line">	s.bind(addr)</span><br><span class="line"></span><br><span class="line">	print(<span class="string">&quot;upd server is running on %s:%s...&quot;</span> % (addr[<span class="number">0</span>], addr[<span class="number">1</span>]))</span><br><span class="line"></span><br><span class="line">	<span class="comment"># 保存所有连接</span></span><br><span class="line">	user = &#123;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment"># 3. 因为是UDP，所以不需要accept，进入循环处理链接</span></span><br><span class="line">	<span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">		<span class="keyword">try</span>:</span><br><span class="line">			data, addr = s.recvfrom(<span class="number">1024</span>)</span><br><span class="line">			<span class="keyword">if</span> <span class="keyword">not</span> addr <span class="keyword">in</span> user:</span><br><span class="line">				<span class="keyword">for</span> address <span class="keyword">in</span> user:</span><br><span class="line">					s.sendto(data + <span class="string">&#x27; 进入聊天室...&#x27;</span>.encode(), address)</span><br><span class="line">				user[addr] = data.decode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">				<span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">			<span class="keyword">if</span> <span class="string">&#x27;EXIT&#x27;</span> <span class="keyword">in</span> data.decode(<span class="string">&#x27;utf-8&#x27;</span>):</span><br><span class="line">				name = user[addr]</span><br><span class="line">				user.pop(addr)</span><br><span class="line">				<span class="keyword">for</span> address <span class="keyword">in</span> user:</span><br><span class="line">					s.sendto((name + <span class="string">&#x27;离开了聊天室...&#x27;</span>).encode(), address)</span><br><span class="line">			<span class="keyword">else</span>:</span><br><span class="line">				print(<span class="string">&#x27;&quot;%s&quot; from %s:%s&#x27;</span> % (data.decode(<span class="string">&#x27;utf-8&#x27;</span>), addr[<span class="number">0</span>], addr[<span class="number">1</span>]))</span><br><span class="line">				<span class="keyword">for</span> address <span class="keyword">in</span> user:</span><br><span class="line">					<span class="keyword">if</span> address != addr:</span><br><span class="line">						s.sendto(data, address)</span><br><span class="line">		<span class="keyword">except</span> ConnectionResetError:</span><br><span class="line">			logging.warning(<span class="string">&#x27;someone left unexcept&#x27;</span>)</span><br><span class="line"></span><br><span class="line">	s.close()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">	main()</span><br></pre></td></tr></table></figure>
-
 <p>客户端：两个线程，并设置接收线程为守护线程</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">recv</span>(<span class="params">sock, addr</span>):</span></span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    一个UDP连接在接收消息前必须要让系统知道所占端口</span></span><br><span class="line"><span class="string">    也就是需要send一次，否则win下会报错</span></span><br><span class="line"><span class="string">    “   data=sock.recv(1024)</span></span><br><span class="line"><span class="string">        OSError: [WinError 10022] 提供了一个无效的参数。   ”</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line">    sock.sendto(name.encode(<span class="string">&#x27;utf-8&#x27;</span>), addr)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        data = sock.recv(<span class="number">1024</span>)</span><br><span class="line">        print(data.decode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send</span>(<span class="params">sock, addr</span>):</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        string = <span class="built_in">input</span>()</span><br><span class="line">        message = name + <span class="string">&#x27; : &#x27;</span> + string</span><br><span class="line">        data = message.encode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">        sock.sendto(data, addr)</span><br><span class="line">        <span class="keyword">if</span> string == <span class="string">&#x27;EXIT&#x27;</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)</span><br><span class="line">    server = (<span class="string">&#x27;127.0.0.1&#x27;</span>, <span class="number">9999</span>)</span><br><span class="line"></span><br><span class="line">    tr = threading.Thread(target=recv, args=(s, server), daemon=<span class="literal">True</span>)</span><br><span class="line">    ts = threading.Thread(target=send, args=(s, server))</span><br><span class="line">    tr.start()</span><br><span class="line">    ts.start()</span><br><span class="line">    ts.join()</span><br><span class="line">    s.close()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    print(<span class="string">&quot;-----欢迎来到聊天室,退出聊天室请输入&#x27;EXIT&#x27;-----&quot;</span>)</span><br><span class="line">    name = <span class="built_in">input</span>(<span class="string">&#x27;请输入你的名称:&#x27;</span>)</span><br><span class="line">    print(<span class="string">&#x27;-----------------%s------------------&#x27;</span> % name)</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>python</category>
@@ -441,30 +414,10 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/blog/2020/10/18/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>TCP</title>
     <url>/blog/2020/10/23/TCP/</url>
-    <content><![CDATA[<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/001.PNG" alt="思维导图" style="zoom: 50%;" />
-
+    <content><![CDATA[<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/001.PNG" alt="思维导图" style="zoom: 50%;" /></p>
 <a id="more"></a>
-
 <h3 id="TCP流量控制"><a href="#TCP流量控制" class="headerlink" title="TCP流量控制"></a>TCP流量控制</h3><p>一般来说，我们总是希望数据传输快一些</p>
 <blockquote>
 <p>但是如果发送方吧数据发送得过快，接收方就可能来不及接收，这就会造成数据的丢失</p>
@@ -479,91 +432,58 @@
 <li>第一步：初始主机B的接送窗口设置为400， 并告诉A，主机A就把发送窗口的值设为400</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DATA 表示这是一个TCP数据报文段</span><br><span class="line">seq 是TCP报文首部中的序号字段</span><br></pre></td></tr></table></figure>
-
-
-
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/002.PNG" alt="002" style="zoom:50%;" />
-
-
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/002.PNG" alt="002" style="zoom:50%;" /></p>
 <ul>
 <li>第二步：因为未达到窗口的大小，接着发送数据</li>
 </ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/003.PNG" alt="003" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/003.PNG" alt="003" style="zoom:50%;" /></p>
 <ul>
 <li>假设在发送201-300数据段的过程中，数据丢失了，主机A窗口还有100字节数据可以发送</li>
 </ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/004.PNG" alt="004" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/004.PNG" alt="004" style="zoom:50%;" /></p>
 <ul>
 <li>主机B对201号以前的数据进行累计确认，并将接收窗口调整为300</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ACK: 是TCP报文段首部中的标志位， 为1：表示这是一个TCP确认报文段</span><br><span class="line">ack: 是TCP报文首部字段中的确认报文段，表示201之前的数据已经接收到了</span><br><span class="line">rwnd: TCP 报文中的窗口字段</span><br></pre></td></tr></table></figure>
-
-
-
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/005.PNG" alt="005" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/005.PNG" alt="005" style="zoom:50%;" /></p>
 <ul>
 <li>主机A在接收到确认报文段之后，将已经接收到的字段移出窗口，并且窗口前移，将窗口的大小设置为300，并开始发送301-400数据</li>
 </ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/006.PNG" alt="006" style="zoom:50%;" />
-
-
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/006.PNG" alt="006" style="zoom:50%;" /></p>
 <ul>
 <li>接着发送401-500的数据， 发送后，已经到达窗口大小，不能再发送新数据了</li>
 </ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/007.PNG" alt="007" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/007.PNG" alt="007" style="zoom:50%;" /></p>
 <ul>
 <li>201-300数据段的重传计时器超时了，开始重传</li>
 </ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/008.PNG" alt="008" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/008.PNG" alt="008" style="zoom:50%;" /></p>
 <ul>
 <li>主机B接收到201-300的数据后，对收到501后之前的数据进行累计确认，并将接收窗口调整为100，对主机进行流量控制</li>
 </ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/009.PNG" alt="009" style="zoom:50%;" />
-
-
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/009.PNG" alt="009" style="zoom:50%;" /></p>
 <ul>
 <li>主机A接收到主机B发送来的确认报文段之后，在接下来中，移动窗口，并将窗口大小改为100</li>
 </ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/010.PNG" alt="010" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/010.PNG" alt="010" style="zoom:50%;" /></p>
 <ul>
 <li>清除已经发成发送的数据段，并开始发送501-600号数据</li>
 </ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/011.PNG" alt="011" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/011.PNG" alt="011" style="zoom:50%;" /></p>
 <ul>
 <li>主机B接收到501-600号数据，并向A发送确认报文段，并且将接收窗口调整为了0</li>
 </ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/012.PNG" alt="012" style="zoom:50%;" />
-
-
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/012.PNG" alt="012" style="zoom:50%;" /></p>
 <ul>
 <li>主机A接收到确认报文段之后，将发送窗口的值改为0</li>
 </ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/013.PNG" alt="013" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/013.PNG" alt="013" style="zoom:50%;" /></p>
 <ul>
 <li>如果非0窗口的通知一直未到达，将一直阻塞下去</li>
 </ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/014.PNG" alt="014" style="zoom:50%;" />
-
-
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/014.PNG" alt="014" style="zoom:50%;" /></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">解决方法： 为0窗口报文段设置了持续计时器，如果持续计时器超时，主机A就发送0窗口探测报文，如果主机B返回的窗口值依然为0，则重新启动持续计时器</span><br></pre></td></tr></table></figure>
-
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/015.PNG" alt="015" style="zoom:50%;" />
-
-
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/015.PNG" alt="015" style="zoom:50%;" /></p>
 <h3 id="TCP的拥塞控制"><a href="#TCP的拥塞控制" class="headerlink" title="TCP的拥塞控制"></a>TCP的拥塞控制</h3><ul>
 <li>在某段时间，若<code>对网络中某一资源的需求超过了该资源所能提供的可用部分，网路性能就要被破坏</code>，这种情况叫做<code>拥塞（congestion）</code></li>
 </ul>
@@ -574,8 +494,7 @@
 <li>若出现拥塞而不进行控制，整个网络的吞吐量将随负荷的增大而下降</li>
 </ul>
 <p>下图是吞吐量和输入负载的曲线</p>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/016.PNG" alt="016" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/016.PNG" alt="016" style="zoom:50%;" /></p>
 <h5 id="拥塞控制的四种算法"><a href="#拥塞控制的四种算法" class="headerlink" title="拥塞控制的四种算法"></a>拥塞控制的四种算法</h5><ul>
 <li>慢开始（slow-start）</li>
 <li>拥塞控制（congestion avoidance）</li>
@@ -600,9 +519,6 @@
 </ul>
 <p>例子</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">刚开始执行慢开始算法，达到初始的ssthresh后改用拥塞避免算法，在24号点假设出现了拥塞，更新cwnd的值和ssthresh的值并重新执行算法</span><br></pre></td></tr></table></figure>
-
-
-
 <p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/017.PNG" alt="017"></p>
 <ul>
 <li>慢开始是指一开始向网络注入的报文段少，并不是指拥塞串口cwnd增长速度慢</li>
@@ -622,8 +538,7 @@
 <li>发送放一旦收到3个连续的重复确认，就将相应的报文段立刻重传，而不是等待该报文的超时重传计时器超时在重传</li>
 </ul>
 <p>如下图所示</p>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/018.PNG" alt="018" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/018.PNG" alt="018" style="zoom:50%;" /></p>
 <ul>
 <li>发送方一旦收到3个重复确认，就知道现在只是丢失了可别的报文段，于是不启动慢开始算法，而执行<code>快恢复算法</code><ul>
 <li>发送方将慢开始门限ssthresh值和拥塞串口cwnd值调整为当前窗口的一半，开始执行拥塞避免算法，也有的可以增大一点在加3</li>
@@ -639,18 +554,13 @@
 <p>RTT: 往返时间</p>
 <p>RTO：超时重传时间</p>
 </blockquote>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/020.PNG" alt="020" style="zoom:50%;" />
-
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/021.PNG" alt="021" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/020.PNG" alt="020" style="zoom:50%;" /></p>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/021.PNG" alt="021" style="zoom:50%;" /></p>
 <p>以上情况是RTO过小和过大的情况，正确情况如下</p>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/022.PNG" alt="022" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/022.PNG" alt="022" style="zoom:50%;" /></p>
 <p>但是在现实的网络环境中，每次的时间都不是确定的，于是不能直接使用某次测量得到的RTT样本来计算超时重传时间RTO，可以利用每次测量得到的RTT样本，计算加权平均往返时间RTTs</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">第一次：</span><br><span class="line">	RTTs1 &#x3D; RTT1</span><br><span class="line">新的RTTs &#x3D; (1 - a) * 旧的RTTs + a * 新的RTT样本</span><br><span class="line">a的值推荐为1&#x2F;8</span><br><span class="line"></span><br><span class="line">RTO &#x3D; RTTs + 4 * RTTd</span><br></pre></td></tr></table></figure>
-
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/023.PNG" alt="023" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/023.PNG" alt="023" style="zoom:50%;" /></p>
 <p>这是新的标准</p>
 <h5 id="往返时间RTT的测量比较复杂"><a href="#往返时间RTT的测量比较复杂" class="headerlink" title="往返时间RTT的测量比较复杂"></a>往返时间RTT的测量比较复杂</h5><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/024.PNG" alt="024"></p>
 <ul>
@@ -659,10 +569,8 @@
 </ul>
 <p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/025.PNG" alt="025"></p>
 <h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/026.PNG" alt="026"></p>
-<h3 id="TCP的可靠传输的实现"><a href="#TCP的可靠传输的实现" class="headerlink" title="TCP的可靠传输的实现"></a>TCP的可靠传输的实现</h3><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/027.PNG" alt="027" style="zoom:50%;" />
-
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/028.PNG" alt="028" style="zoom:50%;" />
-
+<h3 id="TCP的可靠传输的实现"><a href="#TCP的可靠传输的实现" class="headerlink" title="TCP的可靠传输的实现"></a>TCP的可靠传输的实现</h3><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/027.PNG" alt="027" style="zoom:50%;" /></p>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/028.PNG" alt="028" style="zoom:50%;" /></p>
 <h3 id="TCP三次握手"><a href="#TCP三次握手" class="headerlink" title="TCP三次握手"></a>TCP三次握手</h3><ul>
 <li>TCP是面向连接的协议，它基于运输连接来传送TCP报文段</li>
 <li>TCP运输连接的建立和释放是每一次面向连接的通行中必不可少的过程</li>
@@ -683,17 +591,13 @@
 </ul>
 <p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/029.PNG" alt="029"></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SYN: 同部位，如果有SYN，该数据报不发送数据，但是要一个序号</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>为什么二次握手不可以</li>
 </ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/030.PNG" alt="030" style="zoom:50%;" />
-
-<h3 id="TCP四次挥手"><a href="#TCP四次挥手" class="headerlink" title="TCP四次挥手"></a>TCP四次挥手</h3><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/032.PNG" alt="032" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/030.PNG" alt="030" style="zoom:50%;" /></p>
+<h3 id="TCP四次挥手"><a href="#TCP四次挥手" class="headerlink" title="TCP四次挥手"></a>TCP四次挥手</h3><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/032.PNG" alt="032" style="zoom:50%;" /></p>
 <p>为什么还需要时间等待</p>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/033.PNG" alt="033" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/033.PNG" alt="033" style="zoom:50%;" /></p>
 <h3 id="TCP首部格式"><a href="#TCP首部格式" class="headerlink" title="TCP首部格式"></a>TCP首部格式</h3><ul>
 <li>为了实现可靠传输，TCP采用了<code>面向字节流</code>的方式</li>
 <li>但TCP在发送数据时，是从发送缓存中取出一部分后全部字节并给其添加一个首部使之成为TCP报文段后进行发送<ul>
@@ -702,8 +606,7 @@
 </ul>
 </li>
 </ul>
-<img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/031.png" alt="031" style="zoom:50%;" />
-
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-10-23-TCP/031.png" alt="031" style="zoom:50%;" /></p>
 <ul>
 <li><p><strong>源端口和目的端口</strong> 各占2个字节，分别写入源端口和目的端口</p>
 </li>
@@ -759,12 +662,26 @@
       </tags>
   </entry>
   <entry>
+    <title>TCP_chat_room</title>
+    <url>/blog/2020/10/26/TCP-chat-room/</url>
+    <content><![CDATA[<h2 id="TCP-chat-room"><a href="#TCP-chat-room" class="headerlink" title="TCP_chat_room"></a>TCP_chat_room</h2><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>利用socket编程和多线程的思想，在客户端使用两个线程，一个用于接收信息，一个用于发送信息，在服务器端通过保存客户端连接的套接字，在接受到客户端发来的信息后，向其他的客户端转发消息</p>
+<a id="more"></a>
+<h3 id="服务器端代码"><a href="#服务器端代码" class="headerlink" title="服务器端代码"></a>服务器端代码</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python </span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> threading <span class="keyword">import</span> Thread</span><br><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> os,sys</span><br><span class="line"><span class="comment">#conn_stat = &#123;&#125;  ###  conn:&#x27;true&#x27;  存储套接字的状态　true为运行　　false 为结束线程</span></span><br><span class="line">Host = <span class="string">&#x27;0.0.0.0&#x27;</span></span><br><span class="line">Post = <span class="number">9696</span></span><br><span class="line">address = (Host,Post)</span><br><span class="line">chat_name=&#123;&#125;</span><br><span class="line">jobs=&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">do_login</span>(<span class="params">conn,name</span>):</span></span><br><span class="line">	<span class="keyword">if</span> name <span class="keyword">not</span> <span class="keyword">in</span> chat_name:</span><br><span class="line">		conn.send(<span class="string">b&#x27;OK&#x27;</span>)</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		conn.send(<span class="string">&quot;昵称已经存在&quot;</span>.encode())</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	msg = <span class="string">&quot;%s 进入9696聊天室&quot;</span> %name</span><br><span class="line">	<span class="keyword">for</span> c <span class="keyword">in</span> chat_name:</span><br><span class="line">		chat_name[c].send(msg.encode())</span><br><span class="line">	chat_name[name] = conn</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">do_chat</span>(<span class="params">conn,msg,name</span>):</span></span><br><span class="line">	text = <span class="string">&quot;%s :%s&quot;</span>%(name,msg)</span><br><span class="line">	<span class="keyword">for</span> n <span class="keyword">in</span> chat_name:</span><br><span class="line">		<span class="keyword">if</span> n != name:</span><br><span class="line">			chat_name[n].send(text.encode())</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">do_quit</span>(<span class="params">conn,name</span>):</span></span><br><span class="line">	msg = <span class="string">&quot;%s 退出9696聊天室了&quot;</span>%name</span><br><span class="line">	<span class="keyword">for</span> c <span class="keyword">in</span> chat_name:</span><br><span class="line">		<span class="keyword">if</span> c == name:</span><br><span class="line">			conn.send(<span class="string">b&#x27;q&#x27;</span>)</span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			chat_name[c].send(msg.encode())</span><br><span class="line">	<span class="keyword">del</span> chat_name[name]</span><br><span class="line">	<span class="comment">#conn_stat[conn] = &#x27;false&#x27;</span></span><br><span class="line">	conn.close()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">do_request</span>(<span class="params">conn</span>):</span></span><br><span class="line">	<span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">		data = conn.recv(<span class="number">1024</span>).decode().strip().split(<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">		<span class="keyword">if</span> data[<span class="number">0</span>] == <span class="string">&#x27;L&#x27;</span>:</span><br><span class="line">			name = data[<span class="number">-1</span>]</span><br><span class="line">			do_login(conn,name)</span><br><span class="line">		<span class="keyword">elif</span> data[<span class="number">0</span>] == <span class="string">&#x27;C&#x27;</span>:</span><br><span class="line">			name = data[<span class="number">-1</span>]</span><br><span class="line">			msg = <span class="string">&#x27;&#x27;</span>.join(data[<span class="number">1</span>:<span class="number">-1</span>])</span><br><span class="line">			do_chat(conn,msg,name)</span><br><span class="line">		<span class="keyword">elif</span> data[<span class="number">0</span>] == <span class="string">&#x27;Q&#x27;</span>:</span><br><span class="line">			name = data[<span class="number">-1</span>]</span><br><span class="line">			do_quit(conn,name)</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">	sockfd = socket()</span><br><span class="line">	sockfd.setsockopt(SOL_SOCKET,SO_REUSEADDR,<span class="number">1</span>)</span><br><span class="line">	sockfd.bind(address)</span><br><span class="line">	sockfd.listen(<span class="number">5</span>)</span><br><span class="line">	<span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">		<span class="keyword">try</span>:</span><br><span class="line">			conn,addr = sockfd.accept()</span><br><span class="line">		<span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">			sockfd.close()</span><br><span class="line">			sys.exit(<span class="string">&quot;退出&quot;</span>)</span><br><span class="line">		<span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">			print(e)</span><br><span class="line">			<span class="keyword">continue</span></span><br><span class="line">		print(<span class="string">&quot;Connect from:&quot;</span>,addr)</span><br><span class="line">		t = Thread(target=do_request,args=(conn,))</span><br><span class="line">		t.start()</span><br><span class="line">		jobs[conn] = t</span><br><span class="line">	<span class="comment">#conn_stat[conn] = &#x27;true&#x27;</span></span><br><span class="line">	<span class="comment">###回收线程　　当有线程结束，只有当新的客户端连接进来才会回收结束的线程</span></span><br><span class="line">	<span class="keyword">for</span> c <span class="keyword">in</span> jobs:</span><br><span class="line">		<span class="keyword">if</span> c._closed <span class="keyword">is</span> <span class="literal">True</span>:</span><br><span class="line">			jobs[c].join()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">	main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os,sys,signal</span><br><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line">server_addr = ((<span class="string">&#x27;127.0.0.1&#x27;</span>,<span class="number">9696</span>))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">msg_recv</span>(<span class="params">sockfd</span>):</span>     <span class="comment">##接收消息</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        data = sockfd.recv(<span class="number">1024</span>)</span><br><span class="line">        <span class="keyword">if</span> data.decode() == <span class="string">&#x27;q&#x27;</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        print(data.decode())</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">msg_send</span>(<span class="params">sockfd,name</span>):</span>      <span class="comment">##发送消息</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            data = <span class="built_in">input</span>(<span class="string">&quot;发言&gt;&gt;&quot;</span>)</span><br><span class="line">        <span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">            data = <span class="string">&#x27;quit&#x27;</span></span><br><span class="line">        <span class="keyword">if</span> data == <span class="string">&#x27;quit&#x27;</span>:  <span class="comment">##退出</span></span><br><span class="line">            msg = <span class="string">&#x27;Q %s&#x27;</span>%name</span><br><span class="line">            sockfd.send(msg.encode())</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            msg = <span class="string">&#x27;C %s %s&#x27;</span>%(data,name)</span><br><span class="line">            sockfd.send(msg.encode())</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    sockfd = socket()<span class="comment">##创建套接字</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        sockfd.connect(server_addr)</span><br><span class="line">    <span class="keyword">except</span> Exception:</span><br><span class="line">        print(<span class="string">&quot;连接失败&quot;</span>)</span><br><span class="line">        sockfd.close()</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        name = <span class="built_in">input</span>(<span class="string">&quot;请输入昵称:&quot;</span>)</span><br><span class="line">        sockfd.send((<span class="string">&#x27;L &#x27;</span>+name).encode())</span><br><span class="line">        data = sockfd.recv(<span class="number">128</span>)</span><br><span class="line">        <span class="keyword">if</span> data.decode() == <span class="string">&#x27;OK&#x27;</span>:</span><br><span class="line">            print(<span class="string">&quot;你已经进入9696聊天室&quot;</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(data.decode())</span><br><span class="line"></span><br><span class="line">    t = threading.Thread(target=msg_recv, args=(sockfd, ))</span><br><span class="line">    t1 = threading.Thread(target=msg_send, args=(sockfd,name))</span><br><span class="line">    t.start()</span><br><span class="line">    t1.start()</span><br><span class="line">	<span class="comment"># t=threading.Thread(target=msg_recv, args=(sockfd,) )</span></span><br><span class="line">	<span class="comment"># t.start()</span></span><br><span class="line">	<span class="comment"># t1=threading.Thread(target=msg_send, args=(sockfd,name) )</span></span><br><span class="line">	<span class="comment"># t1.start()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>python</category>
+        <category>socket</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>堆堆_数组实现</title>
     <url>/blog/2020/11/03/%E5%A0%86%E5%A0%86-%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0/</url>
-    <content><![CDATA[<h2 id="堆的数组实现"><a href="#堆的数组实现" class="headerlink" title="堆的数组实现"></a>堆的数组实现</h2><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-03-堆堆-数组实现/001.PNG" alt="001" style="zoom:50%;" />
-
+    <content><![CDATA[<h2 id="堆的数组实现"><a href="#堆的数组实现" class="headerlink" title="堆的数组实现"></a>堆的数组实现</h2><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-03-堆堆-数组实现/001.PNG" alt="001" style="zoom:50%;" /></p>
 <a id="more"></a>
-
 <h3 id="堆的简单定义"><a href="#堆的简单定义" class="headerlink" title="堆的简单定义"></a>堆的简单定义</h3><p>堆的定义如下：n个元素的序列<code>&#123;k1,k2,ki,…,kn&#125;</code>当且仅当满足下关系时，称之为堆。</p>
 <p><code>(ki &lt;= k2i,ki &lt;= k2i+1)</code>或者<code>(ki &gt;= k2i,ki &gt;= k2i+1)</code>, (i = 1,2,3,4…n/2)</p>
 <p>若将和此次序列对应的一维数组（即以一维数组作此序列的存储结构）看成是一个完全二叉树，则堆的含义表明，完全二叉树中所有非终端结点的值均不大于（或不小于）其左、右孩子结点的值。由此，若序列{k1,k2,…,kn}是堆，则堆顶元素（或完全二叉树的根）必为序列中n个元素的最小值（或最大值）</p>
@@ -784,20 +701,15 @@
 <li>堆排序：结合了建堆和向下调整，先建堆然后将堆顶元素和数组最后一个元素交换，再将堆顶元素进行向下调整，直到排好序</li>
 </ul>
 <h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;assert.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="comment">//向下调整</span></span><br><span class="line"><span class="comment">//array[size]表示数组及大小</span></span><br><span class="line"><span class="comment">//root表示要调整的结点的下标</span></span><br><span class="line"><span class="comment">//前提是[root]所在结点左右子树已经满足堆的性质</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AdjustDown</span><span class="params">(<span class="keyword">int</span> <span class="built_in">array</span>[], <span class="keyword">int</span> size, <span class="keyword">int</span> root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//int left = 2 * root + 1;</span></span><br><span class="line">	<span class="comment">//int right = 2 * root + 2;</span></span><br><span class="line">	<span class="keyword">int</span> min = <span class="number">2</span> * root + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">if</span> (min &gt;= size)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//越界</span></span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//确定那个是最小的孩子</span></span><br><span class="line">	<span class="keyword">if</span> (min+<span class="number">1</span> &lt; size &amp;&amp; <span class="built_in">array</span>[min+<span class="number">1</span>] &lt; <span class="built_in">array</span>[min])</span><br><span class="line">	&#123;</span><br><span class="line">		min = min+<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">array</span>[root] &lt;= <span class="built_in">array</span>[min])</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//交换值</span></span><br><span class="line">	<span class="keyword">int</span> tmp = <span class="built_in">array</span>[root];</span><br><span class="line">	<span class="built_in">array</span>[root] = <span class="built_in">array</span>[min];</span><br><span class="line">	<span class="built_in">array</span>[min] = tmp;</span><br><span class="line">	AdjustDown(<span class="built_in">array</span>, size, min);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//建堆</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CreateHeap</span><span class="params">(<span class="keyword">int</span> <span class="built_in">array</span>[], <span class="keyword">int</span> size)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//从最后一个非叶子结点开始，调整到0结束</span></span><br><span class="line">	<span class="comment">//最后一个非叶子结点就是最后一个结点的双亲结点</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = (size - <span class="number">1</span> - <span class="number">1</span>) / <span class="number">2</span>; i &gt;= <span class="number">0</span>; --i)</span><br><span class="line">	&#123;</span><br><span class="line">		AdjustDown(<span class="built_in">array</span>, size, i);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> HPDataType;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Heap</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	HPDataType* <span class="built_in">array</span>;</span><br><span class="line">	<span class="keyword">int</span> size;</span><br><span class="line">	<span class="keyword">int</span> capacity;</span><br><span class="line">&#125;	Heap;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//初始化</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HeapCreateHeap</span><span class="params">(Heap* heap, <span class="keyword">int</span> <span class="built_in">array</span>[], <span class="keyword">int</span> size)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	heap-&gt;capacity = size * <span class="number">2</span>;</span><br><span class="line">	heap-&gt;size = size;</span><br><span class="line">	heap-&gt;<span class="built_in">array</span> = (HPDataType*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(HPDataType) * size);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		heap-&gt;<span class="built_in">array</span>[i] = <span class="built_in">array</span>[i];</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">	<span class="comment">//建堆</span></span><br><span class="line">	CreateHeap(heap-&gt;<span class="built_in">array</span>, heap-&gt;size);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//小堆</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AdjustUp</span><span class="params">(<span class="keyword">int</span> <span class="built_in">array</span>[], <span class="keyword">int</span> size, <span class="keyword">int</span> child)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (child != <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> parent = (child - <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">array</span>[child] &gt;= <span class="built_in">array</span>[parent])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">int</span> tmp = <span class="built_in">array</span>[parent];</span><br><span class="line">		<span class="built_in">array</span>[parent] = <span class="built_in">array</span>[child];</span><br><span class="line">		<span class="built_in">array</span>[child] = tmp;</span><br><span class="line">		child = parent;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//增加</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HeapInsert</span><span class="params">(Heap* heap, <span class="keyword">int</span> val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	heap-&gt;<span class="built_in">array</span>[heap-&gt;size] = val;</span><br><span class="line">	++heap-&gt;size;</span><br><span class="line">	AdjustUp(heap-&gt;<span class="built_in">array</span>, heap-&gt;size, heap-&gt;size - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//删除(只能删除堆顶元素)</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HeapPop</span><span class="params">(Heap* heap)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	assert(heap-&gt;size &gt; <span class="number">0</span>);</span><br><span class="line">	heap-&gt;<span class="built_in">array</span>[<span class="number">0</span>] = heap-&gt;<span class="built_in">array</span>[heap-&gt;size - <span class="number">1</span>];</span><br><span class="line">	--heap-&gt;size;</span><br><span class="line">	AdjustDown(heap-&gt;<span class="built_in">array</span>, heap-&gt;size, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//堆排序</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HeapSort</span><span class="params">(<span class="keyword">int</span> *<span class="built_in">array</span>, <span class="keyword">int</span> size)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	CreateHeap(<span class="built_in">array</span>, size);</span><br><span class="line">	<span class="keyword">while</span> (size--)&#123;</span><br><span class="line">		<span class="keyword">int</span> tmp = <span class="built_in">array</span>[<span class="number">0</span>];</span><br><span class="line">		<span class="built_in">array</span>[<span class="number">0</span>] = <span class="built_in">array</span>[size];</span><br><span class="line">		<span class="built_in">array</span>[size] = tmp;</span><br><span class="line">		AdjustDown(<span class="built_in">array</span>, size, <span class="number">0</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//返回堆顶元素，返回最值</span></span><br><span class="line"><span class="function">HPDataType <span class="title">HeapTop</span><span class="params">(Heap* heap)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	assert(heap-&gt;size &gt; <span class="number">0</span>);</span><br><span class="line">	<span class="keyword">return</span> heap-&gt;<span class="built_in">array</span>[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><p>将一系列给定数字顺序插入一个初始为空的小顶堆H[]。随后判断一系列相关命题是否为真。命题分下列几种：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">x is the root：x是根结点；</span><br><span class="line">x and y are siblings：x和y是兄弟结点；</span><br><span class="line">x is the parent of y：x是y的父结点；</span><br><span class="line">x is a child of y：x是y的一个子结点。</span><br></pre></td></tr></table></figure>
-
 <p>输入格式：<br>每组测试第1行包含2个正整数N（≤ 1000）和M（≤ 20），分别是插入元素的个数、以及需要判断的命题数。下一行给出区间[−10000,10000]内的N个要被插入一个初始为空的小顶堆的整数。之后M行，每行给出一个命题。题目保证命题中的结点键值都是存在的。</p>
 <p>输出格式：<br>对输入的每个命题，如果其为真，则在一行中输出T，否则输出F。</p>
 <p>输入样例：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">5 4</span><br><span class="line">46 23 26 24 10</span><br><span class="line">24 is the root</span><br><span class="line">26 and 23 are siblings</span><br><span class="line">46 is the parent of 23</span><br><span class="line">23 is a child of 10</span><br></pre></td></tr></table></figure>
-
 <p>输出样例：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">F</span><br><span class="line">T</span><br><span class="line">F</span><br><span class="line">T</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">upAdjust</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(i == <span class="number">1</span>) <span class="keyword">return</span> ;</span><br><span class="line">    <span class="keyword">while</span>(i != <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(v[i] &lt; v[i / <span class="number">2</span>]) &#123;</span><br><span class="line">            swap(v[i], v[i / <span class="number">2</span>]);</span><br><span class="line">            i = i / <span class="number">2</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">judge1</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(v[<span class="number">1</span>] == a) <span class="built_in">printf</span>(<span class="string">&quot;T/n&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;F/n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">judge2</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> indexa = <span class="number">0</span>, indexb = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(v[i] == a) indexa = i;</span><br><span class="line">        <span class="keyword">if</span>(v[i] == b) indexb = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(indexa &gt; indexb) swap(indexa, indexb);</span><br><span class="line">    <span class="keyword">if</span>(indexa % <span class="number">2</span> == <span class="number">0</span> &amp;&amp; indexb - indexa == <span class="number">1</span>) <span class="built_in">printf</span>(<span class="string">&quot;T/n&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;F/n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">judge3</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> indexa = <span class="number">0</span>, indexb = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(v[i] == a) indexa = i;</span><br><span class="line">        <span class="keyword">if</span>(v[i] == b) indexb = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>((<span class="number">2</span> * indexa) == indexb || (<span class="number">2</span> * indexa) + <span class="number">1</span> == indexb) <span class="built_in">printf</span>(<span class="string">&quot;T/n&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;F/n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">judge4</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> indexa = <span class="number">0</span>, indexb = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(v[i] == a) indexa = i;</span><br><span class="line">        <span class="keyword">if</span>(v[i] == b) indexb = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(indexa == indexb * <span class="number">2</span> || indexa == <span class="number">2</span> * indexb + <span class="number">1</span>) <span class="built_in">printf</span>(<span class="string">&quot;T/n&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;F/n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> k, a, b;</span><br><span class="line">    <span class="keyword">char</span> c[<span class="number">100</span>];</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>, &amp;n, &amp;k);</span><br><span class="line">    v.resize(n + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;v[i]);</span><br><span class="line">        upAdjust(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k; i++) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d%s&quot;</span>, &amp;a, c);</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">strcmp</span>(c, <span class="string">&quot;and&quot;</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">&quot;%d%s%s&quot;</span>, &amp;b, c, c);</span><br><span class="line">            judge2(a, b);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>, c);</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">strcmp</span>(c, <span class="string">&quot;a&quot;</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="built_in">scanf</span>(<span class="string">&quot;%s%s%d&quot;</span>, c, c, &amp;b);</span><br><span class="line">                judge4(a, b);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>, c);</span><br><span class="line">                <span class="keyword">if</span>(<span class="built_in">strcmp</span>(c, <span class="string">&quot;root&quot;</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">                    judge1(a);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="built_in">scanf</span>(<span class="string">&quot;%s%d&quot;</span>, c, &amp;b);</span><br><span class="line">                    judge3(a, b);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 ]]></content>
       <categories>
         <category>算法</category>
@@ -805,5 +717,178 @@
       <tags>
         <tag>数据结构 算法 堆</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>物理层</title>
+    <url>/blog/2020/11/16/%E7%89%A9%E7%90%86%E5%B1%82/</url>
+    <content><![CDATA[<h2 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h2><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/014.PNG" alt="014" style="zoom:80%;" /></p>
+<a id="more"></a>
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><ul>
+<li>物理层考虑的是怎样才能在连接各种计算机的传输媒体上传输数据比特流</li>
+<li><p>物理层为数据链路层屏蔽了各种传输媒体的差异，使数据链路层只需要考虑如何完成本层的协议和服务，而不考虑网络具体的传输媒体是什么</p>
+</li>
+<li><p>传输媒体基本分为两类</p>
+<ul>
+<li>引导型传输媒体<ul>
+<li>双绞线</li>
+<li>同轴电缆</li>
+<li>光纤</li>
+</ul>
+</li>
+<li>非传导性传输媒体<ul>
+<li>微波通信（2-40GHz）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>物理层协议的主要任务<ul>
+<li>机械特性：指明接口所用接线器的<code>形状</code>和<code>尺寸</code>，<code>引脚数目</code>和<code>排列</code>，<code>固定</code>和<code>锁定</code>装置</li>
+<li>电气特性：指明在接口电缆的各条线上出现的电压的范围</li>
+<li>功能特性：指明某条线上出现的某一电平的电压表示何种意义</li>
+<li>过程特性：指明对于不同功能的各种可能事件的出现顺序</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><code>注意</code>：物理层协议比较多，不必太要求，只需知道物理层协议的4个主要任务</p>
+</blockquote>
+<h3 id="传输方式"><a href="#传输方式" class="headerlink" title="传输方式"></a>传输方式</h3><h5 id="串行和并行"><a href="#串行和并行" class="headerlink" title="串行和并行"></a>串行和并行</h5><ul>
+<li>串行：是在传输中只有1个数据位在设备之间进行的传输.对任何一个由若干位二进制表示的字符,串行传输都是用一个传输信道,按位有序的对字符进行传输.</li>
+</ul>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/001.PNG" alt="001"></p>
+<ul>
+<li>并行：是在传输中有多个数据位同时在设备之间进行的传输.一个编了码的字符通常是由若干位二进制数表示,如用ASCII码编码的符号是由8位二进制数表示的,则并行传输ASCII编码符号就需要8个传输信道,使表示一个符号的所有数据位能同时沿着各自的信道并排的传输.</li>
+</ul>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/002.PNG" alt="002"></p>
+<p>当前网络中通信一般是串行通信，而计算机内部是并行</p>
+<h5 id="同步和异步"><a href="#同步和异步" class="headerlink" title="同步和异步"></a>同步和异步</h5><ul>
+<li>同步传输：数据块以稳定比特流的形式传输，字节之间没有间隔，接收端在每个时段的中间时刻进行检测。由于不同设备的时钟频率存在一定差异，不可能做到完全相同，在传输大量数据过程中，所产生的判别时刻的累计误差，会导致接收端对比特信号的判别错位，因此需要采取方法使接收发双方的时钟保持同步，实现同步的方法有两种<ul>
+<li>外同步：在收发双方之间添加一条单独的时钟信号线</li>
+<li>内同步：发送端将时钟同步信号编码发送到发送数据中一起传输（例如：曼切斯特编码）</li>
+</ul>
+</li>
+<li>异步传输：以字节为独立单位，字节之间的时间间隔不是固定的，接收端仅在每个字节的起始处对字节内的比特实现同步，为此，通常要在每个字节前后分别加上起始位和结束位<ul>
+<li>异步是指字节之间异步（字节之间的时间间隔不固定）</li>
+<li>字节中的每个比特仍然要同步（各比特的持续时间是相同的）</li>
+</ul>
+</li>
+</ul>
+<h5 id="单向，双向，双向同时"><a href="#单向，双向，双向同时" class="headerlink" title="单向，双向，双向同时"></a>单向，双向，双向同时</h5><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/003.PNG" alt="003" style="zoom:50%;" /></p>
+<ul>
+<li>1、单工通信</li>
+</ul>
+<p>　　单工通信只有一根数据线，通信只在一个方向上进行，这种方式的应用实例有：监视器、打印机、电视机等。</p>
+<ul>
+<li>2、半双工通信</li>
+</ul>
+<p>　　半双工通信也只有一根数据线，它也单工的区别是这根数据线既可作发送又可作发接收，虽然数据可在两个方向上传送，但通信双方不能同时收发数据。</p>
+<ul>
+<li>3、全双工通信</li>
+</ul>
+<p>　　数据的发送和接收用两根不同的数据线，通信双方在同一时刻都能进行发送和接收，这一工作方式称为全双工通信。在这种方式下，通信双方都有发送器和接收器，发送和接收可同时进行，没有时间延迟。</p>
+<h3 id="编码与调制"><a href="#编码与调制" class="headerlink" title="编码与调制"></a>编码与调制</h3><p>消息传输过程</p>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/004.PNG" alt="004" style="zoom:80%;" /></p>
+<blockquote>
+<p>码元：在使用时间域的波形表示数字信号时，<code>代表不同离散数值的基本波形</code></p>
+</blockquote>
+<h5 id="常用编码"><a href="#常用编码" class="headerlink" title="常用编码"></a>常用编码</h5><ul>
+<li>不归零编码</li>
+</ul>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/005.PNG" alt="005" style="zoom:50%;" /></p>
+<p>接收端如何判断码元是否重叠？</p>
+<p>需要额外一根传输线来传输时钟信号，使发送方和接收方同步</p>
+<p>对于计算机网络，宁愿利用这根传输线传输数据信号，而不是传输时钟信号，所以不使用该编码方式</p>
+<ul>
+<li>归零编码</li>
+</ul>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/006.PNG" alt="006" style="zoom:50%;" /></p>
+<p>每个码元传输结束后信号都要“<code>归零</code>”， 所以接收方只要在信号归零后进行采样即可，不需要单独的时钟信号。</p>
+<p>实际上，归零编码相当于把时钟信号用“归零”方式编码了数据之内，这称为“<code>自同步</code>”信号。</p>
+<p>但是，归零编码中大部分的户数带宽都用来传输“归零”而浪费掉了</p>
+<ul>
+<li>曼切斯特编码</li>
+</ul>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/007.PNG" alt="007" style="zoom:50%;" /></p>
+<p>码元中间时刻的跳转即表示时钟，又表示为数据</p>
+<blockquote>
+<p>传统以太网10Mb/s 使用的就是曼切斯特编码</p>
+</blockquote>
+<ul>
+<li><p>差分曼切斯特编码</p>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/008.PNG" alt="008" style="zoom: 80%;" /></p>
+</li>
+</ul>
+<p>跳变仅表示时钟，码元开始电平是否发生变化表示数据</p>
+<h5 id="基本调制方法"><a href="#基本调制方法" class="headerlink" title="基本调制方法"></a>基本调制方法</h5><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/009.PNG" alt="009" style="zoom:80%;" /></p>
+<p>使用基本调制方法，一个码元只能包含一个比特信息，如何能使一个码元包含更多的比特呢？</p>
+<h5 id="混合调制"><a href="#混合调制" class="headerlink" title="混合调制"></a>混合调制</h5><p>因为<code>频率和相位是相关的</code>，即频率是相位随时间的变化率，所以一次只能调制频率和相位两个中的一个</p>
+<p>通常情况下，相位和振幅可以结合起来一起调制，称为<code>正交振幅调制QAM</code></p>
+<ul>
+<li>QAM-16<ul>
+<li>12种相位</li>
+<li>每种相位有1或2种振幅可选</li>
+<li>可以调制出16种码元（波形），每种码元可以对应4个比特</li>
+<li>码元与4个比特的对应关系应采用格雷码（任意两个相邻马鞍只有一个比特不同）</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/010.PNG" alt="010" style="zoom: 80%;" /></p>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/011.PNG" alt="011" style="zoom:80%;" /></p>
+<h3 id="信道的极限容量"><a href="#信道的极限容量" class="headerlink" title="信道的极限容量"></a>信道的极限容量</h3><p>在显示网络环境中会出现失真的情况</p>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/012.PNG" alt="012" style="zoom:80%;" /></p>
+<h5 id="失真因素"><a href="#失真因素" class="headerlink" title="失真因素"></a>失真因素</h5><ul>
+<li>码元传输速率</li>
+<li>信号传输距离</li>
+<li>噪声干扰</li>
+<li>传输媒体质量</li>
+</ul>
+<h5 id="奈氏准则"><a href="#奈氏准则" class="headerlink" title="奈氏准则"></a>奈氏准则</h5><p>在假定的理想条件下，<code>为了避免码间串扰，码元传输速率是有上限的</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">理想低通信道的最高码元传输速率 &#x3D; 2W Baud &#x3D; 2W码元&#x2F;秒</span><br><span class="line">理想带通信道的最高码元传输速率 &#x3D; W Baud &#x3D; W码元&#x2F;秒</span><br><span class="line"></span><br><span class="line">W: 信道带宽（单位为Hz）</span><br><span class="line">Baud: 波特，即码元&#x2F;秒</span><br></pre></td></tr></table></figure>
+<ul>
+<li>码元传输速率又称为波特率，调制速率，波形速率或符号速率，他与比特率有一定关系：<ul>
+<li>当一个码元只携带1比特信息量时，则波特率（码元/秒）在数值上是相等的；</li>
+<li>当一个码元携带n比特信息量时，则波特率转换为比特率时，数值要乘以n</li>
+</ul>
+</li>
+<li>要提高信息传输速率（比特率），就必须设法使每一个码元都能携带更多个比特的信息量，这需要采用多元制</li>
+<li>实际的信道所能传输的最高码元速率，要明显低于奈氏准则给出的这个上限数值</li>
+</ul>
+<blockquote>
+<p>只要采用更好的调制方法，让码元可以携带更多的比特，岂不是可以无限制的提高信息的传输效率？</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">答案是否定的，因为信道的极限信息传输速率还要受限于实际的信号在信道中传输时的信噪比</span><br></pre></td></tr></table></figure>
+<h5 id="香农公式"><a href="#香农公式" class="headerlink" title="香农公式"></a>香农公式</h5><p>香农公式：带宽受限且有高斯白噪声干扰的信道的极限信息传输速率</p>
+<p>$c = W /times /log_2(1+  /frac{S}{N} )$</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">c: 信道的极限信息传输速率（单位： b&#x2F;s）</span><br><span class="line">W: 信道带宽（单位：Hz）</span><br><span class="line">S: 信道内所传信号的平均功率</span><br><span class="line">N: 信道内的高斯噪声功率</span><br><span class="line">S&#x2F;N: 信噪比，使用分贝（dB）作为度量单位</span><br></pre></td></tr></table></figure>
+<ul>
+<li>信道带宽或信道中信噪比越大，信息的极限传输速率越大</li>
+<li>在实际信道上能够达到的信息传输速率要比该公式的极限传输速率低不少，这是因为在实际信道中，信息还要受到其他一些损伤，如各种脉冲干扰，信号在传输中的衰减和失真等，这些因素在香农公式中并没有考虑</li>
+</ul>
+<h5 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h5><p>【2009年题34】在无噪声情况下，若某通信链路的带宽为3kHz，采用4个相位，每个相位具有4种振幅的QAM调制技术，则该通信链路的最大数据传输速率是（24 bit/s）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(1）根据奈氏准则可知，该通信链路的最高码元传输速率&#x3D;2x 3k &#x3D; 6k(Baud) &#x3D; 6k(码元&#x2F;秒)</span><br><span class="line">(2) 采用二进制对这16个不同的码元进行编码，需要使用4个比特（loge16 &#x3D; 4)。换句话说，每个码元可以携带的信息量为4比特;采用二进制对这16个不同的码元进行编码，需要使用4个比特（loge16 &#x3D; 4)。换句话说，每个码元可以携带的信息量为4比特;</span><br><span class="line">综合（1)和(2)可知，该通信链路的最大数据传输速率&#x3D; 6k (码元&#x2F;秒)x4(比特&#x2F;码元) &#x3D;24k(比特&#x2F;秒)&#x3D;24 kbps</span><br></pre></td></tr></table></figure>
+<p>【2011年题34】若某通信链路的数据传输速率为2400bps，采用4相位调制，则该链路的波特率是1200(波特)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(1)）采用4相位调制，可以调制出4种相位不同的基本波形（码元)。采用二进制对这4个不同的码元进行编码，需要使用2个比特(logz4 &#x3D; 2)。换句话说，每个码元可以携带的信息量为2比特;</span><br><span class="line">(2)数据传输速率&#x3D;波特率(码元传输速率)X每个码元所携带的信息量</span><br><span class="line">	2400(比特&#x2F;秒)&#x3D;波特率X 2(比特&#x2F;码元)</span><br><span class="line">	解得:波特率&#x3D; 1200(码元&#x2F;秒)&#x3D;1200(Baud) &#x3D; 1200(波特)</span><br></pre></td></tr></table></figure>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/013.PNG" alt="013" style="zoom:80%;" /></p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网路</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/blog/2020/10/18/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
   </entry>
 </search>

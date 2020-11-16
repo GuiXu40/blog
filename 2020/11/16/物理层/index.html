@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/blog/lib/pace/pace-theme-minimal.min.css">
+  <script src="/blog/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"guixu40.gitee.io","root":"/blog/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="物理层">
+<meta property="og:type" content="article">
+<meta property="og:title" content="物理层">
+<meta property="og:url" content="https://guixu40.gitee.io/blog/2020/11/16/%E7%89%A9%E7%90%86%E5%B1%82/index.html">
+<meta property="og:site_name" content="GuiXu">
+<meta property="og:description" content="物理层">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/014.PNG">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/001.PNG">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/002.PNG">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/003.PNG">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/004.PNG">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/005.PNG">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/006.PNG">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/007.PNG">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/008.PNG">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/009.PNG">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/010.PNG">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/011.PNG">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/012.PNG">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/013.PNG">
+<meta property="article:published_time" content="2020-11-16T05:30:30.000Z">
+<meta property="article:modified_time" content="2020-11-16T11:43:48.950Z">
+<meta property="article:author" content="GuiXu">
+<meta property="article:tag" content="计算机网路">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/014.PNG">
+
+<link rel="canonical" href="https://guixu40.gitee.io/blog/2020/11/16/%E7%89%A9%E7%90%86%E5%B1%82/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>物理层 | GuiXu</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">GuiXu</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://guixu40.gitee.io/blog/2020/11/16/%E7%89%A9%E7%90%86%E5%B1%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="GuiXu">
+      <meta itemprop="description" content="study">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GuiXu">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          物理层
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-11-16 13:30:30 / 修改时间：19:43:48" itemprop="dateCreated datePublished" datetime="2020-11-16T13:30:30+08:00">2020-11-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h2><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/014.PNG" alt="014" style="zoom:80%;" /></p>
+<a id="more"></a>
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><ul>
+<li>物理层考虑的是怎样才能在连接各种计算机的传输媒体上传输数据比特流</li>
+<li><p>物理层为数据链路层屏蔽了各种传输媒体的差异，使数据链路层只需要考虑如何完成本层的协议和服务，而不考虑网络具体的传输媒体是什么</p>
+</li>
+<li><p>传输媒体基本分为两类</p>
+<ul>
+<li>引导型传输媒体<ul>
+<li>双绞线</li>
+<li>同轴电缆</li>
+<li>光纤</li>
+</ul>
+</li>
+<li>非传导性传输媒体<ul>
+<li>微波通信（2-40GHz）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>物理层协议的主要任务<ul>
+<li>机械特性：指明接口所用接线器的<code>形状</code>和<code>尺寸</code>，<code>引脚数目</code>和<code>排列</code>，<code>固定</code>和<code>锁定</code>装置</li>
+<li>电气特性：指明在接口电缆的各条线上出现的电压的范围</li>
+<li>功能特性：指明某条线上出现的某一电平的电压表示何种意义</li>
+<li>过程特性：指明对于不同功能的各种可能事件的出现顺序</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><code>注意</code>：物理层协议比较多，不必太要求，只需知道物理层协议的4个主要任务</p>
+</blockquote>
+<h3 id="传输方式"><a href="#传输方式" class="headerlink" title="传输方式"></a>传输方式</h3><h5 id="串行和并行"><a href="#串行和并行" class="headerlink" title="串行和并行"></a>串行和并行</h5><ul>
+<li>串行：是在传输中只有1个数据位在设备之间进行的传输.对任何一个由若干位二进制表示的字符,串行传输都是用一个传输信道,按位有序的对字符进行传输.</li>
+</ul>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/001.PNG" alt="001"></p>
+<ul>
+<li>并行：是在传输中有多个数据位同时在设备之间进行的传输.一个编了码的字符通常是由若干位二进制数表示,如用ASCII码编码的符号是由8位二进制数表示的,则并行传输ASCII编码符号就需要8个传输信道,使表示一个符号的所有数据位能同时沿着各自的信道并排的传输.</li>
+</ul>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/002.PNG" alt="002"></p>
+<p>当前网络中通信一般是串行通信，而计算机内部是并行</p>
+<h5 id="同步和异步"><a href="#同步和异步" class="headerlink" title="同步和异步"></a>同步和异步</h5><ul>
+<li>同步传输：数据块以稳定比特流的形式传输，字节之间没有间隔，接收端在每个时段的中间时刻进行检测。由于不同设备的时钟频率存在一定差异，不可能做到完全相同，在传输大量数据过程中，所产生的判别时刻的累计误差，会导致接收端对比特信号的判别错位，因此需要采取方法使接收发双方的时钟保持同步，实现同步的方法有两种<ul>
+<li>外同步：在收发双方之间添加一条单独的时钟信号线</li>
+<li>内同步：发送端将时钟同步信号编码发送到发送数据中一起传输（例如：曼切斯特编码）</li>
+</ul>
+</li>
+<li>异步传输：以字节为独立单位，字节之间的时间间隔不是固定的，接收端仅在每个字节的起始处对字节内的比特实现同步，为此，通常要在每个字节前后分别加上起始位和结束位<ul>
+<li>异步是指字节之间异步（字节之间的时间间隔不固定）</li>
+<li>字节中的每个比特仍然要同步（各比特的持续时间是相同的）</li>
+</ul>
+</li>
+</ul>
+<h5 id="单向，双向，双向同时"><a href="#单向，双向，双向同时" class="headerlink" title="单向，双向，双向同时"></a>单向，双向，双向同时</h5><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/003.PNG" alt="003" style="zoom:50%;" /></p>
+<ul>
+<li>1、单工通信</li>
+</ul>
+<p>　　单工通信只有一根数据线，通信只在一个方向上进行，这种方式的应用实例有：监视器、打印机、电视机等。</p>
+<ul>
+<li>2、半双工通信</li>
+</ul>
+<p>　　半双工通信也只有一根数据线，它也单工的区别是这根数据线既可作发送又可作发接收，虽然数据可在两个方向上传送，但通信双方不能同时收发数据。</p>
+<ul>
+<li>3、全双工通信</li>
+</ul>
+<p>　　数据的发送和接收用两根不同的数据线，通信双方在同一时刻都能进行发送和接收，这一工作方式称为全双工通信。在这种方式下，通信双方都有发送器和接收器，发送和接收可同时进行，没有时间延迟。</p>
+<h3 id="编码与调制"><a href="#编码与调制" class="headerlink" title="编码与调制"></a>编码与调制</h3><p>消息传输过程</p>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/004.PNG" alt="004" style="zoom:80%;" /></p>
+<blockquote>
+<p>码元：在使用时间域的波形表示数字信号时，<code>代表不同离散数值的基本波形</code></p>
+</blockquote>
+<h5 id="常用编码"><a href="#常用编码" class="headerlink" title="常用编码"></a>常用编码</h5><ul>
+<li>不归零编码</li>
+</ul>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/005.PNG" alt="005" style="zoom:50%;" /></p>
+<p>接收端如何判断码元是否重叠？</p>
+<p>需要额外一根传输线来传输时钟信号，使发送方和接收方同步</p>
+<p>对于计算机网络，宁愿利用这根传输线传输数据信号，而不是传输时钟信号，所以不使用该编码方式</p>
+<ul>
+<li>归零编码</li>
+</ul>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/006.PNG" alt="006" style="zoom:50%;" /></p>
+<p>每个码元传输结束后信号都要“<code>归零</code>”， 所以接收方只要在信号归零后进行采样即可，不需要单独的时钟信号。</p>
+<p>实际上，归零编码相当于把时钟信号用“归零”方式编码了数据之内，这称为“<code>自同步</code>”信号。</p>
+<p>但是，归零编码中大部分的户数带宽都用来传输“归零”而浪费掉了</p>
+<ul>
+<li>曼切斯特编码</li>
+</ul>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/007.PNG" alt="007" style="zoom:50%;" /></p>
+<p>码元中间时刻的跳转即表示时钟，又表示为数据</p>
+<blockquote>
+<p>传统以太网10Mb/s 使用的就是曼切斯特编码</p>
+</blockquote>
+<ul>
+<li><p>差分曼切斯特编码</p>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/008.PNG" alt="008" style="zoom: 80%;" /></p>
+</li>
+</ul>
+<p>跳变仅表示时钟，码元开始电平是否发生变化表示数据</p>
+<h5 id="基本调制方法"><a href="#基本调制方法" class="headerlink" title="基本调制方法"></a>基本调制方法</h5><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/009.PNG" alt="009" style="zoom:80%;" /></p>
+<p>使用基本调制方法，一个码元只能包含一个比特信息，如何能使一个码元包含更多的比特呢？</p>
+<h5 id="混合调制"><a href="#混合调制" class="headerlink" title="混合调制"></a>混合调制</h5><p>因为<code>频率和相位是相关的</code>，即频率是相位随时间的变化率，所以一次只能调制频率和相位两个中的一个</p>
+<p>通常情况下，相位和振幅可以结合起来一起调制，称为<code>正交振幅调制QAM</code></p>
+<ul>
+<li>QAM-16<ul>
+<li>12种相位</li>
+<li>每种相位有1或2种振幅可选</li>
+<li>可以调制出16种码元（波形），每种码元可以对应4个比特</li>
+<li>码元与4个比特的对应关系应采用格雷码（任意两个相邻马鞍只有一个比特不同）</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/010.PNG" alt="010" style="zoom: 80%;" /></p>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/011.PNG" alt="011" style="zoom:80%;" /></p>
+<h3 id="信道的极限容量"><a href="#信道的极限容量" class="headerlink" title="信道的极限容量"></a>信道的极限容量</h3><p>在显示网络环境中会出现失真的情况</p>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/012.PNG" alt="012" style="zoom:80%;" /></p>
+<h5 id="失真因素"><a href="#失真因素" class="headerlink" title="失真因素"></a>失真因素</h5><ul>
+<li>码元传输速率</li>
+<li>信号传输距离</li>
+<li>噪声干扰</li>
+<li>传输媒体质量</li>
+</ul>
+<h5 id="奈氏准则"><a href="#奈氏准则" class="headerlink" title="奈氏准则"></a>奈氏准则</h5><p>在假定的理想条件下，<code>为了避免码间串扰，码元传输速率是有上限的</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">理想低通信道的最高码元传输速率 &#x3D; 2W Baud &#x3D; 2W码元&#x2F;秒</span><br><span class="line">理想带通信道的最高码元传输速率 &#x3D; W Baud &#x3D; W码元&#x2F;秒</span><br><span class="line"></span><br><span class="line">W: 信道带宽（单位为Hz）</span><br><span class="line">Baud: 波特，即码元&#x2F;秒</span><br></pre></td></tr></table></figure>
+<ul>
+<li>码元传输速率又称为波特率，调制速率，波形速率或符号速率，他与比特率有一定关系：<ul>
+<li>当一个码元只携带1比特信息量时，则波特率（码元/秒）在数值上是相等的；</li>
+<li>当一个码元携带n比特信息量时，则波特率转换为比特率时，数值要乘以n</li>
+</ul>
+</li>
+<li>要提高信息传输速率（比特率），就必须设法使每一个码元都能携带更多个比特的信息量，这需要采用多元制</li>
+<li>实际的信道所能传输的最高码元速率，要明显低于奈氏准则给出的这个上限数值</li>
+</ul>
+<blockquote>
+<p>只要采用更好的调制方法，让码元可以携带更多的比特，岂不是可以无限制的提高信息的传输效率？</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">答案是否定的，因为信道的极限信息传输速率还要受限于实际的信号在信道中传输时的信噪比</span><br></pre></td></tr></table></figure>
+<h5 id="香农公式"><a href="#香农公式" class="headerlink" title="香农公式"></a>香农公式</h5><p>香农公式：带宽受限且有高斯白噪声干扰的信道的极限信息传输速率</p>
+<p>$c = W /times /log_2(1+  /frac{S}{N} )$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">c: 信道的极限信息传输速率（单位： b&#x2F;s）</span><br><span class="line">W: 信道带宽（单位：Hz）</span><br><span class="line">S: 信道内所传信号的平均功率</span><br><span class="line">N: 信道内的高斯噪声功率</span><br><span class="line">S&#x2F;N: 信噪比，使用分贝（dB）作为度量单位</span><br></pre></td></tr></table></figure>
+<ul>
+<li>信道带宽或信道中信噪比越大，信息的极限传输速率越大</li>
+<li>在实际信道上能够达到的信息传输速率要比该公式的极限传输速率低不少，这是因为在实际信道中，信息还要受到其他一些损伤，如各种脉冲干扰，信号在传输中的衰减和失真等，这些因素在香农公式中并没有考虑</li>
+</ul>
+<h5 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h5><p>【2009年题34】在无噪声情况下，若某通信链路的带宽为3kHz，采用4个相位，每个相位具有4种振幅的QAM调制技术，则该通信链路的最大数据传输速率是（24 bit/s）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(1）根据奈氏准则可知，该通信链路的最高码元传输速率&#x3D;2x 3k &#x3D; 6k(Baud) &#x3D; 6k(码元&#x2F;秒)</span><br><span class="line">(2) 采用二进制对这16个不同的码元进行编码，需要使用4个比特（loge16 &#x3D; 4)。换句话说，每个码元可以携带的信息量为4比特;采用二进制对这16个不同的码元进行编码，需要使用4个比特（loge16 &#x3D; 4)。换句话说，每个码元可以携带的信息量为4比特;</span><br><span class="line">综合（1)和(2)可知，该通信链路的最大数据传输速率&#x3D; 6k (码元&#x2F;秒)x4(比特&#x2F;码元) &#x3D;24k(比特&#x2F;秒)&#x3D;24 kbps</span><br></pre></td></tr></table></figure>
+<p>【2011年题34】若某通信链路的数据传输速率为2400bps，采用4相位调制，则该链路的波特率是1200(波特)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(1)）采用4相位调制，可以调制出4种相位不同的基本波形（码元)。采用二进制对这4个不同的码元进行编码，需要使用2个比特(logz4 &#x3D; 2)。换句话说，每个码元可以携带的信息量为2比特;</span><br><span class="line">(2)数据传输速率&#x3D;波特率(码元传输速率)X每个码元所携带的信息量</span><br><span class="line">	2400(比特&#x2F;秒)&#x3D;波特率X 2(比特&#x2F;码元)</span><br><span class="line">	解得:波特率&#x3D; 1200(码元&#x2F;秒)&#x3D;1200(Baud) &#x3D; 1200(波特)</span><br></pre></td></tr></table></figure>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-11-16-物理层/013.PNG" alt="013" style="zoom:80%;" /></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E8%B7%AF/" rel="tag"># 计算机网路</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2020/11/03/%E5%A0%86%E5%A0%86-%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0/" rel="prev" title="堆堆_数组实现">
+      <i class="fa fa-chevron-left"></i> 堆堆_数组实现
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%B1%82"><span class="nav-number">1.</span> <span class="nav-text">物理层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E8%BE%93%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">传输方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%B2%E8%A1%8C%E5%92%8C%E5%B9%B6%E8%A1%8C"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">串行和并行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E5%92%8C%E5%BC%82%E6%AD%A5"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">同步和异步</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%95%E5%90%91%EF%BC%8C%E5%8F%8C%E5%90%91%EF%BC%8C%E5%8F%8C%E5%90%91%E5%90%8C%E6%97%B6"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">单向，双向，双向同时</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E7%A0%81%E4%B8%8E%E8%B0%83%E5%88%B6"><span class="nav-number">1.3.</span> <span class="nav-text">编码与调制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E7%BC%96%E7%A0%81"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">常用编码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%B0%83%E5%88%B6%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.0.2.</span> <span class="nav-text">基本调制方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%E8%B0%83%E5%88%B6"><span class="nav-number">1.3.0.3.</span> <span class="nav-text">混合调制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E9%81%93%E7%9A%84%E6%9E%81%E9%99%90%E5%AE%B9%E9%87%8F"><span class="nav-number">1.4.</span> <span class="nav-text">信道的极限容量</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%B1%E7%9C%9F%E5%9B%A0%E7%B4%A0"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">失真因素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A5%88%E6%B0%8F%E5%87%86%E5%88%99"><span class="nav-number">1.4.0.2.</span> <span class="nav-text">奈氏准则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%A6%99%E5%86%9C%E5%85%AC%E5%BC%8F"><span class="nav-number">1.4.0.3.</span> <span class="nav-text">香农公式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0"><span class="nav-number">1.4.0.4.</span> <span class="nav-text">练习</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">GuiXu</p>
+  <div class="site-description" itemprop="description">study</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:guixuysl@gmail.com" title="E-Mail → mailto:guixuysl@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">GuiXu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/pisces.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/blog/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
