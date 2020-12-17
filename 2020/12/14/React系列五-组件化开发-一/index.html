@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/blog/lib/pace/pace-theme-minimal.min.css">
+  <script src="/blog/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"guixu40.gitee.io","root":"/blog/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="现在可以说整个的大前端开发都是组件化的天下，无论从三大框架（Vue、React、Angular），还是跨平台方案的Flutter，甚至是移动端都在转向组件化开发。 所以，学习组件化最重要的是它的思想，每个框架或者平台可能实现方法不同，但是思想都是一样的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React系列五-组件化开发(一)">
+<meta property="og:url" content="https://guixu40.gitee.io/blog/2020/12/14/React%E7%B3%BB%E5%88%97%E4%BA%94-%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91-%E4%B8%80/index.html">
+<meta property="og:site_name" content="GuiXu">
+<meta property="og:description" content="现在可以说整个的大前端开发都是组件化的天下，无论从三大框架（Vue、React、Angular），还是跨平台方案的Flutter，甚至是移动端都在转向组件化开发。 所以，学习组件化最重要的是它的思想，每个框架或者平台可能实现方法不同，但是思想都是一样的。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/05001">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/05002">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/05003">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/05004">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/05005">
+<meta property="article:published_time" content="2020-12-14T11:59:34.000Z">
+<meta property="article:modified_time" content="2020-12-17T13:15:44.203Z">
+<meta property="article:author" content="GuiXu">
+<meta property="article:tag" content="React JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/05001">
+
+<link rel="canonical" href="https://guixu40.gitee.io/blog/2020/12/14/React%E7%B3%BB%E5%88%97%E4%BA%94-%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91-%E4%B8%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>React系列五-组件化开发(一) | GuiXu</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">GuiXu</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://guixu40.gitee.io/blog/2020/12/14/React%E7%B3%BB%E5%88%97%E4%BA%94-%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91-%E4%B8%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="GuiXu">
+      <meta itemprop="description" content="study">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GuiXu">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          React系列五-组件化开发(一)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-12-14 19:59:34" itemprop="dateCreated datePublished" datetime="2020-12-14T19:59:34+08:00">2020-12-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-17 21:15:44" itemprop="dateModified" datetime="2020-12-17T21:15:44+08:00">2020-12-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/React/React%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">React基础知识</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>现在可以说整个的大前端开发都是组件化的天下，无论从三大框架（Vue、React、Angular），还是跨平台方案的Flutter，甚至是移动端都在转向组件化开发。</p>
+<p>所以，学习组件化最重要的是它的思想，每个框架或者平台可能实现方法不同，但是思想都是一样的。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="认识组件化开发"><a href="#认识组件化开发" class="headerlink" title="认识组件化开发"></a>认识组件化开发</h2><h3 id="什么是组件化？"><a href="#什么是组件化？" class="headerlink" title="什么是组件化？"></a>什么是组件化？</h3><p>人面对复杂问题的处理方式：</p>
+<ul>
+<li>任何一个人处理信息的逻辑能力都是有限的</li>
+<li>所以，当面对一个非常复杂的问题时，我们不太可能一次性搞定一大堆的内容。</li>
+<li>但是，我们人有一种天生的能力，就是将问题进行拆解。</li>
+<li>如果将一个复杂的问题，拆分成很多个可以处理的小问题，再将其放在整体当中，你会发现大的问题也会迎刃而解。</li>
+</ul>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/05001" alt="图片"></p>
+<p>组件化也是类似的思想：</p>
+<ul>
+<li>如果我们将一个页面中所有的处理逻辑全部放在一起，处理起来就会变得非常复杂，而且不利于后续的管理以及扩展。</li>
+<li>但如果，我们讲一个页面拆分成一个个小的功能块，每个功能块完成属于自己这部分独立的功能，那么之后整个页面的管理和维护就变得非常容易了。</li>
+</ul>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/05002" alt="图片"></p>
+<p>我们需要通过组件化的思想来思考整个应用程序：</p>
+<ul>
+<li>我们将一个完整的页面分成很多个组件；</li>
+<li>每个组件都用于实现页面的一个功能块；</li>
+<li>而每一个组件又可以进行细分；</li>
+<li>而组件本身又可以在多个地方进行复用；</li>
+</ul>
+<h3 id="React的组件化"><a href="#React的组件化" class="headerlink" title="React的组件化"></a>React的组件化</h3><p>组件化是React的核心思想，也是我们后续课程的重点，前面我们封装的App本身就是一个组件：</p>
+<ul>
+<li>组件化提供了一种抽象，让我们可以开发出一个个独立可复用的小组件来构造我们的应用。</li>
+<li>任何的应用都会被抽象成一颗组件树。</li>
+</ul>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/05003" alt="图片"></p>
+<p>组件化思想的应用：</p>
+<ul>
+<li>有了组件化的思想，我们在之后的开发中就要充分的利用它。</li>
+<li>尽可能的将页面拆分成一个个小的、可复用的组件。</li>
+<li>这样让我们的代码更加方便组织和管理，并且扩展性也更强。</li>
+</ul>
+<p>React的组件相对于Vue更加的灵活和多样，按照不同的方式可以分成很多类组件：</p>
+<ul>
+<li>根据组件的定义方式，可以分为：函数组件(Functional Component )和类组件(Class Component)；</li>
+<li>根据组件内部是否有状态需要维护，可以分成：无状态组件(Stateless Component )和有状态组件(Stateful Component)；</li>
+<li>根据组件的不同职责，可以分成：展示型组件(Presentational Component)和容器型组件(Container Component)；</li>
+</ul>
+<p>这些概念有很多重叠，但是他们最主要是关注数据逻辑和UI展示的分离：</p>
+<ul>
+<li>函数组件、无状态组件、展示型组件主要关注UI的展示；</li>
+<li>类组件、有状态组件、容器型组件主要关注数据逻辑；</li>
+</ul>
+<p>当然还有很多组件的其他概念：比如异步组件、高阶组件等，我们后续再学习。</p>
+<h2 id="创建React组件"><a href="#创建React组件" class="headerlink" title="创建React组件"></a>创建React组件</h2><h3 id="创建类组件"><a href="#创建类组件" class="headerlink" title="创建类组件"></a>创建类组件</h3><p>类组件的定义有如下要求：</p>
+<ul>
+<li>类组件需要继承自 <code>React.Component</code></li>
+<li>类组件必须实现<code>render</code>函数</li>
+</ul>
+<p>在ES6之前，可以通过<code>create-react-class</code> 模块来定义类组件，但是目前官网建议我们使用ES6的class类定义。</p>
+<p>使用class定义一个组件：</p>
+<ul>
+<li>constructor是可选的，我们通常在constructor中初始化一些数据；</li>
+<li>this.state中维护的就是我们组件内部的数据；</li>
+<li><code>render()</code> 方法是 class 组件中唯一必须实现的方法；</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>();</span><br><span class="line"></span><br><span class="line">    <span class="built_in">this</span>.state = &#123;</span><br><span class="line">      </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>Hello App<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当 <code>render</code> 被调用时，它会检查 <code>this.props</code> 和 <code>this.state</code> 的变化并返回以下类型之一：</p>
+<ul>
+<li><p><strong>React 元素</strong>：</p>
+</li>
+<li><ul>
+<li>通常通过 JSX 创建。</li>
+<li>例如，<code>会被 React 渲染为 DOM 节点，</code> 会被 React 渲染为自定义组件；</li>
+<li>无论是 <code>还是</code> 均为 React 元素。</li>
+</ul>
+</li>
+<li><p><strong>数组或 fragments</strong>：使得 render 方法可以返回多个元素。</p>
+</li>
+<li><p><strong>Portals</strong>：可以渲染子节点到不同的 DOM 子树中。</p>
+</li>
+<li><p><strong>字符串或数值类型</strong>：它们在 DOM 中会被渲染为文本节点</p>
+</li>
+<li><p><strong>布尔类型或 <code>null</code></strong>：什么都不渲染。</p>
+</li>
+</ul>
+<p>另外类组件有自己的生命周期，我们会在后面的章节中详细介绍。</p>
+<h3 id="创建函数组件"><a href="#创建函数组件" class="headerlink" title="创建函数组件"></a>创建函数组件</h3><p>函数组件是使用function来进行定义的函数，只是这个函数会返回和类组件中render函数返回一样的内容。</p>
+<p>函数组件有自己的特点（当然，后面我们会讲hooks，就不一样了）：</p>
+<ul>
+<li>没有生命周期，也会被更新并挂载，但是没有生命周期函数；</li>
+<li>没有this(组件实例）；</li>
+<li>没有内部状态（state）；</li>
+</ul>
+<p>我们来定义一个函数组件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;Hello World&lt;/div&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="组件的生命周期"><a href="#组件的生命周期" class="headerlink" title="组件的生命周期"></a>组件的生命周期</h2><h3 id="认识生命周期"><a href="#认识生命周期" class="headerlink" title="认识生命周期"></a>认识生命周期</h3><p>很多的事物都有从创建到销毁的整个过程，这个过程称之为是<strong>生命周期</strong>；</p>
+<p>React组件也有自己的生命周期，了解组件的生命周期可以让我们在最合适的地方完成自己想要的功能；</p>
+<p>生命周期和生命周期函数的关系：</p>
+<ul>
+<li><p>生命周期是一个抽象的概念，在生命周期的整个过程，分成了很多个阶段；</p>
+</li>
+<li><ul>
+<li>比如装载阶段（Mount），组件第一次在DOM树中被渲染的过程；</li>
+<li>比如更新过程（Update），组件状态发生变化，重新更新渲染的过程；</li>
+<li>比如卸载过程（Unmount），组件从DOM树中被移除的过程；</li>
+</ul>
+</li>
+<li><p>React内部为了告诉我们当前处于哪些阶段，会对我们组件内部实现的某些函数进行回调，这些函数就是生命周期函数：</p>
+</li>
+<li><ul>
+<li>比如实现componentDidMount函数：组件已经挂载到DOM上时，就会回调；</li>
+<li>比如实现componentDidUpdate函数：组件已经发生了更新时，就会回调；</li>
+<li>比如实现componentWillUnmount函数：组件即将被移除时，就会回调；</li>
+<li>我们可以在这些回调函数中编写自己的逻辑代码，来完成自己的需求功能；</li>
+</ul>
+</li>
+</ul>
+<p>我们谈React生命周期时，主要谈的类的生命周期，因为函数式组件是没有生命周期函数的；（后面我们可以通过hooks来模拟一些生命周期的回调）</p>
+<h3 id="生命周期解析"><a href="#生命周期解析" class="headerlink" title="生命周期解析"></a>生命周期解析</h3><p>我们先来学习一下最基础、最常用的生命周期函数：</p>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/05004" alt="图片">React基本生命周期</p>
+<p>上图第一个区域解析：</p>
+<ul>
+<li>当我们挂载一个组件时，会先执行constructor构造方法来创建组件；</li>
+<li>紧接着调用render函数，获取要渲染的DOM结构（jsx），并且开始渲染DOM；</li>
+<li>当组件挂载成功（DOM渲染完成），会执行componentDidMount生命周期函数；</li>
+</ul>
+<p>上图第二个区域解析：</p>
+<ul>
+<li>当我们通过修改props，或者调用setState修改内部状态，或者直接调用forceUpdate时会重新调用render函数，进行更新操作；</li>
+<li>当更新完成时，会回调componentDidUpdate生命周期函数；</li>
+</ul>
+<p>上图第三个区域解析：</p>
+<ul>
+<li>当我们的组件不再使用，会被从DOM中移除掉（卸载）；</li>
+<li>这个时候会回调componentWillUnmount生命周期函数；</li>
+</ul>
+<h3 id="生命周期函数"><a href="#生命周期函数" class="headerlink" title="生命周期函数"></a>生命周期函数</h3><p><strong>constructor</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">constructor(props)</span><br></pre></td></tr></table></figure>
+<p>如果不初始化 state 或不进行方法绑定，则不需要为 React 组件实现构造函数。</p>
+<p>constructor中通常只做两件事情：</p>
+<ul>
+<li>通过给 <code>this.state</code> 赋值对象来初始化内部的state；</li>
+<li>为事件绑定实例（this）；</li>
+</ul>
+<p><strong>componentDidMount</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">componentDidMount()</span><br></pre></td></tr></table></figure>
+<p><code>componentDidMount()</code> 会在组件挂载后（插入 DOM 树中）立即调用。</p>
+<p>componentDidMount中通常进行哪里操作呢？</p>
+<ul>
+<li>依赖于DOM的操作可以在这里进行；</li>
+<li>在此处发送网络请求就最好的地方；（官方建议）</li>
+<li>可以在此处添加一些订阅（会在componentWillUnmount取消订阅）；</li>
+</ul>
+<p><strong>componentDidUpdate</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">componentDidUpdate(prevProps, prevState, snapshot)</span><br></pre></td></tr></table></figure>
+<p><code>componentDidUpdate()</code> 会在更新后会被立即调用，首次渲染不会执行此方法。</p>
+<ul>
+<li>当组件更新后，可以在此处对 DOM 进行操作；</li>
+<li>如果你对更新前后的 props 进行了比较，也可以选择在此处进行网络请求；（例如，当 props 未发生变化时，则不会执行网络请求）。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">componentDidUpdate</span>(<span class="params">prevProps</span>)</span> &#123;</span><br><span class="line">  <span class="comment">// 典型用法（不要忘记比较 props）：</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">this</span>.props.userID !== prevProps.userID) &#123;</span><br><span class="line">    <span class="built_in">this</span>.fetchData(<span class="built_in">this</span>.props.userID);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>componentWillUnmount</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">componentWillUnmount()</span><br></pre></td></tr></table></figure>
+<p><code>componentWillUnmount()</code> 会在组件卸载及销毁之前直接调用。</p>
+<ul>
+<li>在此方法中执行必要的清理操作；</li>
+<li>例如，清除 timer，取消网络请求或清除在 <code>componentDidMount()</code> 中创建的订阅等；</li>
+</ul>
+<p><strong>代码验证所有的生命周期函数：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HYTestCpn</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>HYTestCpn<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">componentWillUnmount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;HYTestCpn componentWillUnmount&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">props</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(props);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">this</span>.state = &#123;</span><br><span class="line">      counter: <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;调用constructor方法&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;调用render方法&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;h2&gt;当前计数: &#123;<span class="built_in">this</span>.state.counter&#125;&lt;/h2&gt;</span><br><span class="line">        &#123;<span class="built_in">this</span>.state.counter &lt;= <span class="number">5</span> &amp;&amp; <span class="xml"><span class="tag">&lt;<span class="name">HYTestCpn</span>/&gt;</span></span>&#125;</span><br><span class="line">        &lt;button onClick=&#123;<span class="function"><span class="params">e</span> =&gt;</span> <span class="built_in">this</span>.increment()&#125;&gt;+<span class="number">1</span>&lt;/button&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">increment</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.setState(&#123;</span><br><span class="line">      counter: <span class="built_in">this</span>.state.counter + <span class="number">1</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">componentDidMount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;调用componentDidMount方法&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">componentDidUpdate</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;调用componentDidUpdate方法&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">componentWillUnmount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;调用componentWillUnmount方法&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="不常用生命周期"><a href="#不常用生命周期" class="headerlink" title="不常用生命周期"></a>不常用生命周期</h3><p>除了上面介绍的生命周期函数之外，还有一些不常用的生命周期函数：</p>
+<ul>
+<li>getDerivedStateFromProps：state 的值在任何时候都依赖于 props时使用；该方法返回一个对象来更新state；</li>
+<li>getSnapshotBeforeUpdate：在React更新DOM之前回调的一个函数，可以获取DOM更新前的一些信息（比如说滚动位置）；</li>
+<li>shouldComponentUpdate：该生命周期函数很常用，但是我们等待讲性能优化时再来详细讲解；</li>
+</ul>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/05005" alt="图片">完整的生命周期图</p>
+<p>另外，React中还提供了一些过期的生命周期函数，这些函数已经不推荐使用。</p>
+<p>更详细的生命周期相关的内容，可以参考官网：<a target="_blank" rel="noopener" href="https://zh-hans.reactjs.org/docs/react-component.html">https://zh-hans.reactjs.org/docs/react-component.html</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/React-JavaScript/" rel="tag"># React JavaScript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2020/12/14/React%E7%B3%BB%E5%88%97%E5%9B%9B-React%E8%84%9A%E6%89%8B%E6%9E%B6/" rel="prev" title="React系列四-React脚手架">
+      <i class="fa fa-chevron-left"></i> React系列四-React脚手架
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/2020/12/14/React%E7%B3%BB%E5%88%97%E5%85%AD-%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/" rel="next" title="React系列六-父子组件通信">
+      React系列六-父子组件通信 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A4%E8%AF%86%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91"><span class="nav-number">1.</span> <span class="nav-text">认识组件化开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BB%84%E4%BB%B6%E5%8C%96%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">什么是组件化？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React%E7%9A%84%E7%BB%84%E4%BB%B6%E5%8C%96"><span class="nav-number">1.2.</span> <span class="nav-text">React的组件化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAReact%E7%BB%84%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">创建React组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%B1%BB%E7%BB%84%E4%BB%B6"><span class="nav-number">2.1.</span> <span class="nav-text">创建类组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6"><span class="nav-number">2.2.</span> <span class="nav-text">创建函数组件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">3.</span> <span class="nav-text">组件的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A4%E8%AF%86%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">3.1.</span> <span class="nav-text">认识生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E8%A7%A3%E6%9E%90"><span class="nav-number">3.2.</span> <span class="nav-text">生命周期解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%87%BD%E6%95%B0"><span class="nav-number">3.3.</span> <span class="nav-text">生命周期函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%B8%B8%E7%94%A8%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">3.4.</span> <span class="nav-text">不常用生命周期</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">GuiXu</p>
+  <div class="site-description" itemprop="description">study</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:guixuysl@gmail.com" title="E-Mail → mailto:guixuysl@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">GuiXu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/pisces.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/blog/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/blog/lib/pace/pace-theme-minimal.min.css">
+  <script src="/blog/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"guixu40.gitee.io","root":"/blog/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="上一个章节主要是学习redux本身的基本使用过程，这个章节我们来学习一下如何将redux结合到React中来使用。 我会先按照简单的方式，自己来将redux结合到react中，并且结合高阶函数、Context一步步来实现connect和Provider的功能。 紧接着会讲解react-redux库的使用，帮助我们实现react-redux的连接。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React系列十六-Redux(二)react-redux">
+<meta property="og:url" content="https://guixu40.gitee.io/blog/2020/12/15/React%E7%B3%BB%E5%88%97%E5%8D%81%E5%85%AD-Redux-%E4%BA%8C-react-redux/index.html">
+<meta property="og:site_name" content="GuiXu">
+<meta property="og:description" content="上一个章节主要是学习redux本身的基本使用过程，这个章节我们来学习一下如何将redux结合到React中来使用。 我会先按照简单的方式，自己来将redux结合到react中，并且结合高阶函数、Context一步步来实现connect和Provider的功能。 紧接着会讲解react-redux库的使用，帮助我们实现react-redux的连接。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/16001">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/16002">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/16003">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/16004">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/16005">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/16006">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/16007">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/16008">
+<meta property="article:published_time" content="2020-12-15T07:58:28.000Z">
+<meta property="article:modified_time" content="2020-12-17T13:16:59.215Z">
+<meta property="article:author" content="GuiXu">
+<meta property="article:tag" content="React JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/16001">
+
+<link rel="canonical" href="https://guixu40.gitee.io/blog/2020/12/15/React%E7%B3%BB%E5%88%97%E5%8D%81%E5%85%AD-Redux-%E4%BA%8C-react-redux/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>React系列十六-Redux(二)react-redux | GuiXu</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">GuiXu</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://guixu40.gitee.io/blog/2020/12/15/React%E7%B3%BB%E5%88%97%E5%8D%81%E5%85%AD-Redux-%E4%BA%8C-react-redux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="GuiXu">
+      <meta itemprop="description" content="study">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GuiXu">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          React系列十六-Redux(二)react-redux
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-12-15 15:58:28" itemprop="dateCreated datePublished" datetime="2020-12-15T15:58:28+08:00">2020-12-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-17 21:16:59" itemprop="dateModified" datetime="2020-12-17T21:16:59+08:00">2020-12-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/React/React%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">React基础知识</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>上一个章节主要是学习redux本身的基本使用过程，这个章节我们来学习一下如何将redux结合到React中来使用。</p>
+<p>我会先按照简单的方式，自己来将redux结合到react中，并且结合高阶函数、Context一步步来实现connect和Provider的功能。</p>
+<p>紧接着会讲解react-redux库的使用，帮助我们实现react-redux的连接。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="react结合redux"><a href="#react结合redux" class="headerlink" title="react结合redux"></a>react结合redux</h2><h3 id="redux融入react代码"><a href="#redux融入react代码" class="headerlink" title="redux融入react代码"></a>redux融入react代码</h3><p>目前redux在react中使用是最大的，所以我们需要将之前编写的redux代码，融入到react当中去。</p>
+<p>这里我创建了两个组件：</p>
+<ul>
+<li>Home组件：其中会展示当前的counter值，并且有一个+1和+5的按钮；</li>
+<li>Profile组件：其中会展示当前的counter值，并且有一个-1和-5的按钮；</li>
+</ul>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/16001" alt="图片">界面展示效果</p>
+<p>home.js代码实现：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; PureComponent &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">&#x27;../store&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  addAction</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">&#x27;../store/actionCreators&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Home</span> <span class="keyword">extends</span> <span class="title">PureComponent</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">props</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(props);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">this</span>.state = &#123;</span><br><span class="line">      counter: store.getState().counter</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">componentDidMount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    store.subscribe(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">this</span>.setState(&#123;</span><br><span class="line">        counter: store.getState().counter</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;h1&gt;Home&lt;/h1&gt;</span><br><span class="line">        &lt;h2&gt;当前计数: &#123;<span class="built_in">this</span>.state.counter&#125;&lt;/h2&gt;</span><br><span class="line">        &lt;button onClick=&#123;<span class="function"><span class="params">e</span> =&gt;</span> <span class="built_in">this</span>.increment()&#125;&gt;+<span class="number">1</span>&lt;/button&gt;</span><br><span class="line">        &lt;button onClick=&#123;<span class="function"><span class="params">e</span> =&gt;</span> <span class="built_in">this</span>.addCounter()&#125;&gt;+<span class="number">5</span>&lt;/button&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">increment</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    store.dispatch(addAction(<span class="number">1</span>));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">addCounter</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    store.dispatch(addAction(<span class="number">5</span>));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Profile.js代码实现：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; PureComponent &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">&#x27;../store&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  subAction</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">&#x27;../store/actionCreators&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Profile</span> <span class="keyword">extends</span> <span class="title">PureComponent</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">props</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(props);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">this</span>.state = &#123;</span><br><span class="line">      counter: store.getState().counter</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">componentDidMount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    store.subscribe(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">this</span>.setState(&#123;</span><br><span class="line">        counter: store.getState().counter</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;hr/&gt;</span><br><span class="line">        &lt;h1&gt;Profile&lt;/h1&gt;</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">          &lt;h2&gt;当前计数: &#123;<span class="built_in">this</span>.state.counter&#125;&lt;/h2&gt;</span><br><span class="line">          &lt;button onClick=&#123;<span class="function"><span class="params">e</span> =&gt;</span> <span class="built_in">this</span>.decrement()&#125;&gt;-<span class="number">1</span>&lt;/button&gt;</span><br><span class="line">          &lt;button onClick=&#123;<span class="function"><span class="params">e</span> =&gt;</span> <span class="built_in">this</span>.subCounter()&#125;&gt;-<span class="number">5</span>&lt;/button&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">decrement</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    store.dispatch(subAction(<span class="number">1</span>));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">subCounter</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    store.dispatch(subAction(<span class="number">5</span>));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码其实非常简单，核心代码主要是两个：</p>
+<ul>
+<li>在 <code>componentDidMount</code> 中定义数据的变化，当数据发生变化时重新设置 <code>counter</code>;</li>
+<li>在发生点击事件时，调用store的<code>dispatch</code>来派发对应的<code>action</code>；</li>
+</ul>
+<h3 id="自定义connect函数"><a href="#自定义connect函数" class="headerlink" title="自定义connect函数"></a>自定义connect函数</h3><p>上面的代码是否可以实现<code>react组件</code>和<code>redux</code>结合起来呢？</p>
+<ul>
+<li>当然是可以的，但是我们会发现每个使用的地方其实会有一些重复的代码：</li>
+<li>比如监听store数据改变的代码，都需要在 <code>componentDidMount</code>中完成；</li>
+<li>比如派发事件，我们都需要去先拿到 <code>store</code>， 在调用其 <code>dispatch</code> 等；</li>
+</ul>
+<p>能否将这些公共的内容提取出来呢？</p>
+<p>我们来定义一个connect函数：</p>
+<ul>
+<li><p>这个connect函数本身接受两个参数：</p>
+</li>
+<li><ul>
+<li>参数一：里面存放 <code>component</code> 希望使用到的 <code>State</code> 属性；</li>
+<li>参数二：里面存放 <code>component</code> 希望使用到的 <code>dispatch</code>动作；</li>
+</ul>
+</li>
+<li><p>这个connect函数有一个返回值，是一个高阶组件：</p>
+</li>
+<li><ul>
+<li>在<code>constructor</code>中的state中保存一下我们需要获取的状态；</li>
+<li>在<code>componentDidMount</code>中订阅store中数据的变化，并且执行 <code>setState</code>操作；</li>
+<li>在<code>componentWillUnmount</code>中需要取消订阅；</li>
+<li>在<code>render</code>函数中返回传入的<code>WrappedComponent</code>，并且将所有的状态映射到其<code>props</code>中；</li>
+<li>这个高阶组件接受一个组件作为参数，返回一个class组件；</li>
+<li>在这个class组件中，我们进行如下操作：</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; PureComponent &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">&#x27;../store&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">connect</span>(<span class="params">mapStateToProps, mapDispatchToProps</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">handleMapCpn</span>(<span class="params">WrappedComponent</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">PureComponent</span> </span>&#123;</span><br><span class="line">      <span class="function"><span class="title">constructor</span>(<span class="params">props</span>)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(props);</span><br><span class="line"></span><br><span class="line">        <span class="built_in">this</span>.state = &#123;</span><br><span class="line">          storeState: mapStateToProps(store.getState())</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="function"><span class="title">componentDidMount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.unsubscribe = store.subscribe(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">          <span class="built_in">this</span>.setState(&#123;</span><br><span class="line">            storeState: mapStateToProps(store.getState())</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="function"><span class="title">componentWillUnmount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.unsubscribe();</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">WrappedComponent</span> &#123;<span class="attr">...this.props</span>&#125; </span></span></span><br><span class="line"><span class="xml">                                 &#123;...mapStateToProps(store.getState())&#125;</span></span><br><span class="line"><span class="xml">                                 &#123;...mapDispatchToProps(store.dispatch)&#125;/&gt;</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在home和props文件中，我们按照自己需要的state、dispatch来进行映射：</p>
+<p>比如home.js中进行如下修改：</p>
+<ul>
+<li><p>mapStateToProps：用于将state映射到一个对象中，对象中包含我们需要的属性；</p>
+</li>
+<li><p>mapDispatchToProps：用于将dispatch映射到对象中，对象中包含在组件中可能操作的函数；</p>
+</li>
+<li><ul>
+<li>当调用该函数时，本质上其实是调用dispatch(对应的Action)；</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mapStateToProps = <span class="function"><span class="params">state</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    counter: state.counter</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mapDispatchToProps = <span class="function"><span class="params">dispatch</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    addNumber: <span class="function"><span class="keyword">function</span>(<span class="params">number</span>) </span>&#123;</span><br><span class="line">      dispatch(addAction(number));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> connect(mapStateToProps, mapDispatchToProps)(Home);</span><br></pre></td></tr></table></figure>
+<p>在Profile中也是类似的操作。</p>
+<p>有了connect函数，我们之后只需要关心从state和dispatch中映射自己需要的状态和行为即可；</p>
+<h3 id="store的context处理"><a href="#store的context处理" class="headerlink" title="store的context处理"></a>store的context处理</h3><p>但是上面的connect函数有一个很大的缺陷：依赖导入的store</p>
+<ul>
+<li>如果我们将其封装成一个独立的库，需要依赖用于创建的store，我们应该如何去获取呢？</li>
+<li>难道让用户来修改我们的源码吗？不太现实；</li>
+</ul>
+<p>正确的做法是我们提供一个Provider，Provider来自于我们创建的Context，让用户将store传入到value中即可；</p>
+<p>创建一个context.js文件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createContext &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> StoreContext = createContext();</span><br></pre></td></tr></table></figure>
+<p>修改connect函数中class组件部分的代码：</p>
+<ul>
+<li>注意下面我们将class组件的名称明确的定义出来，并且给它的<code>contextType</code>进行了赋值；</li>
+<li>在组件内部用到store的地方，统一使用this.context代替（注意：constructor中直接使用第二个参数即可）</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; PureComponent &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; StoreContext &#125; <span class="keyword">from</span> <span class="string">&#x27;./context&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">connect</span>(<span class="params">mapStateToProps, mapDispatchToProps</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">handleMapCpn</span>(<span class="params">WrappedComponent</span>) </span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">ConnectCpn</span> <span class="keyword">extends</span> <span class="title">PureComponent</span> </span>&#123;</span><br><span class="line">      <span class="function"><span class="title">constructor</span>(<span class="params">props, context</span>)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(props);</span><br><span class="line"></span><br><span class="line">        <span class="built_in">this</span>.state = &#123;</span><br><span class="line">          storeState: mapStateToProps(context.getState())</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="function"><span class="title">componentDidMount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.unsubscribe = <span class="built_in">this</span>.context.subscribe(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">          <span class="built_in">this</span>.setState(&#123;</span><br><span class="line">            storeState: mapStateToProps(<span class="built_in">this</span>.context.getState())</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="function"><span class="title">componentWillUnmount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.unsubscribe();</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">WrappedComponent</span> &#123;<span class="attr">...this.props</span>&#125;</span></span></span><br><span class="line"><span class="xml">          &#123;...mapStateToProps(this.context.getState())&#125;</span></span><br><span class="line"><span class="xml">          &#123;...mapDispatchToProps(this.context.dispatch)&#125; /&gt;</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ConnectCpn.contextType = StoreContext;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ConnectCpn;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在入口的index.js中，使用Provider并且提供store即可：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; StoreContext &#125; <span class="keyword">from</span> <span class="string">&#x27;./utils/context&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">&#x27;./store&#x27;</span>;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;StoreContext.Provider value=&#123;store&#125;&gt;</span><br><span class="line">    &lt;App /&gt;</span><br><span class="line">  &lt;/StoreContext.Provider&gt;,</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">&#x27;root&#x27;</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>测试代码，依然可以正常运行。</p>
+<h2 id="react-redux使用"><a href="#react-redux使用" class="headerlink" title="react-redux使用"></a>react-redux使用</h2><h3 id="react-redux的使用"><a href="#react-redux的使用" class="headerlink" title="react-redux的使用"></a>react-redux的使用</h3><p>开始之前需要强调一下，redux和react没有直接的关系，你完全可以在React, Angular, Ember, jQuery, or vanilla JavaScript中使用Redux。</p>
+<p>尽管这样说，redux依然是和React或者Deku的库结合的更好，因为他们是通过state函数来描述界面的状态，Redux可以发射状态的更新，让他们作出相应。</p>
+<p>虽然我们之前已经实现了connect、Provider这些帮助我们完成连接redux、react的辅助工具，但是实际上redux官方帮助我们提供了 react-redux 的库，可以直接在项目中使用，并且实现的逻辑会更加的严谨和高效。</p>
+<p>安装react-redux：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add react-redux</span><br></pre></td></tr></table></figure>
+<p>使用connect函数：</p>
+<ul>
+<li>将之前使用的connect函数，换成react-redux的connect函数；</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; PureComponent &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">&quot;react-redux&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// import connect from &#x27;../utils/connect2&#x27;;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> connect(mapStateToProps, mapDispatchToProps)(Home);</span><br></pre></td></tr></table></figure>
+<p>使用Provider：</p>
+<ul>
+<li>将之前自己创建的Context的Provider，换成react-redux的Provider组件：</li>
+<li>注意：这里传入的是store属性，而不是value属性（待会儿可以在源码中查看）；</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Provider &#125; <span class="keyword">from</span> <span class="string">&#x27;react-redux&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">&#x27;./store&#x27;</span>;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;Provider store=&#123;store&#125;&gt;</span><br><span class="line">    &lt;App /&gt;</span><br><span class="line">  &lt;/Provider&gt;,</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">&#x27;root&#x27;</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h3 id="react-redux的源码"><a href="#react-redux的源码" class="headerlink" title="react-redux的源码"></a>react-redux的源码</h3><p>这里我简单带着大家看一下react-redux的源码：</p>
+<ul>
+<li>但是第一因为这个教程不是讲源码为主的教程（穿插讲解部分源码），所以源码只会阅读核心的部分；</li>
+<li>另外我经常会说，整个社区在hooks出现后大量的库转向了hooks，所以在源码中会出现大量的hooks代码；</li>
+<li>因为目前还没有讲解hooks相关的API，所以某些hooks的作用在这里也不方便解释（可以学习完hooks之后再详细阅读）；</li>
+</ul>
+<p>首先，我们简单看一下Provider的源码：</p>
+<ul>
+<li><p>使用了一个useMemo来返回一个contextValue的对象；</p>
+</li>
+<li><ul>
+<li>这里使用useMemo的原因是为了进行性能的优化；</li>
+<li>在依赖的store不改变的情况下，不会进行重新计算，返回一个新的对象；</li>
+</ul>
+</li>
+<li><p>在下面的Context的Provider中就会将其赋值给value属性；</p>
+</li>
+</ul>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/16002" alt="图片"></p>
+<p>ReactReduxContext来自另外一个文件：</p>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/16003" alt="图片">Context对象的创建</p>
+<p><strong>connect函数的依赖比较复杂：</strong></p>
+<p>调用createConnect来返回一个connect函数：</p>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/16004" alt="图片"></p>
+<p>createConnect函数的调用：</p>
+<ul>
+<li><p><img src="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/16005" alt="图片">createConnect函数</p>
+</li>
+</ul>
+<p>connect函数最终调用的是connectHOC：</p>
+<ul>
+<li>connectHOC其实是connectAdvanced的函数；</li>
+<li>connectAdvanced函数最终返回的是wrapWithConnect函数；</li>
+</ul>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/16006" alt="图片"></p>
+<p>wrapWithConnect函数：</p>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/16007" alt="图片">wrapWithConnect函数</p>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/16008" alt="图片">wrapWithConnect最终的返回值</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/React-JavaScript/" rel="tag"># React JavaScript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2020/12/15/React%E7%B3%BB%E5%88%97%E5%8D%81%E4%BA%94-Redux%E5%88%9D%E8%A7%81/" rel="prev" title="React系列十五-Redux初见">
+      <i class="fa fa-chevron-left"></i> React系列十五-Redux初见
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/2020/12/15/React%E7%B3%BB%E5%88%97%E5%8D%81%E4%B8%83-Redux-%E4%B8%89-%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="next" title="React系列十七-Redux(三)中间件">
+      React系列十七-Redux(三)中间件 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#react%E7%BB%93%E5%90%88redux"><span class="nav-number">1.</span> <span class="nav-text">react结合redux</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#redux%E8%9E%8D%E5%85%A5react%E4%BB%A3%E7%A0%81"><span class="nav-number">1.1.</span> <span class="nav-text">redux融入react代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89connect%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">自定义connect函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#store%E7%9A%84context%E5%A4%84%E7%90%86"><span class="nav-number">1.3.</span> <span class="nav-text">store的context处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#react-redux%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">react-redux使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#react-redux%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">react-redux的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#react-redux%E7%9A%84%E6%BA%90%E7%A0%81"><span class="nav-number">2.2.</span> <span class="nav-text">react-redux的源码</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">GuiXu</p>
+  <div class="site-description" itemprop="description">study</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:guixuysl@gmail.com" title="E-Mail → mailto:guixuysl@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">GuiXu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/pisces.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/blog/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

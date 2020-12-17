@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/blog/lib/pace/pace-theme-minimal.min.css">
+  <script src="/blog/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"guixu40.gitee.io","root":"/blog/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="React简介React开发依赖依赖说明123456&lt;!-- 注意: 部署时，将 &quot;development.js&quot; 替换为 &quot;production.min.js&quot;。--&gt;&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;unpkg.com&#x2F;react@16&#x2F;umd&#x2F;react.development.js&quot; crossorigi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React系列一-邂逅React开发">
+<meta property="og:url" content="https://guixu40.gitee.io/blog/2020/12/14/React%E7%B3%BB%E5%88%97%E4%B8%80-%E9%82%82%E9%80%85React%E5%BC%80%E5%8F%91/index.html">
+<meta property="og:site_name" content="GuiXu">
+<meta property="og:description" content="React简介React开发依赖依赖说明123456&lt;!-- 注意: 部署时，将 &quot;development.js&quot; 替换为 &quot;production.min.js&quot;。--&gt;&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;unpkg.com&#x2F;react@16&#x2F;umd&#x2F;react.development.js&quot; crossorigi">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-12-14T08:51:42.000Z">
+<meta property="article:modified_time" content="2020-12-17T13:22:46.191Z">
+<meta property="article:author" content="GuiXu">
+<meta property="article:tag" content="React JavaScript">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://guixu40.gitee.io/blog/2020/12/14/React%E7%B3%BB%E5%88%97%E4%B8%80-%E9%82%82%E9%80%85React%E5%BC%80%E5%8F%91/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>React系列一-邂逅React开发 | GuiXu</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">GuiXu</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://guixu40.gitee.io/blog/2020/12/14/React%E7%B3%BB%E5%88%97%E4%B8%80-%E9%82%82%E9%80%85React%E5%BC%80%E5%8F%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="GuiXu">
+      <meta itemprop="description" content="study">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GuiXu">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          React系列一-邂逅React开发
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-12-14 16:51:42" itemprop="dateCreated datePublished" datetime="2020-12-14T16:51:42+08:00">2020-12-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-17 21:22:46" itemprop="dateModified" datetime="2020-12-17T21:22:46+08:00">2020-12-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/React/React%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">React基础知识</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="React简介"><a href="#React简介" class="headerlink" title="React简介"></a>React简介</h3><h3 id="React开发依赖"><a href="#React开发依赖" class="headerlink" title="React开发依赖"></a>React开发依赖</h3><h4 id="依赖说明"><a href="#依赖说明" class="headerlink" title="依赖说明"></a>依赖说明</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 注意: 部署时，将 <span class="string">&quot;development.js&quot;</span> 替换为 <span class="string">&quot;production.min.js&quot;</span>。--&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;https://unpkg.com/react@16/umd/react.development.js&quot;</span> crossorigin&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;https://unpkg.com/react-dom@16/umd/react-dom.development.js&quot;</span> crossorigin&gt;&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 加载我们的 React 组件。--&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;like_button.js&quot;</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>开发React必须依赖三个库：</p>
+<ul>
+<li>react： 包含react所必须的核心代码</li>
+<li>react-dom：react渲染在不同平台所需要的核心代码</li>
+<li>babel：将jsx转换为React代码的工具</li>
+</ul>
+<a id="more"></a>
+<p>第一次接触React会被它繁琐的依赖搞蒙，对于Vue来说，我们只是依赖一个vue.js文件即可，但是react居然要依赖三个库。</p>
+<p>其实呢，这三个库是各司其职的，目的就是让每一个库只单纯做自己的事情：</p>
+<ul>
+<li><p>在React的0.14版本之前是没有react-dom这个概念的，所有功能都包含在react里。</p>
+</li>
+<li><p>为什么要进行拆分呢？原因就是react-native。</p>
+</li>
+<li><p>react包中包含了react和react-native所共同拥有的核心代码。</p>
+</li>
+<li><p>react-dom针对web和native所完成的事情不同：</p>
+</li>
+<li><ul>
+<li>web端：react-dom会讲jsx最终渲染成真实的DOM，显示在浏览器中</li>
+<li>native端：react-dom会讲jsx最终渲染成原生的控件（比如Android中的Button，iOS中的UIButton）。</li>
+</ul>
+</li>
+</ul>
+<p>babel是什么呢？</p>
+<ul>
+<li><strong>Babel</strong> ，又名 <strong>Babel.js</strong>。</li>
+<li>是目前前端使用非常广泛的编辑器、转移器。</li>
+<li>比如当下很多浏览器并不支持ES6的语法，但是确实ES6的语法非常的简洁和方便，我们<strong>开发时</strong>希望使用它。</li>
+<li>那么编写源码时我们就可以使用ES6来编写，之后通过Babel工具，将ES6转成大多数浏览器都支持的ES5的语法。</li>
+</ul>
+<p>React和Babel的关系：</p>
+<ul>
+<li>默认情况下开发React其实可以不使用babel。</li>
+<li>但是前提是我们自己使用 <code>React.createElement</code> 来编写源代码，它编写的代码非常的繁琐和可读性差。</li>
+<li>那么我们就可以直接编写jsx（JavaScript XML）的语法，并且让babel帮助我们转换成React.createElement。</li>
+<li>后续还会讲到；</li>
+</ul>
+<p>所以，我们在编写React代码时，这三个依赖都是必不可少的。</p>
+<h4 id="依赖引用"><a href="#依赖引用" class="headerlink" title="依赖引用"></a>依赖引用</h4><ul>
+<li><p>方式一：直接CDN引入</p>
+</li>
+<li><ul>
+<li>react依赖：<a target="_blank" rel="noopener" href="https://unpkg.com/react@16/umd/react.development.js">https://unpkg.com/react@16/umd/react.development.js</a></li>
+<li>react-dom依赖：<a target="_blank" rel="noopener" href="https://unpkg.com/react-dom@16/umd/react-dom.development.js">https://unpkg.com/react-dom@16/umd/react-dom.development.js</a></li>
+<li>babel依赖：<a target="_blank" rel="noopener" href="https://unpkg.com/babel-standalone@6/babel.min.js">https://unpkg.com/babel-standalone@6/babel.min.js</a></li>
+</ul>
+</li>
+<li><p>方式二：下载后，添加本地依赖</p>
+</li>
+<li><p>方式三：通过npm管理（后续脚手架再使用）</p>
+</li>
+</ul>
+<p>暂时我们直接通过CDN引入，来演练下面的示例程序：</p>
+<ul>
+<li>这里有一个crossorigin的属性，这个属性的目的是为了拿到跨域脚本的错误信息</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">&quot;https://unpkg.com/react@16/umd/react.development.js&quot;</span> crossorigin&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;https://unpkg.com/react-dom@16/umd/react-dom.development.js&quot;</span> crossorigin&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;https://unpkg.com/babel-standalone@6/babel.min.js&quot;</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h3><h4 id="第一版"><a href="#第一版" class="headerlink" title="第一版"></a>第一版</h4><p>需求非常简单：通过React实现浏览器显示Hello World</p>
+<p><code>注意</code>：在script标签中编写React代码时，必须添加<code>type=&quot;text\babel&quot;</code>，作用是可以让babel解析jsx的语法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">方式一：直接CDN引入</span><br><span class="line">react依赖：https:<span class="comment">//unpkg.com/react@16/umd/react.development.js</span></span><br><span class="line">react-dom依赖：https:<span class="comment">//unpkg.com/react-dom@16/umd/react-dom.development.js</span></span><br><span class="line">babel依赖：https:<span class="comment">//unpkg.com/babel-standalone@6/babel.min.js</span></span><br><span class="line">方式二：下载后，添加本地依赖</span><br><span class="line">方式三：通过npm管理（后续脚手架再使用）</span><br><span class="line">暂时我们直接通过CDN引入，来演练下面的示例程序：</span><br><span class="line">这里有一个crossorigin的属性，这个属性的目的是为了拿到跨域脚本的错误信息</span><br><span class="line">&lt;script src=<span class="string">&quot;https://unpkg.com/react@16/umd/react.development.js&quot;</span> crossorigin&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;https://unpkg.com/react-dom@16/umd/react-dom.development.js&quot;</span> crossorigin&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;https://unpkg.com/babel-standalone@6/babel.min.js&quot;</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>代码解析：</p>
+<ul>
+<li><p>依赖不需要多讲，开发React代码必须添加三个依赖；</p>
+</li>
+<li><p>ReactDOM.render函数：</p>
+</li>
+<li><ul>
+<li>这里我们已经提前定义一个id为app的div</li>
+<li>这里我们传入了一个h2元素，后面我们就会使用React组件</li>
+<li>参数一：传递要渲染的内容，这个内容可以是HTML元素，也可以是React的组件</li>
+<li>参数二：将渲染的内容，挂载到哪一个HTML元素上</li>
+</ul>
+</li>
+</ul>
+<h4 id="第二版"><a href="#第二版" class="headerlink" title="第二版"></a>第二版</h4><p>按照我们最初的案例，我们已经实现了Hello World，但是我们希望点击一个按钮后，修改为Hello React</p>
+<h5 id="错误的方式"><a href="#错误的方式" class="headerlink" title="错误的方式"></a>错误的方式</h5><p>下面的代码是我们正常的执行逻辑，但是会报错：</p>
+<ul>
+<li>原因是默认情况下 <code>ReactDOM.render</code> 会覆盖挂载到的app原生中的所有内容；</li>
+<li>所以在执行完 <code>ReactDOM.render</code> 之后，就不存在button原生了；</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;  </span><br><span class="line">  &lt;div id=<span class="string">&quot;app&quot;</span>&gt;</span><br><span class="line">    &lt;button <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;change-btn&quot;</span>&gt;改变文本&lt;/button&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">  &lt;script src=<span class="string">&quot;https://unpkg.com/react@16/umd/react.development.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">  &lt;script src=<span class="string">&quot;https://unpkg.com/react-dom@16/umd/react-dom.development.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">  &lt;script src=<span class="string">&quot;https://unpkg.com/babel-standalone@6/babel.min.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">  &lt;script type=<span class="string">&quot;text/babel&quot;</span>&gt;</span><br><span class="line">    <span class="comment">// 将数据定义到变量中</span></span><br><span class="line">    <span class="keyword">let</span> message = <span class="string">&quot;Hello World&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 通过ReactDom对象来渲染内容</span></span><br><span class="line">    ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>&#123;message&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span>, <span class="built_in">document</span>.getElementById(<span class="string">&quot;app&quot;</span>));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取btn</span></span><br><span class="line">    <span class="keyword">const</span> btnEl = <span class="built_in">document</span>.getElementsByClassName(<span class="string">&quot;change-btn&quot;</span>)[<span class="number">0</span>];</span><br><span class="line">    btnEl.addEventListener(<span class="string">&quot;click&quot;</span>, <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(e);</span><br><span class="line">    &#125;)</span><br><span class="line">  &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="正确的方式"><a href="#正确的方式" class="headerlink" title="正确的方式"></a>正确的方式</h5><p>虽然可以实现，但是整个代码的流程过于繁琐</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">  </span><br><span class="line">  &lt;div id=<span class="string">&quot;app&quot;</span>&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">  &lt;script src=<span class="string">&quot;https://unpkg.com/react@16/umd/react.development.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">  &lt;script src=<span class="string">&quot;https://unpkg.com/react-dom@16/umd/react-dom.development.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">  &lt;script src=<span class="string">&quot;https://unpkg.com/babel-standalone@6/babel.min.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">  &lt;script type=<span class="string">&quot;text/babel&quot;</span>&gt;</span><br><span class="line">    <span class="comment">// 将数据定义到变量中</span></span><br><span class="line">    <span class="keyword">let</span> message = <span class="string">&quot;Hello World&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 通过ReactDom对象来渲染内容</span></span><br><span class="line">    render();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 定义一个执行的函数</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">btnClick</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      message = <span class="string">&quot;Hello React&quot;</span>;</span><br><span class="line">      render();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      ReactDOM.render((</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">          &lt;h2&gt;&#123;message&#125;&lt;/h2&gt;</span><br><span class="line">          &lt;button onClick=&#123;btnClick&#125;&gt;改变文本&lt;/button&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">      ), <span class="built_in">document</span>.getElementById(<span class="string">&quot;app&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="组件的方式"><a href="#组件的方式" class="headerlink" title="组件的方式"></a>组件的方式</h5><p>整个逻辑其实可以看做一个整体，那么我们就可以将其封装成一个组件：</p>
+<ul>
+<li>我们说过 <code>ReactDOM.render</code> 第一参数是一个HTML原生或者一个组件；</li>
+<li>所以我们可以先将之前的业务逻辑封装到一个组件中，然后传入到 <code>ReactDOM.render</code> 函数中的第一个参数；</li>
+</ul>
+<p>在React中，如何封装一个组件呢？</p>
+<ul>
+<li><p>这里我们暂时使用类的方式封装组件：</p>
+</li>
+<li><ul>
+<li>render当中返回的jsx内容，就是之后React会帮助我们渲染的内容</li>
+<li>1.定义一个类，继承自React.Component</li>
+<li>2.实现当前组件的render函数</li>
+</ul>
+</li>
+</ul>
+<p>具体的代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class App extends React.Component &#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    return (&lt;h2&gt;Hello World&lt;&#x2F;h2&gt;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(&lt;App&#x2F;&gt;, document.getElementById(&quot;app&quot;));</span><br></pre></td></tr></table></figure>
+<p>如果我们的Hello World是依赖变量的，并且会根据按钮的点击而改变呢？这里涉及到几个核心点</p>
+<p>1.数据在哪里定义</p>
+<ul>
+<li><p>在组件中的数据，我们可以分成两类：</p>
+</li>
+<li><ul>
+<li>参与界面更新的数据：当数据变量时，需要更新组件渲染的内容</li>
+<li>不参与界面更新的数据：当数据变量时，不需要更新将组建渲染的内容</li>
+</ul>
+</li>
+<li><p>参与界面更新的数据我们也可以称之为是参与数据流，这个数据是定义在当前对象的state中</p>
+</li>
+<li><ul>
+<li>我们可以通过在构造函数中 <code>this.state = &#123;定义的数据&#125;</code></li>
+</ul>
+</li>
+<li><p>当我们的数据发生变化时，我们可以调用 <code>this.setState</code> 来更新数据，并且通知React进行update操作</p>
+</li>
+<li><ul>
+<li>在进行update操作时，就会重新调用render函数，并且使用最新的数据，来渲染界面</li>
+</ul>
+</li>
+</ul>
+<p>2.事件绑定中的this</p>
+<ul>
+<li><p>在类中直接定义一个函数，并且将这个函数绑定到html原生的onClick事件上，当前这个函数的this指向的是谁呢？</p>
+</li>
+<li><p>默认情况下是undefined</p>
+</li>
+<li><ul>
+<li>很奇怪，居然是undefined；</li>
+<li>因为在正常的DOM操作中，监听点击，监听函数中的this其实是节点对象（比如说是button对象）；</li>
+<li>这次因为React并不是直接渲染成真实的DOM，我们所编写的button只是一个语法糖，它的本质React的Element对象；</li>
+<li>那么在这里发生监听的时候，react给我们的函数绑定的this，默认情况下就是一个undefined；</li>
+</ul>
+</li>
+<li><p>我们在绑定的函数中，可能想要使用当前对象，比如执行 <code>this.setState</code> 函数，就必须拿到当前对象的this</p>
+</li>
+<li><ul>
+<li>我们就需要在传入函数时，给这个函数直接绑定this</li>
+<li>类似于下面的写法：<code>改变文本</code></li>
+</ul>
+</li>
+</ul>
+<p>我们一起来看一下代码是如何实现的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">class App extends React.Component &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    super();</span><br><span class="line">    this.state &#x3D; &#123;</span><br><span class="line">      message: &quot;Hello World&quot;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    return (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;h2&gt;&#123;this.state.message&#125;&lt;&#x2F;h2&gt;</span><br><span class="line">        &lt;button onClick&#x3D;&#123;this.changeText.bind(this)&#125;&gt;改变文本&lt;&#x2F;button&gt;</span><br><span class="line">     &lt;&#x2F;div&gt;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  changeText() &#123;</span><br><span class="line">    this.setState(&#123;</span><br><span class="line">      message: &quot;Hello React&quot;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(&lt;App&#x2F;&gt;, document.getElementById(&quot;app&quot;));</span><br></pre></td></tr></table></figure>
+<p>转载自</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/zCt4l31aqf4v1qGorG6tcA">https://mp.weixin.qq.com/s/zCt4l31aqf4v1qGorG6tcA</a>   coderwhy老师的课程</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/React-JavaScript/" rel="tag"># React JavaScript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2020/12/07/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="prev" title="正则表达式">
+      <i class="fa fa-chevron-left"></i> 正则表达式
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/2020/12/14/React%E7%B3%BB%E5%88%97%E4%BA%8C-JSX%E8%AF%AD%E6%B3%95/" rel="next" title="React系列二-JSX语法">
+      React系列二-JSX语法 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#React%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">React简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React%E5%BC%80%E5%8F%91%E4%BE%9D%E8%B5%96"><span class="nav-number">2.</span> <span class="nav-text">React开发依赖</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E8%AF%B4%E6%98%8E"><span class="nav-number">2.1.</span> <span class="nav-text">依赖说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E5%BC%95%E7%94%A8"><span class="nav-number">2.2.</span> <span class="nav-text">依赖引用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hello-World"><span class="nav-number">3.</span> <span class="nav-text">Hello World</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%89%88"><span class="nav-number">3.1.</span> <span class="nav-text">第一版</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%89%88"><span class="nav-number">3.2.</span> <span class="nav-text">第二版</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">3.2.1.</span> <span class="nav-text">错误的方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">3.2.2.</span> <span class="nav-text">正确的方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">3.2.3.</span> <span class="nav-text">组件的方式</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">GuiXu</p>
+  <div class="site-description" itemprop="description">study</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:guixuysl@gmail.com" title="E-Mail → mailto:guixuysl@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">GuiXu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/pisces.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/blog/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

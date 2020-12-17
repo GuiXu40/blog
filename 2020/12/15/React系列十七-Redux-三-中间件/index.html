@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/blog/lib/pace/pace-theme-minimal.min.css">
+  <script src="/blog/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"guixu40.gitee.io","root":"/blog/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="中间件的使用组件中异步请求在之前简单的案例中，redux中保存的counter是一个本地定义的数据，我们可以直接通过同步的操作来dispatch action，state就会被立即更新。 但是真实开发中，redux中保存的很多数据可能来自服务器，我们需要进行异步的请求，再将数据保存到redux中。 在之前学习网络请求的时候我们讲过，网络请求可以在class组件的componentDidMount中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React系列十七-Redux(三)中间件">
+<meta property="og:url" content="https://guixu40.gitee.io/blog/2020/12/15/React%E7%B3%BB%E5%88%97%E5%8D%81%E4%B8%83-Redux-%E4%B8%89-%E4%B8%AD%E9%97%B4%E4%BB%B6/index.html">
+<meta property="og:site_name" content="GuiXu">
+<meta property="og:description" content="中间件的使用组件中异步请求在之前简单的案例中，redux中保存的counter是一个本地定义的数据，我们可以直接通过同步的操作来dispatch action，state就会被立即更新。 但是真实开发中，redux中保存的很多数据可能来自服务器，我们需要进行异步的请求，再将数据保存到redux中。 在之前学习网络请求的时候我们讲过，网络请求可以在class组件的componentDidMount中">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/17001">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/17002">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/17003">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/17004">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/17005">
+<meta property="og:image" content="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/17006">
+<meta property="article:published_time" content="2020-12-15T08:14:07.000Z">
+<meta property="article:modified_time" content="2020-12-17T13:21:47.559Z">
+<meta property="article:author" content="GuiXu">
+<meta property="article:tag" content="React JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/17001">
+
+<link rel="canonical" href="https://guixu40.gitee.io/blog/2020/12/15/React%E7%B3%BB%E5%88%97%E5%8D%81%E4%B8%83-Redux-%E4%B8%89-%E4%B8%AD%E9%97%B4%E4%BB%B6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>React系列十七-Redux(三)中间件 | GuiXu</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">GuiXu</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://guixu40.gitee.io/blog/2020/12/15/React%E7%B3%BB%E5%88%97%E5%8D%81%E4%B8%83-Redux-%E4%B8%89-%E4%B8%AD%E9%97%B4%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="GuiXu">
+      <meta itemprop="description" content="study">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GuiXu">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          React系列十七-Redux(三)中间件
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-12-15 16:14:07" itemprop="dateCreated datePublished" datetime="2020-12-15T16:14:07+08:00">2020-12-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-17 21:21:47" itemprop="dateModified" datetime="2020-12-17T21:21:47+08:00">2020-12-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/React/React%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">React基础知识</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="中间件的使用"><a href="#中间件的使用" class="headerlink" title="中间件的使用"></a>中间件的使用</h2><h3 id="组件中异步请求"><a href="#组件中异步请求" class="headerlink" title="组件中异步请求"></a>组件中异步请求</h3><p>在之前简单的案例中，redux中保存的counter是一个本地定义的数据，我们可以直接通过同步的操作来dispatch action，state就会被立即更新。</p>
+<p>但是真实开发中，redux中保存的很多数据可能来自服务器，我们需要进行异步的请求，再将数据保存到redux中。</p>
+<p>在之前学习网络请求的时候我们讲过，网络请求可以在class组件的<code>componentDidMount</code>中发送，所以我们可以有这样的结构：</p>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/17001" alt="图片">组件中发送网络请求</p>
+<a id="more"></a>
+<p>我现在完成如下案例操作：</p>
+<ul>
+<li>在Home组件中请求banners和recommends的数据；</li>
+<li>在Profile组件中展示banners和recommends的数据；</li>
+</ul>
+<p><strong>redux代码进行如下修改：</strong></p>
+<p>在reducer.js中添加state初始化数据和reducer函数中处理代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> initialState = &#123;</span><br><span class="line">  counter: <span class="number">0</span>,</span><br><span class="line">  banners: [],</span><br><span class="line">  recommends: []</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reducer</span>(<span class="params">state = initialState, action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> ADD_NUMBER:</span><br><span class="line">      <span class="keyword">return</span> &#123; ...state, <span class="attr">counter</span>: state.counter + action.num &#125;;</span><br><span class="line">    <span class="keyword">case</span> SUB_NUMBER:</span><br><span class="line">      <span class="keyword">return</span> &#123; ...state, <span class="attr">counter</span>: state.counter - action.num &#125;;</span><br><span class="line">    <span class="keyword">case</span> CHANGE_BANNER:</span><br><span class="line">      <span class="keyword">return</span> &#123; ...state, <span class="attr">banners</span>: action.banners &#125;;</span><br><span class="line">    <span class="keyword">case</span> CHANGE_RECOMMEND:</span><br><span class="line">      <span class="keyword">return</span> &#123; ...state, <span class="attr">recommends</span>: action.recommends &#125;;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">return</span> state;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>constants中增加常量：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> CHANGE_BANNER = <span class="string">&quot;CHANGE_BANNER&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> CHANGE_RECOMMEND = <span class="string">&quot;CHANGE_RECOMMEND&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p>actionCreators.js中添加actions：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> changeBannersAction = <span class="function">(<span class="params">banners</span>) =&gt;</span> (&#123;</span><br><span class="line">  type: CHANGE_BANNER,</span><br><span class="line">  banners</span><br><span class="line">&#125;) </span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> changeRecommendsAction = <span class="function">(<span class="params">recommends</span>) =&gt;</span> (&#123;</span><br><span class="line">  type: CHANGE_RECOMMEND,</span><br><span class="line">  recommends</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><strong>组件中代码代码修改：</strong></p>
+<p>Home组件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; PureComponent &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">&quot;react-redux&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  addAction,</span><br><span class="line">  changeBannersAction,</span><br><span class="line">  changeRecommendsAction</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">&#x27;../store/actionCreators&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Home</span> <span class="keyword">extends</span> <span class="title">PureComponent</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">componentDidMount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    axios.get(<span class="string">&quot;http://123.207.32.32:8000/home/multidata&quot;</span>).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> data = res.data.data;</span><br><span class="line">      <span class="built_in">this</span>.props.changeBanners(data.banner.list);</span><br><span class="line">      <span class="built_in">this</span>.props.changeRecommends(data.recommend.list);</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  ...其他业务代码</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mapStateToProps = <span class="function"><span class="params">state</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    counter: state.counter</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mapDispatchToProps = <span class="function"><span class="params">dispatch</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    addNumber: <span class="function"><span class="keyword">function</span>(<span class="params">number</span>) </span>&#123;</span><br><span class="line">      dispatch(addAction(number));</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="function"><span class="title">changeBanners</span>(<span class="params">banners</span>)</span> &#123;</span><br><span class="line">      dispatch(changeBannersAction(banners));</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="function"><span class="title">changeRecommends</span>(<span class="params">recommends</span>)</span> &#123;</span><br><span class="line">      dispatch(changeRecommendsAction(recommends));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> connect(mapStateToProps, mapDispatchToProps)(Home);</span><br></pre></td></tr></table></figure>
+<p>Profile组件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; PureComponent &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">&quot;react-redux&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  subAction</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">&#x27;../store/actionCreators&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Profile</span> <span class="keyword">extends</span> <span class="title">PureComponent</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        Profile</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">          &lt;h2&gt;当前计数: &#123;<span class="built_in">this</span>.props.counter&#125;&lt;/h2&gt;</span><br><span class="line">          &lt;button onClick=&#123;<span class="function"><span class="params">e</span> =&gt;</span> <span class="built_in">this</span>.decrement()&#125;&gt;-<span class="number">1</span>&lt;/button&gt;</span><br><span class="line">          &lt;button onClick=&#123;<span class="function"><span class="params">e</span> =&gt;</span> <span class="built_in">this</span>.subCounter()&#125;&gt;-<span class="number">5</span>&lt;/button&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">        &lt;h1&gt;Banners&lt;/h1&gt;</span><br><span class="line">        &lt;ul&gt;</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="built_in">this</span>.props.banners.map(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">              <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&#123;item.acm&#125;</span>&gt;</span>&#123;item.title&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line">            &#125;)</span><br><span class="line">          &#125;</span><br><span class="line">        &lt;/ul&gt;</span><br><span class="line">        &lt;h1&gt;Recommends&lt;/h1&gt;</span><br><span class="line">        &lt;ul&gt;</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="built_in">this</span>.props.recommends.map(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">              <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&#123;item.acm&#125;</span>&gt;</span>&#123;item.title&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line">            &#125;)</span><br><span class="line">          &#125;</span><br><span class="line">        &lt;/ul&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  ...其他逻辑代码</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mapStateToProps = <span class="function"><span class="params">state</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    counter: state.counter,</span><br><span class="line">    banners: state.banners,</span><br><span class="line">    recommends: state.recommends</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mapDispatchToProps = <span class="function"><span class="params">dispatch</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    subNumber: <span class="function"><span class="keyword">function</span> (<span class="params">number</span>) </span>&#123;</span><br><span class="line">      dispatch(subAction(number));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> connect(mapStateToProps, mapDispatchToProps)(Profile);</span><br></pre></td></tr></table></figure>
+<h3 id="redux中异步请求"><a href="#redux中异步请求" class="headerlink" title="redux中异步请求"></a>redux中异步请求</h3><p>上面的代码有一个缺陷：</p>
+<ul>
+<li>我们必须将网络请求的异步代码放到组件的生命周期中来完成；</li>
+<li>事实上，网络请求到的数据也属于我们状态管理的一部分，更好的一种方式应该是将其也交给redux来管理；</li>
+</ul>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/17002" alt="图片">redux中发送网络请求</p>
+<p>但是在redux中如何可以进行异步的操作呢？</p>
+<ul>
+<li>答案就是使用<strong>中间件（Middleware）</strong>；</li>
+<li>学习过Express或Koa框架的童鞋对中间件的概念一定不陌生；</li>
+<li>在这类框架中，Middleware可以帮助我们在请求和响应之间嵌入一些操作的代码，比如cookie解析、日志记录、文件压缩等操作；</li>
+</ul>
+<p>redux也引入了中间件（Middleware）的概念：</p>
+<ul>
+<li>这个中间件的目的是在<code>dispatch的action</code>和<code>最终达到的reducer</code>之间，扩展一些自己的代码；</li>
+<li>比如日志记录、调用异步接口、添加代码调试功能等等；</li>
+</ul>
+<p>我们现在要做的事情就是发送异步的网络请求，所以我们可以添加对应的中间件：</p>
+<ul>
+<li>这里官网推荐的、包括演示的网络请求的中间件是使用 <code>redux-thunk</code>；</li>
+</ul>
+<p>redux-thunk是如何做到让我们可以发送异步的请求呢？</p>
+<ul>
+<li><p>我们知道，默认情况下的dispatch(action)，action需要是一个JavaScript的对象；</p>
+</li>
+<li><p><code>redux-thunk</code>可以让dispatch(action函数)，<code>action可以是一个函数</code>；</p>
+</li>
+<li><p>该函数会被调用，并且会传给这个函数一个dispatch函数和getState函数；</p>
+</li>
+<li><ul>
+<li>dispatch函数用于我们之后再次派发action；</li>
+<li>getState函数考虑到我们之后的一些操作需要依赖原来的状态，用于让我们可以获取之前的一些状态；</li>
+</ul>
+</li>
+</ul>
+<p><strong>如何使用redux-thunk呢？</strong></p>
+<p>1.安装redux-thunk</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add redux-thunk</span><br></pre></td></tr></table></figure>
+<p>2.在创建store时传入应用了middleware的enhance函数</p>
+<ul>
+<li>通过applyMiddleware来结合多个Middleware, 返回一个enhancer；</li>
+<li>将enhancer作为第二个参数传入到createStore中；</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 通过applyMiddleware来结合多个Middleware, 返回一个enhancer</span></span><br><span class="line"><span class="keyword">const</span> enhancer = applyMiddleware(thunkMiddleware);</span><br><span class="line"><span class="comment">// 将enhancer作为第二个参数传入到createStore中</span></span><br><span class="line"><span class="keyword">const</span> store = createStore(reducer, enhancer);</span><br></pre></td></tr></table></figure>
+<p>3.定义返回一个函数的action：</p>
+<ul>
+<li>注意：这里不是返回一个对象了，而是一个函数；</li>
+<li>该函数在dispatch之后会被执行；</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> getHomeMultidataAction = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">dispatch</span>) =&gt;</span> &#123;</span><br><span class="line">    axios.get(<span class="string">&quot;http://123.207.32.32:8000/home/multidata&quot;</span>).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> data = res.data.data;</span><br><span class="line">      dispatch(changeBannersAction(data.banner.list));</span><br><span class="line">      dispatch(changeRecommendsAction(data.recommend.list));</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.修改home.js中的代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; PureComponent &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">&quot;react-redux&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  addAction,</span><br><span class="line">  getHomeMultidataAction</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">&#x27;../store/actionCreators&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Home</span> <span class="keyword">extends</span> <span class="title">PureComponent</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">componentDidMount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.props.getHomeMultidata();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  ...其他逻辑代码</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">...mapStatetoProps</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mapDispatchToProps = <span class="function"><span class="params">dispatch</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    addNumber: <span class="function"><span class="keyword">function</span>(<span class="params">number</span>) </span>&#123;</span><br><span class="line">      dispatch(addAction(number));</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="function"><span class="title">getHomeMultidata</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">      dispatch(getHomeMultidataAction());</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> connect(mapStateToProps, mapDispatchToProps)(Home);</span><br></pre></td></tr></table></figure>
+<h3 id="redux-devtools"><a href="#redux-devtools" class="headerlink" title="redux-devtools"></a>redux-devtools</h3><p>我们之前讲过，redux可以方便的让我们对状态进行跟踪和调试，那么如何做到呢？</p>
+<ul>
+<li>redux官网为我们提供了redux-devtools的工具；</li>
+<li>利用这个工具，我们可以知道每次状态是如何被修改的，修改前后的状态变化等等；</li>
+</ul>
+<p>安装该工具需要两步：</p>
+<ul>
+<li>第一步：在对应的浏览器中安装相关的插件（比如Chrome浏览器扩展商店中搜索Redux DevTools即可，其他方法可以参考GitHub）；</li>
+<li>第二步：在redux中继承devtools</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore, applyMiddleware, compose &#125; <span class="keyword">from</span> <span class="string">&#x27;redux&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> thunkMiddleware <span class="keyword">from</span> <span class="string">&#x27;redux-thunk&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> reducer <span class="keyword">from</span> <span class="string">&#x27;./reducer.js&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> composeEnhancers = <span class="built_in">window</span>.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过applyMiddleware来结合多个Middleware, 返回一个enhancer</span></span><br><span class="line"><span class="keyword">const</span> enhancer = composeEnhancers(applyMiddleware(thunkMiddleware));</span><br><span class="line"><span class="comment">// 将enhancer作为第二个参数传入到createStore中</span></span><br><span class="line"><span class="keyword">const</span> store = createStore(reducer, enhancer);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store;</span><br></pre></td></tr></table></figure>
+<p>trace打开：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> composeEnhancers = <span class="built_in">window</span>.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(&#123;<span class="attr">trace</span>: <span class="literal">true</span>&#125;) || compose;</span><br></pre></td></tr></table></figure>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/17003" alt="图片">devtools工具</p>
+<h3 id="redux-saga"><a href="#redux-saga" class="headerlink" title="redux-saga"></a>redux-saga</h3><h4 id="ES6的generator"><a href="#ES6的generator" class="headerlink" title="ES6的generator"></a>ES6的generator</h4><p>saga中间件使用了ES6的generator语法，所以我们有必须简单讲解一下：</p>
+<ul>
+<li>注意：我这里并没有列出generator的所有用法，事实上它的用法非常的灵活，大家可以自行去学习一下。</li>
+</ul>
+<p>在JavaScript中编写一个普通的函数，进行调用会立即拿到这个函数的返回结果：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;Hello World&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo() <span class="comment">// Hello World</span></span><br></pre></td></tr></table></figure>
+<p>如果我们将这个函数编写成一个生成器函数：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">yield</span> <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">  <span class="keyword">yield</span> <span class="string">&quot;World&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> iterator = foo();</span><br><span class="line"><span class="built_in">console</span>.log(iterator, <span class="keyword">typeof</span> iterator); <span class="comment">// 一个object类型的iterator对象</span></span><br></pre></td></tr></table></figure>
+<p>调用iterator的next函数，会销毁一次迭代器，并且返回一个yield的结果：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 调用一次next()是消耗一次迭代器</span></span><br><span class="line">iterator.next(); <span class="comment">// &#123;value: &quot;Hello&quot;, done: false&#125;</span></span><br><span class="line">iterator.next(); <span class="comment">// &#123;value: &quot;World&quot;, done: false&#125;</span></span><br><span class="line">iterator.next(); <span class="comment">// &#123;value: undefined, done: true&#125;</span></span><br></pre></td></tr></table></figure>
+<p>研究一下foo生成器函数代码的执行顺序：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;111111&quot;</span>);</span><br><span class="line">  <span class="keyword">yield</span> <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;222222&quot;</span>);</span><br><span class="line">  <span class="keyword">yield</span> <span class="string">&quot;World&quot;</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;333333&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用一次next()是消耗一次迭代器</span></span><br><span class="line">iterator.next(); <span class="comment">// &#123;value: &quot;Hello&quot;, done: false&#125;</span></span><br><span class="line"><span class="comment">// 打印111111</span></span><br><span class="line">iterator.next(); <span class="comment">// &#123;value: &quot;World&quot;, done: false&#125;</span></span><br><span class="line"><span class="comment">// 打印222222</span></span><br><span class="line">iterator.next(); <span class="comment">// &#123;value: undefined, done: true&#125;</span></span><br><span class="line"><span class="comment">// 打印333333</span></span><br></pre></td></tr></table></figure>
+<p>generator和promise一起使用：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> result = <span class="keyword">yield</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      resolve(<span class="string">&quot;Hello Generator&quot;</span>);</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">    &#125;, <span class="number">2000</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="built_in">console</span>.log(result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> bIterator = bar();</span><br><span class="line">bIterator.next().value.then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">  bIterator.next(res);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="redux-saga的使用"><a href="#redux-saga的使用" class="headerlink" title="redux-saga的使用"></a>redux-saga的使用</h4><p>1.安装redux-saga</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add redux-saga</span><br></pre></td></tr></table></figure>
+<p>2.集成redux-saga中间件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore, applyMiddleware, compose &#125; <span class="keyword">from</span> <span class="string">&#x27;redux&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> thunkMiddleware <span class="keyword">from</span> <span class="string">&#x27;redux-thunk&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> createSagaMiddleware <span class="keyword">from</span> <span class="string">&#x27;redux-saga&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> reducer <span class="keyword">from</span> <span class="string">&#x27;./reducer.js&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> mySaga <span class="keyword">from</span> <span class="string">&#x27;./saga&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过createSagaMiddleware函数来创建saga中间件</span></span><br><span class="line"><span class="keyword">const</span> sagaMiddleware = createSagaMiddleware();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> composeEnhancers = <span class="built_in">window</span>.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(&#123;<span class="attr">trace</span>: <span class="literal">true</span>&#125;) || compose;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过applyMiddleware来结合多个Middleware, 返回一个enhancer</span></span><br><span class="line"><span class="keyword">const</span> enhancer = composeEnhancers(applyMiddleware(thunkMiddleware, sagaMiddleware));</span><br><span class="line"><span class="comment">// 将enhancer作为第二个参数传入到createStore中</span></span><br><span class="line"><span class="keyword">const</span> store = createStore(reducer, enhancer);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 必须启动saga中间件，并且传入其要监听的generator</span></span><br><span class="line">sagaMiddleware.run(mySaga);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store;</span><br></pre></td></tr></table></figure>
+<p>3.saga.js文件的编写：</p>
+<ul>
+<li>takeEvery：可以传入多个监听的actionType，每一个都可以被执行（对应有一个takeLastest，会取消前面的）</li>
+<li>put：在saga中派发action不再是通过dispatch，而是通过put；</li>
+<li>all：可以在yield的时候put多个action；</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; takeEvery, put, all &#125; <span class="keyword">from</span> <span class="string">&#x27;redux-saga/effects&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  FETCH_HOME_MULTIDATA</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">&quot;./constants&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  changeBannersAction,</span><br><span class="line">  changeRecommendsAction,</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">&#x27;./actionCreators&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">fetchHomeMultidata</span>(<span class="params">action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> res = <span class="keyword">yield</span> axios.get(<span class="string">&quot;http://123.207.32.32:8000/home/multidata&quot;</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(res);</span><br><span class="line">  <span class="keyword">const</span> data = res.data.data;</span><br><span class="line">  <span class="keyword">yield</span> all([</span><br><span class="line">    put(changeBannersAction(data.banner.list)),</span><br><span class="line">    put(changeRecommendsAction(data.recommend.list))</span><br><span class="line">  ])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">mySaga</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">yield</span> takeEvery(FETCH_HOME_MULTIDATA, fetchHomeMultidata)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> mySaga;</span><br></pre></td></tr></table></figure>
+<h2 id="中间件的原理"><a href="#中间件的原理" class="headerlink" title="中间件的原理"></a>中间件的原理</h2><h3 id="打印日志需求"><a href="#打印日志需求" class="headerlink" title="打印日志需求"></a>打印日志需求</h3><p>前面我们已经提过，中间件的目的是在redux中插入一些自己的操作：</p>
+<ul>
+<li>比如我们现在有一个需求，在dispatch之前，打印一下本次的action对象，dispatch完成之后可以打印一下最新的store state；</li>
+<li>也就是我们需要将对应的代码插入到redux的某部分，让之后所有的dispatch都可以包含这样的操作；</li>
+</ul>
+<p>如果没有中间件，我们是否可以实现类似的代码呢？</p>
+<p>当然可以，类似下面的方式即可：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;dispatching:&quot;</span>, addAction(<span class="number">5</span>));</span><br><span class="line">store.dispatch(addAction(<span class="number">5</span>));</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;new state:&quot;</span>, store.getState());</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;dispatching:&quot;</span>, addAction(<span class="number">10</span>));</span><br><span class="line">store.dispatch(subAction(<span class="number">10</span>));</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;new state:&quot;</span>, store.getState());</span><br></pre></td></tr></table></figure>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/17004" alt="图片"></p>
+<p>但是这种方式缺陷非常明显：</p>
+<ul>
+<li>首先，每一次的dispatch操作，我们都需要在前面加上这样的逻辑代码；</li>
+<li>其次，存在大量重复的代码，会非常麻烦和臃肿；</li>
+</ul>
+<p>是否有一种更优雅的方式来处理这样的相同逻辑呢？</p>
+<ul>
+<li>我们可以将代码封装到一个独立的函数中</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dispatchAndLog</span>(<span class="params">action</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;dispatching:&quot;</span>, action);</span><br><span class="line">  store.dispatch(addAction(<span class="number">5</span>));</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;新的state:&quot;</span>, store.getState());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dispatchAndLog(addAction(<span class="number">10</span>));</span><br></pre></td></tr></table></figure>
+<p>但是这样的代码有一个非常大的缺陷：</p>
+<ul>
+<li>调用者（使用者）在使用我的dispatch时，必须使用我另外封装的一个函数dispatchAndLog；</li>
+<li>显然，对于调用者来说，很难记住这样的API，更加习惯的方式是直接调用dispatch；</li>
+</ul>
+<p>我们来进一步对代码进行优化；</p>
+<h3 id="修改dispatch"><a href="#修改dispatch" class="headerlink" title="修改dispatch"></a>修改dispatch</h3><p>事实上，我们可以利用一个hack一点的技术：Monkey Patching，利用它可以修改原有的程序逻辑；</p>
+<p>我们对代码进行如下的修改：</p>
+<ul>
+<li>这样就意味着我们已经直接修改了dispatch的调用过程；</li>
+<li>在调用dispatch的过程中，真正调用的函数其实是dispatchAndLog；</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> next = store.dispatch;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dispatchAndLog</span>(<span class="params">action</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;dispatching:&quot;</span>, addAction(<span class="number">10</span>));</span><br><span class="line">  next(addAction(<span class="number">5</span>));</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;新的state:&quot;</span>, store.getState());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">store.dispatch = dispatchAndLog;</span><br></pre></td></tr></table></figure>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/17005" alt="图片"></p>
+<p>当然，我们可以将它封装到一个模块中，只要调用这个模块中的函数，就可以对store进行这样的处理：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">patchLogging</span>(<span class="params">store</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> next = store.dispatch;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">dispatchAndLog</span>(<span class="params">action</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;dispatching:&quot;</span>, action);</span><br><span class="line">    next(addAction(<span class="number">5</span>));</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;新的state:&quot;</span>, store.getState());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  store.dispatch = dispatchAndLog;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="thunk需求"><a href="#thunk需求" class="headerlink" title="thunk需求"></a>thunk需求</h3><p>redux-thunk的作用：</p>
+<ul>
+<li>我们知道redux中利用一个中间件redux-thunk可以让我们的dispatch不再只是处理对象，并且可以处理函数；</li>
+<li>那么redux-thunk中的基本实现过程是怎么样的呢？事实上非常的简单。</li>
+</ul>
+<p>我们来看下面的代码：</p>
+<ul>
+<li>我们又对dispatch进行转换，这个dispatch会判断传入的</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">patchThunk</span>(<span class="params">store</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> next = store.dispatch;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">dispatchAndThunk</span>(<span class="params">action</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> action === <span class="string">&quot;function&quot;</span>) &#123;</span><br><span class="line">      action(store.dispatch, store.getState);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      next(action);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  store.dispatch = dispatchAndThunk;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将两个patch应用起来，进行测试：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">patchLogging(store);</span><br><span class="line">patchThunk(store);</span><br><span class="line"></span><br><span class="line">store.dispatch(addAction(<span class="number">10</span>));</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params">dispatch</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    dispatch(subAction(<span class="number">10</span>));</span><br><span class="line">  &#125;, <span class="number">1000</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 传入函数</span></span><br><span class="line">store.dispatch(getData);</span><br></pre></td></tr></table></figure>
+<h3 id="合并中间件"><a href="#合并中间件" class="headerlink" title="合并中间件"></a>合并中间件</h3><p>单个调用某个函数来合并中间件并不是特别的方便，我们可以封装一个函数来实现所有的中间件合并：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">applyMiddleware</span>(<span class="params">store, middlewares</span>) </span>&#123;</span><br><span class="line">  middlewares = middlewares.slice();</span><br><span class="line"></span><br><span class="line">  middlewares.forEach(<span class="function"><span class="params">middleware</span> =&gt;</span> &#123;</span><br><span class="line">    store.dispatch = middleware(store);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">applyMiddleware(store, [patchLogging, patchThunk]);</span><br></pre></td></tr></table></figure>
+<p>我们来理解一下上面操作之后，代码的流程：</p>
+<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/17006" alt="图片">合并中间件的流程</p>
+<p>当然，真实的中间件实现起来会更加的灵活，这里我们仅仅做一个抛砖引玉，有兴趣可以参考redux合并中间件的源码流程。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/React-JavaScript/" rel="tag"># React JavaScript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2020/12/15/React%E7%B3%BB%E5%88%97%E5%8D%81%E5%85%AD-Redux-%E4%BA%8C-react-redux/" rel="prev" title="React系列十六-Redux(二)react-redux">
+      <i class="fa fa-chevron-left"></i> React系列十六-Redux(二)react-redux
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/2020/12/15/React%E7%B3%BB%E5%88%97%E5%8D%81%E5%85%AB-Redux-%E5%9B%9B-state%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86/" rel="next" title="React系列十八-Redux(四)state如何管理">
+      React系列十八-Redux(四)state如何管理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">中间件的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E4%B8%AD%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82"><span class="nav-number">1.1.</span> <span class="nav-text">组件中异步请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redux%E4%B8%AD%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82"><span class="nav-number">1.2.</span> <span class="nav-text">redux中异步请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redux-devtools"><span class="nav-number">1.3.</span> <span class="nav-text">redux-devtools</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redux-saga"><span class="nav-number">1.4.</span> <span class="nav-text">redux-saga</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ES6%E7%9A%84generator"><span class="nav-number">1.4.1.</span> <span class="nav-text">ES6的generator</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redux-saga%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.4.2.</span> <span class="nav-text">redux-saga的使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">中间件的原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%8D%B0%E6%97%A5%E5%BF%97%E9%9C%80%E6%B1%82"><span class="nav-number">2.1.</span> <span class="nav-text">打印日志需求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9dispatch"><span class="nav-number">2.2.</span> <span class="nav-text">修改dispatch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#thunk%E9%9C%80%E6%B1%82"><span class="nav-number">2.3.</span> <span class="nav-text">thunk需求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%88%E5%B9%B6%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="nav-number">2.4.</span> <span class="nav-text">合并中间件</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">GuiXu</p>
+  <div class="site-description" itemprop="description">study</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:guixuysl@gmail.com" title="E-Mail → mailto:guixuysl@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">GuiXu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/pisces.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/blog/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
