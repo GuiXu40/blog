@@ -192,6 +192,382 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://guixu40.gitee.io/blog/2020/12/15/React%E7%B3%BB%E5%88%97%E5%8D%81%E4%BA%94-Redux%E5%88%9D%E8%A7%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="GuiXu">
+      <meta itemprop="description" content="study">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GuiXu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2020/12/15/React%E7%B3%BB%E5%88%97%E5%8D%81%E4%BA%94-Redux%E5%88%9D%E8%A7%81/" class="post-title-link" itemprop="url">React系列十五-Redux初见</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-12-15 15:44:21" itemprop="dateCreated datePublished" datetime="2020-12-15T15:44:21+08:00">2020-12-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-17 21:17:28" itemprop="dateModified" datetime="2020-12-17T21:17:28+08:00">2020-12-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/React/React%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">React基础知识</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在React的开发过程中，Redux对于我们是非常重要的。</p>
+<p>但是对于很多人来说，初次接触redux会感觉redux的学习坡度非常陡峭，难度比较大。</p>
+<p>在接下来，我会通过一个系列的方式循循渐进、层层深入的方式来讲解Redux：从redux的独立使用过程、到redux的结构划分、到redux结合react的过程、到redux中异步操作、到复杂数据的结构处理、到结合immutable的使用。</p>
+<p>整个过程，都是在现有知识的基础之上层层递增、一步步掌握redux的使用！</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2020/12/15/React%E7%B3%BB%E5%88%97%E5%8D%81%E4%BA%94-Redux%E5%88%9D%E8%A7%81/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://guixu40.gitee.io/blog/2020/12/15/React%E7%B3%BB%E5%88%97%E5%8D%81%E5%9B%9B-React%E8%BF%87%E6%B8%A1%E5%8A%A8%E7%94%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="GuiXu">
+      <meta itemprop="description" content="study">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GuiXu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2020/12/15/React%E7%B3%BB%E5%88%97%E5%8D%81%E5%9B%9B-React%E8%BF%87%E6%B8%A1%E5%8A%A8%E7%94%BB/" class="post-title-link" itemprop="url">React系列十四-React过渡动画</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-12-15 15:28:04" itemprop="dateCreated datePublished" datetime="2020-12-15T15:28:04+08:00">2020-12-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-17 21:17:21" itemprop="dateModified" datetime="2020-12-17T21:17:21+08:00">2020-12-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/React/React%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">React基础知识</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在开发中，我们想要给一个组件的显示和消失添加某种过渡动画，可以很好的增加用户体验。</p>
+<p>当然，我们可以通过原生的CSS来实现这些过渡动画，但是React社区为我们提供了react-transition-group用来完成过渡动画。</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2020/12/15/React%E7%B3%BB%E5%88%97%E5%8D%81%E5%9B%9B-React%E8%BF%87%E6%B8%A1%E5%8A%A8%E7%94%BB/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://guixu40.gitee.io/blog/2020/12/15/React%E7%B3%BB%E5%88%97%E5%8D%81%E4%B8%89-axios%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="GuiXu">
+      <meta itemprop="description" content="study">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GuiXu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2020/12/15/React%E7%B3%BB%E5%88%97%E5%8D%81%E4%B8%89-axios%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">React系列十三-axios库的使用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-12-15 14:34:52" itemprop="dateCreated datePublished" datetime="2020-12-15T14:34:52+08:00">2020-12-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-17 21:21:37" itemprop="dateModified" datetime="2020-12-17T21:21:37+08:00">2020-12-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/React/React%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">React基础知识</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="axios库的基本使用"><a href="#axios库的基本使用" class="headerlink" title="axios库的基本使用"></a>axios库的基本使用</h2><h3 id="网络请求的选择"><a href="#网络请求的选择" class="headerlink" title="网络请求的选择"></a>网络请求的选择</h3><p>目前前端中发送网络请求的方式有很多种：</p>
+<p>选择一:传统的Ajax是基于XMLHttpReques(XHR)</p>
+<ul>
+<li><p>为什么不用它呢?</p>
+</li>
+<li><ul>
+<li>非常好解释, 配置和调用方式等非常混乱.</li>
+<li>编码起来看起来就非常蛋疼.</li>
+<li>所以真实开发中很少直接使用, 而是使用jQuery-Ajax</li>
+</ul>
+</li>
+</ul>
+<p>选择二: 在前面的学习中, 我们经常会使用jQuery-Ajax</p>
+<ul>
+<li><p>相对于传统的Ajax非常好用.</p>
+</li>
+<li><p>为什么不选择它呢？</p>
+</li>
+<li><ul>
+<li>jQuery整个项目太大，单纯使用ajax却要引入整个JQuery非常的不合理（采取个性化打包的方案又不能享受CDN服务）；</li>
+<li>基于原生的XHR开发，XHR本身的架构不清晰，已经有了fetch的替代方案；</li>
+<li>尽管JQuery对我们前端的开发工作曾有着深远的影响，但是的确正在退出历史舞台；</li>
+</ul>
+</li>
+</ul>
+<p>选择三: Fetch API</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2020/12/15/React%E7%B3%BB%E5%88%97%E5%8D%81%E4%B8%89-axios%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://guixu40.gitee.io/blog/2020/12/15/React%E7%B3%BB%E5%88%97%E5%8D%81%E4%BA%8C-AntDesign-UI%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="GuiXu">
+      <meta itemprop="description" content="study">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GuiXu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2020/12/15/React%E7%B3%BB%E5%88%97%E5%8D%81%E4%BA%8C-AntDesign-UI%E5%BA%93/" class="post-title-link" itemprop="url">React系列十二-AntDesign UI库</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-12-15 14:17:25" itemprop="dateCreated datePublished" datetime="2020-12-15T14:17:25+08:00">2020-12-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-17 21:16:43" itemprop="dateModified" datetime="2020-12-17T21:16:43+08:00">2020-12-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/React/React%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">React基础知识</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>对于学习过程，不是特别建议从一开始就使用别人的第三方库UI库，更重要的是要学会组件化相关的知识（就想前面我们已经讲了非常相关知识），之后自己来封装、设计一套自己的可复用组件。</p>
+<p>但是在公司开发为了开发效率，我们往往也会选择一些非常优秀的第三方UI库，而AntDesign就是这样的一套优秀的UI组件库。</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2020/12/15/React%E7%B3%BB%E5%88%97%E5%8D%81%E4%BA%8C-AntDesign-UI%E5%BA%93/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://guixu40.gitee.io/blog/2020/12/15/React%E7%B3%BB%E5%88%97%E5%8D%81%E4%B8%80-React%E4%B8%AD%E7%9A%84CSS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -725,363 +1101,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://guixu40.gitee.io/blog/2020/12/14/React%E7%B3%BB%E5%88%97%E4%BA%94-%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91-%E4%B8%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="GuiXu">
-      <meta itemprop="description" content="study">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GuiXu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/2020/12/14/React%E7%B3%BB%E5%88%97%E4%BA%94-%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91-%E4%B8%80/" class="post-title-link" itemprop="url">React系列五-组件化开发(一)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-12-14 19:59:34" itemprop="dateCreated datePublished" datetime="2020-12-14T19:59:34+08:00">2020-12-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-17 21:15:44" itemprop="dateModified" datetime="2020-12-17T21:15:44+08:00">2020-12-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/React/React%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">React基础知识</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>现在可以说整个的大前端开发都是组件化的天下，无论从三大框架（Vue、React、Angular），还是跨平台方案的Flutter，甚至是移动端都在转向组件化开发。</p>
-<p>所以，学习组件化最重要的是它的思想，每个框架或者平台可能实现方法不同，但是思想都是一样的。</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/blog/2020/12/14/React%E7%B3%BB%E5%88%97%E4%BA%94-%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91-%E4%B8%80/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://guixu40.gitee.io/blog/2020/12/14/React%E7%B3%BB%E5%88%97%E5%9B%9B-React%E8%84%9A%E6%89%8B%E6%9E%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="GuiXu">
-      <meta itemprop="description" content="study">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GuiXu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/2020/12/14/React%E7%B3%BB%E5%88%97%E5%9B%9B-React%E8%84%9A%E6%89%8B%E6%9E%B6/" class="post-title-link" itemprop="url">React系列四-React脚手架</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-12-14 19:31:59" itemprop="dateCreated datePublished" datetime="2020-12-14T19:31:59+08:00">2020-12-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-17 21:22:57" itemprop="dateModified" datetime="2020-12-17T21:22:57+08:00">2020-12-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/React/React%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">React基础知识</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="认识脚手架"><a href="#认识脚手架" class="headerlink" title="认识脚手架"></a>认识脚手架</h2><h3 id="前端工程的复杂化"><a href="#前端工程的复杂化" class="headerlink" title="前端工程的复杂化"></a>前端工程的复杂化</h3><p>如果我们只是开发几个小的demo程序，那么永远不需要考虑一些复杂的问题：</p>
-<ul>
-<li>比如目录结构如何组织划分；</li>
-<li>比如如何管理文件之间的相互依赖；</li>
-<li>比如如何管理第三方模块的依赖；</li>
-<li>比如项目发布前如何压缩、打包项目；</li>
-<li>等等…</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/blog/2020/12/14/React%E7%B3%BB%E5%88%97%E5%9B%9B-React%E8%84%9A%E6%89%8B%E6%9E%B6/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://guixu40.gitee.io/blog/2020/12/14/React%E7%B3%BB%E5%88%97%E4%B8%89-%E9%98%B6%E6%AE%B5%E6%A1%88%E4%BE%8B%E7%BB%83%E4%B9%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="GuiXu">
-      <meta itemprop="description" content="study">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GuiXu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/2020/12/14/React%E7%B3%BB%E5%88%97%E4%B8%89-%E9%98%B6%E6%AE%B5%E6%A1%88%E4%BE%8B%E7%BB%83%E4%B9%A0/" class="post-title-link" itemprop="url">React系列三-阶段案例练习</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-12-14 19:27:41" itemprop="dateCreated datePublished" datetime="2020-12-14T19:27:41+08:00">2020-12-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-17 21:23:12" itemprop="dateModified" datetime="2020-12-17T21:23:12+08:00">2020-12-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/React/React%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">React基础知识</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="书籍购物车说明"><a href="#书籍购物车说明" class="headerlink" title="书籍购物车说明"></a>书籍购物车说明</h2><h3 id="案例介绍"><a href="#案例介绍" class="headerlink" title="案例介绍"></a>案例介绍</h3><p>现在我们来做一个相对综合一点的练习：书籍购物车；</p>
-<p>案例效果如下：</p>
-<p><img src="https://guixu40.github.io/images_bed/images_blog/2020-12-14-React系列/03001.jpg" alt="图片"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/blog/2020/12/14/React%E7%B3%BB%E5%88%97%E4%B8%89-%E9%98%B6%E6%AE%B5%E6%A1%88%E4%BE%8B%E7%BB%83%E4%B9%A0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://guixu40.gitee.io/blog/2020/12/14/React%E7%B3%BB%E5%88%97%E4%BA%8C-JSX%E8%AF%AD%E6%B3%95%E4%BA%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="GuiXu">
-      <meta itemprop="description" content="study">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GuiXu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/2020/12/14/React%E7%B3%BB%E5%88%97%E4%BA%8C-JSX%E8%AF%AD%E6%B3%95%E4%BA%8C/" class="post-title-link" itemprop="url">React系列二-JSX语法二</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-12-14 19:04:26" itemprop="dateCreated datePublished" datetime="2020-12-14T19:04:26+08:00">2020-12-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-17 21:23:38" itemprop="dateModified" datetime="2020-12-17T21:23:38+08:00">2020-12-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/React/React%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">React基础知识</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="条件渲染"><a href="#条件渲染" class="headerlink" title="条件渲染"></a>条件渲染</h2><p>某些情况下，界面的内容会根据不同的情况显示不同的内容，或者决定是否渲染某部分内容：</p>
-<ul>
-<li>在vue中，我们会通过指令来控制：比如v-if、v-show；</li>
-<li>在React中，所有的条件判断都和普通的JavaScript代码一致；</li>
-</ul>
-<p>常见的条件渲染的方式有哪些呢？</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/blog/2020/12/14/React%E7%B3%BB%E5%88%97%E4%BA%8C-JSX%E8%AF%AD%E6%B3%95%E4%BA%8C/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1151,20 +1170,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-count">38</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/blog/categories/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1196,7 +1215,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
