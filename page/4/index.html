@@ -192,6 +192,348 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://guixu40.gitee.io/blog/2020/12/07/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="GuiXu">
+      <meta itemprop="description" content="study">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GuiXu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2020/12/07/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="post-title-link" itemprop="url">正则表达式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-12-07 13:52:47" itemprop="dateCreated datePublished" datetime="2020-12-07T13:52:47+08:00">2020-12-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://guixu40.gitee.io/blog/2020/11/17/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="GuiXu">
+      <meta itemprop="description" content="study">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GuiXu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2020/11/17/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" class="post-title-link" itemprop="url">数据链路层</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-11-17 18:16:24 / 修改时间：22:19:47" itemprop="dateCreated datePublished" datetime="2020-11-17T18:16:24+08:00">2020-11-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><ul>
+<li>链路：就是从一个结点到相邻结点的一段物理路线，而中间没有任何其他的交换结点</li>
+<li>数据链路：是指把实现通信协议的硬件和软件加到链路上，就构成了数据链路</li>
+<li>数据链路层以帧为单位传输和处理数据</li>
+<li>数据链路层的三个重要问题<ul>
+<li>封装成帧</li>
+<li>差错检测</li>
+<li>可靠传输</li>
+</ul>
+</li>
+<li>使用广播信道的数据链路层<ul>
+<li>共享式以太网的媒体接入控制协议CSMA/CD</li>
+<li>802.11局域网的媒体接入控制协议CSMA/CA</li>
+</ul>
+</li>
+<li>数据链路层的互连设备<ul>
+<li>网桥和交换机的工作原理</li>
+<li>集线器（物理层互连设备）与交换机的区别</li>
+</ul>
+</li>
+</ul>
+<p>数据链路层的功能：在物理层提供服务的基础上<strong>向网络层提供服务</strong>，其最基本的服务是将源自网络层来的数据可靠的传输到相邻节点的目标机网络层。其主要作用是<strong>加强物理层传输原始比特流的功能</strong>，将物理层提供的可能出错的物理连接改造成<strong>逻辑上无差错的数据链路</strong>，使之对网络层表现为一条无差错的链路。</p>
+<h3 id="封装成帧"><a href="#封装成帧" class="headerlink" title="封装成帧"></a>封装成帧</h3><p>封装成帧是指数据链路层给上层交互的协议数据单元添加帧头和帧尾使之成为帧</p>
+<ul>
+<li>帧头和帧尾中包含有重要的控制信息</li>
+<li>帧头和帧尾的作用之一就是<code>帧定界</code></li>
+</ul>
+<p>透明传输是指<code>数据链路层对上层交互的传输数据没有任何限制</code>，就好像数据链路层不存在一样</p>
+<p>当所传的数据中的比特组恰巧与某一个控制信息完全一样时，就必须采取适当的措施，使接收方不会将这样的错误认为是某种控制信息。这样才能保证数据链路层的传输是透明的。</p>
+<blockquote>
+<p>例如如果传送的比特流中数据部分的数据恰好和帧尾部相同，那么在传输过程碰到该部分数据时，接收端可能误认为到这里传输结束了，那直接丢弃之后的数据了，这就会导致数据传输不完整，所以就要采取适当的措施，即使有这些问题也要保证数据能正确的传输，保证链路层对任何数据都能传送，在数据看来，链路层没有东西妨碍自己传送或者说链路层对数据是透明的。</p>
+</blockquote>
+<h4 id="组帧的四种方式"><a href="#组帧的四种方式" class="headerlink" title="组帧的四种方式"></a>组帧的四种方式</h4><h5 id="字符计数法"><a href="#字符计数法" class="headerlink" title="字符计数法"></a>字符计数法</h5><p> 字符计数法：帧首部使用一个计数字段（第一个字节）来表明帧的长度。在接收时根据帧首部的字数计数就可以知道一个帧的长度。</p>
+<p><img src="F:\ImageBed\images_blog\2020-11-17-数据链路层\001.webp" alt="001"></p>
+<p> 缺点：如果其中某个帧的计数错误，那么会导致之后传输的数据全部错误。</p>
+<h5 id="字符填充法"><a href="#字符填充法" class="headerlink" title="字符填充法"></a>字符填充法</h5><p>当数据时由可打印的ASCII码组成的文本文件时，帧定界可以使用特殊的<strong>帧定界符</strong>。控制字符<strong>SOH（Start Of Header）</strong>放在一帧的最前面，表示帧的首部开始。另一个控制符<strong>EOT（End Of Transmission）</strong>表示帧结束。SOH和EOT是控制符的名称，它们的二进制编码分别是0000 0001和0000 0100。</p>
+<blockquote>
+<p>当使用ASCII编码时，一共有128个不同的ASCII码，其中可打印的有95个，有33个是不可打印的，，SOH和EOT就是不可打印的编码，所以可以用来作为控制符。</p>
+</blockquote>
+<p><img src="F:\ImageBed\images_blog\2020-11-17-数据链路层\002.webp" alt="002" style="zoom:80%;" /></p>
+<p>当传送到帧是用文本文件组成的帧时（文本文件中的字符都是从键盘上输入的），其数据部分显然不会出现像SOH或EOT这样的帧定界控制符，可见不管从键盘上输入什么字符都可以放在帧上传输过去，因此这样的传输就是透明传输。<br>  但是当数据部分是非ASCII码的文本文件时（如二进制代码的计算机程序或图像等），数据中的某个字节的二进制代码恰好和SOH或EOT这样的控制字符一样。这样接收端就会错误的找到帧的边界，把部分帧收下，丢弃部分数据。</p>
+<p><img src="F:\ImageBed\images_blog\2020-11-17-数据链路层\003.webp" alt="003" style="zoom:80%;" /></p>
+<p> 为了解决透明传输问题，<strong>在发送端的数据链路层中出现控制字符SOH或EOT的前面插入一个转义字符“ESC”（其二进制编码为0001 1011）。而在接收端的数据链路层在把数据送往网络层之前删除这个插入的转入字符。</strong></p>
+<p><img src="F:\ImageBed\images_blog\2020-11-17-数据链路层\004.webp" alt="004" style="zoom:80%;" /></p>
+<p><img src="F:\ImageBed\images_blog\2020-11-17-数据链路层\005.webp" alt="005" style="zoom:80%;" /></p>
+<h5 id="零比特填充法"><a href="#零比特填充法" class="headerlink" title="零比特填充法"></a>零比特填充法</h5><p><img src="F:\ImageBed\images_blog\2020-11-17-数据链路层\006.webp" alt="006" style="zoom:80%;" /></p>
+<blockquote>
+<p>零比特填充法帧的控制信息的首部和尾部是相同的。</p>
+</blockquote>
+<p>零比特填充法：<strong>在发送端，扫描整个信息字段，只要有连续的5个1，就立即填入1个0。在接收端收到一个帧时，先找到标志字段确定边界，再用硬件对比特流进行扫描。发现连续5个1时，就把后面的0删除。</strong></p>
+<p><img src="F:\ImageBed\images_blog\2020-11-17-数据链路层\007.webp" alt="007" style="zoom:80%;" /></p>
+<p><strong>零比特填充保证了透明传输，在传送的比特流中可以传送任意比特组合，而不会引起对帧边界的判断错误。</strong></p>
+<h5 id="违规编码法"><a href="#违规编码法" class="headerlink" title="违规编码法"></a>违规编码法</h5><p> 在曼彻斯特编码中，一个码元可以用前高后低表示1，前低后高表示0，只有这两种情况，不存在前高后高和前低后低这两种情况。所以可以使用这两种不存在的情况作为定界帧的起始和终止。</p>
+<p><img src="F:\ImageBed\images_blog\2020-11-17-数据链路层\008.webp" alt="008" style="zoom:80%;" /></p>
+<p>由于字节计数法中的count字段的脆弱性（其值若有差错将导致灾难性后果）及字符填充实现上的复杂性和不兼容性，目前普遍使用的是<strong>比特填充</strong>和<strong>违规编码法</strong>。</p>
+<h4 id="差错检测"><a href="#差错检测" class="headerlink" title="差错检测"></a>差错检测</h4><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/58dec9767b90" >参考</a> </p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://guixu40.gitee.io/blog/2020/11/17/%E7%AE%80%E5%8D%95%E5%8F%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="GuiXu">
+      <meta itemprop="description" content="study">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GuiXu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2020/11/17/%E7%AE%80%E5%8D%95%E5%8F%A5/" class="post-title-link" itemprop="url">简单句</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-17 09:54:18" itemprop="dateCreated datePublished" datetime="2020-11-17T09:54:18+08:00">2020-11-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-30 19:38:08" itemprop="dateModified" datetime="2021-01-30T19:38:08+08:00">2021-01-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/English/" itemprop="url" rel="index"><span itemprop="name">English</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/English/%E8%AF%AD%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">语法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="英汉差异"><a href="#英汉差异" class="headerlink" title="英汉差异"></a>英汉差异</h3><ul>
+<li>英语重形合：英语讲究“结构美”，强调语法和句法的完整性和合理性</li>
+<li>汉语重意合：讲究意境美</li>
+</ul>
+<p>例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If there is anyone out there who still doubts that America is a place where all things are possible,who still wonders <span class="keyword">if</span> the dream of our founders is alive in our time, who still questions the power ofour democracy, tonight is your answer.</span><br></pre></td></tr></table></figure>
+<p><code>翻译</code>:</p>
+<p>如果现在依然有人怀疑美国是不是任何事情都可能发生的地方，依然有人疑惑我们国家的缔造者们的梦想是否还鲜活地存在于这个时代，依然有人质疑我们民主的力量，那么今夜你将得到答案。</p>
+<p><code>解析</code>：</p>
+<p>这是奥巴马发表演讲时讲过的一段话，主句是if there is anyone out there，从句是用了3个who引导的定语从句,可谓“果实累累”。但是汉语就没有从句,汉语都是简单句。译文语言简洁工整,音韵铿锵,充分发挥了汉语的优势。</p>
+<h3 id="何为主谓宾"><a href="#何为主谓宾" class="headerlink" title="何为主谓宾"></a>何为主谓宾</h3><ul>
+<li>主语：动作的发出者</li>
+<li>谓语：动词</li>
+<li>宾语：动作的承受者</li>
+</ul>
+<h3 id="英语句子"><a href="#英语句子" class="headerlink" title="英语句子"></a>英语句子</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>英语句子必须要有主语和谓语，并且主语应该是谓语动作的发出者；如果有宾语的话，宾语应该是谓语动作的承受者</p>
+<p><code>例</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">I spent with you.</span><br><span class="line">思考:这句英文的宾语是什么?with you吗?不是。因为spend指“度过”，你度过的应该是时间或美好的日子吧,怎么是“和你”呢?</span><br><span class="line">所以这个英文句子错了,其没有宾语，正确的写法应该是:I spent a good day with you.</span><br></pre></td></tr></table></figure>
+<h4 id="句子基本结构"><a href="#句子基本结构" class="headerlink" title="句子基本结构"></a>句子基本结构</h4><h5 id="主谓"><a href="#主谓" class="headerlink" title="主谓"></a>主谓</h5><p>主语是谓语的发出者，且谓语必须具有时态</p>
+<h5 id="主谓宾和主谓表"><a href="#主谓宾和主谓表" class="headerlink" title="主谓宾和主谓表"></a>主谓宾和主谓表</h5><p>两者的区别在于谓语动词， 主谓宾的谓语一定是“<code>实义动词</code>”（凡是能够表达动作的词都叫实义动词）；主谓表的谓语一定是“<code>系动词</code>/<code>连系动词</code>”</p>
+<p>系动词分类</p>
+<ul>
+<li>表状态：be动词（连接主语和表语，无意义，用于构成句子）</li>
+<li>表感官：look, sound, taste, smell, feel (感官动词后只能加adj)</li>
+<li>表变化：get, become, turn, grow, fall </li>
+<li>表保持：keep, stay, remain, stand</li>
+<li>表表象：seem, appear</li>
+<li>表终止：prove</li>
+</ul>
+<p>一些系动词也可以是实义动词，根据在句子中的意思来判断</p>
+<h5 id="主谓双宾"><a href="#主谓双宾" class="headerlink" title="主谓双宾"></a>主谓双宾</h5><p>主语 + 谓语 + 间接宾语 + 直接宾语</p>
+<p>对于区分那个是直接宾语，间接宾语，影响不大</p>
+<h5 id="主谓宾宾补"><a href="#主谓宾宾补" class="headerlink" title="主谓宾宾补"></a>主谓宾宾补</h5><p>这种句型中的“宾语＋补语”统称为“复合宾语”。宾语补足语的主要作用为补充说明宾语的特点、身份，或让宾语完成某个动作。担任补语的常常是名词、形容词、副词、介词短语、分词、动词不定式等。具体用哪一个需要根据句子的意思来决定。</p>
+<h4 id="句子的成分"><a href="#句子的成分" class="headerlink" title="句子的成分"></a>句子的成分</h4><h5 id="谓语"><a href="#谓语" class="headerlink" title="谓语"></a>谓语</h5><p>​    谓语动词就是具有<code>时态</code>和<code>语态</code>的实义动词（词组）或者系动词。一句话中动词（词组）有且只能有一个，多余的变成非谓语结构，少了就加be动词</p>
+<p>​    谓语只能是动词（词组），动词（词组）只能充当谓语，那些不作谓语的动词（词组）要变成非动词结构，方法有</p>
+<ul>
+<li>+ing, 表示主动或进行（主动居多）</li>
+<li>+ed, 表示被动或完成（被动居多）</li>
+<li>动词前+to, 表示目的或者将来（目的居多）</li>
+</ul>
+<p><code>这些结构被称为非谓语动词</code></p>
+<p>​    一句话中如何确定那个作谓语，那个作非谓语？</p>
+<p>​        句子主要想表达那个动作，就留那个动作为谓语。一般跟在主语后面的就是主要动作，剩下的都变成非谓语</p>
+<p><code>例</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">①中美双方抓住了关键的机会，展开了一系列的密集互动，促进了两国的发展。</span><br><span class="line">【思路分析】根据句子的意思可知，“抓住”是跟在主语后的主要动作，因此“抓住”是谓语,剩下的动作作非谓语。</span><br><span class="line">【翻译】Both parties of China and America seized the key opportunity, having a successionof interactions and facilitating the two&#39;s relationship.</span><br><span class="line">【解析】该句要使用一般过去时，“展开”和“促进”都是主动的,所以加-ing</span><br></pre></td></tr></table></figure>
+<h5 id="主语"><a href="#主语" class="headerlink" title="主语"></a>主语</h5><p>只有 代词名词（短语）和非谓语结构能够做主语（在这里排除从句）</p>
+<p>主语不能缺失，如果缺失，有以下几种方法</p>
+<ul>
+<li>it做主语</li>
+<li>there be句型</li>
+<li>变主动为被动</li>
+</ul>
+<h5 id="宾语和表语"><a href="#宾语和表语" class="headerlink" title="宾语和表语"></a>宾语和表语</h5><p>代词，名词(短语)和非谓语结构</p>
+<h4 id="动词的分类"><a href="#动词的分类" class="headerlink" title="动词的分类"></a>动词的分类</h4><ul>
+<li>实义动词</li>
+<li>连系动词<ul>
+<li>状态： be动词</li>
+<li>感官： feel sound, smell, taste, look</li>
+<li>变化： get, become, turn, grow, fall</li>
+<li>保持： keep, stand, remain, stay</li>
+<li>表象： seem, appear</li>
+<li>终止或结果： prove</li>
+</ul>
+</li>
+<li>情态动词，不能单独出现，后面必须和实义动词/系动词搭配一起构成谓语</li>
+<li>情态动词的完成时表示推侧<ul>
+<li>must have done: 一定做过某事</li>
+<li>neednot have done: 本没有必要做某事，但是做了</li>
+<li>could have done: 本能够做某事，但是没有做</li>
+<li>should have done: 本应该做某事</li>
+</ul>
+</li>
+<li>助动词</li>
+</ul>
+<h4 id="写作"><a href="#写作" class="headerlink" title="写作"></a>写作</h4><ul>
+<li>所有不会写的单词都写成自己会写的单词</li>
+<li>所有写不来的长难句都用简单句来表述</li>
+</ul>
+<h4 id="长难句分析"><a href="#长难句分析" class="headerlink" title="长难句分析"></a>长难句分析</h4><ul>
+<li>先找动词</li>
+<li>词汇解释</li>
+<li>翻译主干</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://guixu40.gitee.io/blog/2020/11/16/%E7%89%A9%E7%90%86%E5%B1%82/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -737,76 +1079,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://guixu40.gitee.io/blog/2020/10/18/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="GuiXu">
-      <meta itemprop="description" content="study">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GuiXu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/2020/10/18/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-18 18:15:47" itemprop="dateCreated datePublished" datetime="2020-10-18T18:15:47+08:00">2020-10-18</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/3/">3</a><span class="page-number current">4</span>
+    <a class="extend prev" rel="prev" href="/blog/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/blog/page/5/">5</a><a class="extend next" rel="next" href="/blog/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -872,7 +1148,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -885,7 +1161,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
